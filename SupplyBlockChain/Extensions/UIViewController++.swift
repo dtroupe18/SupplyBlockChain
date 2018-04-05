@@ -32,11 +32,11 @@ extension UIViewController {
         // Hide the navigation bar in a view controller
         //
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        
     }
     
     func showNavigationBar() {
         // Show the navigation bar in a view controllers
+        //
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
 }

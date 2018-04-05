@@ -21,6 +21,11 @@
 		5521BB0A206EB2A1004575E8 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BB09206EB2A1004575E8 /* SignInViewController.swift */; };
 		5521BB0D206EBFC2004575E8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BB0C206EBFC2004575E8 /* SignupViewController.swift */; };
 		5521BB0F206EBFCD004575E8 /* Signup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5521BB0E206EBFCD004575E8 /* Signup.storyboard */; };
+		55C5169A20769B340010C6DC /* SearchJobs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C5169920769B340010C6DC /* SearchJobs.storyboard */; };
+		55C5169C20769B590010C6DC /* SearchJobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C5169B20769B590010C6DC /* SearchJobsViewController.swift */; };
+		55C5169F2076B0B80010C6DC /* CreateBid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C5169E2076B0B80010C6DC /* CreateBid.storyboard */; };
+		55C516A12076B0C60010C6DC /* CreateBidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A02076B0C60010C6DC /* CreateBidViewController.swift */; };
+		55C516A32076B4800010C6DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A22076B4800010C6DC /* User.swift */; };
 		622EE3799C30B5CBFB902CF1 /* Pods_SupplyBlockChainUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5309AC6590283DAF5237791E /* Pods_SupplyBlockChainUITests.framework */; };
 		A4834B500080227F1BFEAF2C /* Pods_SupplyBlockChain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BD232B32AAD04A9EA36C1E /* Pods_SupplyBlockChain.framework */; };
 /* End PBXBuildFile section */
@@ -65,6 +70,11 @@
 		5521BB09206EB2A1004575E8 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		5521BB0C206EBFC2004575E8 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		5521BB0E206EBFCD004575E8 /* Signup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Signup.storyboard; sourceTree = "<group>"; };
+		55C5169920769B340010C6DC /* SearchJobs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchJobs.storyboard; sourceTree = "<group>"; };
+		55C5169B20769B590010C6DC /* SearchJobsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchJobsViewController.swift; sourceTree = "<group>"; };
+		55C5169E2076B0B80010C6DC /* CreateBid.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateBid.storyboard; sourceTree = "<group>"; };
+		55C516A02076B0C60010C6DC /* CreateBidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBidViewController.swift; sourceTree = "<group>"; };
+		55C516A22076B4800010C6DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		62BD232B32AAD04A9EA36C1E /* Pods_SupplyBlockChain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SupplyBlockChain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		951A88062B68C94243488A29 /* Pods-SupplyBlockChainUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupplyBlockChainUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SupplyBlockChainUITests/Pods-SupplyBlockChainUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C0ACFA164D3783773A0D270 /* Pods-SupplyBlockChainUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupplyBlockChainUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SupplyBlockChainUITests/Pods-SupplyBlockChainUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -136,6 +146,8 @@
 		5521BACA206E9C7E004575E8 /* SupplyBlockChain */ = {
 			isa = PBXGroup;
 			children = (
+				55C5169D2076B0140010C6DC /* CreateBid */,
+				55C5169820769AFB0010C6DC /* SearchJobs */,
 				5521BB0B206EBFB0004575E8 /* Signup */,
 				5521BB06206EAFD6004575E8 /* SignIn */,
 				5521BB05206EAFBF004575E8 /* CreateAccount */,
@@ -181,6 +193,7 @@
 		5521BB01206EAEDB004575E8 /* Structs */ = {
 			isa = PBXGroup;
 			children = (
+				55C516A22076B4800010C6DC /* User.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -216,6 +229,24 @@
 				5521BB0C206EBFC2004575E8 /* SignupViewController.swift */,
 			);
 			path = Signup;
+			sourceTree = "<group>";
+		};
+		55C5169820769AFB0010C6DC /* SearchJobs */ = {
+			isa = PBXGroup;
+			children = (
+				55C5169B20769B590010C6DC /* SearchJobsViewController.swift */,
+				55C5169920769B340010C6DC /* SearchJobs.storyboard */,
+			);
+			path = SearchJobs;
+			sourceTree = "<group>";
+		};
+		55C5169D2076B0140010C6DC /* CreateBid */ = {
+			isa = PBXGroup;
+			children = (
+				55C516A02076B0C60010C6DC /* CreateBidViewController.swift */,
+				55C5169E2076B0B80010C6DC /* CreateBid.storyboard */,
+			);
+			path = CreateBid;
 			sourceTree = "<group>";
 		};
 		7421FE4D659523D0C9AEB738 /* Pods */ = {
@@ -303,7 +334,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "High Tree Development";
 				TargetAttributes = {
 					5521BAC7206E9C7E004575E8 = {
@@ -347,11 +378,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55C5169A20769B340010C6DC /* SearchJobs.storyboard in Resources */,
 				5521BAD9206E9C7E004575E8 /* LaunchScreen.storyboard in Resources */,
 				5521BB08206EB239004575E8 /* SignIn.storyboard in Resources */,
 				5521BAFD206E9F8A004575E8 /* GoogleService-Info.plist in Resources */,
 				5521BB0F206EBFCD004575E8 /* Signup.storyboard in Resources */,
 				5521BAD6206E9C7E004575E8 /* Assets.xcassets in Resources */,
+				55C5169F2076B0B80010C6DC /* CreateBid.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,7 +571,10 @@
 			files = (
 				5521BB0D206EBFC2004575E8 /* SignupViewController.swift in Sources */,
 				5521BACC206E9C7E004575E8 /* AppDelegate.swift in Sources */,
+				55C516A12076B0C60010C6DC /* CreateBidViewController.swift in Sources */,
 				5521BB0A206EB2A1004575E8 /* SignInViewController.swift in Sources */,
+				55C5169C20769B590010C6DC /* SearchJobsViewController.swift in Sources */,
+				55C516A32076B4800010C6DC /* User.swift in Sources */,
 				5521BB00206EAE79004575E8 /* SmallActivityIndicator.swift in Sources */,
 				5521BB04206EAF30004575E8 /* UIViewController++.swift in Sources */,
 				5521BAD4206E9C7E004575E8 /* SupplyBlockChain.xcdatamodeld in Sources */,
@@ -602,6 +638,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -609,6 +646,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -659,6 +697,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -666,6 +705,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

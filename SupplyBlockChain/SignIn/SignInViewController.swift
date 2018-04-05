@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SignInViewController: UIViewController {
 
@@ -31,6 +32,24 @@ class SignInViewController: UIViewController {
     }
     
     @IBAction func LoginPressed(_ sender: Any) {
+        print("login pressed")
+        guard let email = emailTextField.text, let password = passwordTextField.text else {
+            showAlert(title: "Error", message: "Email and Password are required to login!")
+            return
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error) in
+            if let err = error {
+                self.showAlert(title: "Signin Error", message: err.localizedDescription)
+            } else {
+                // Segue to create SearchJobs view controller
+                //
+                let sb: UIStoryboard = UIStoryboard(name: "SearchJobs", bundle: nil)
+                if let vc = sb.instantiateInitialViewController() {
+                    self.present(vc, animated: true, completion: nil)
+                }
+            }
+        })
         
     }
     

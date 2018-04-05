@@ -25,6 +25,8 @@ class SmallActivityIndicator {
     func showActivityIndicator(uiView: UIView) {
         uiView.isUserInteractionEnabled = false
         loadingView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+        // Adjust the placement of the indicator here
+        //
         loadingView.center = uiView.center
         loadingView.backgroundColor = UIColor.darkGray
         loadingView.clipsToBounds = true

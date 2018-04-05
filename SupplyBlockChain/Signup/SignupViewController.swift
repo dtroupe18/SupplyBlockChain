@@ -8,6 +8,8 @@
 
 import UIKit
 import Eureka
+import FirebaseAuth
+import FirebaseDatabase
 
 class SignupViewController: FormViewController {
     
@@ -104,13 +106,26 @@ class SignupViewController: FormViewController {
                 }
             }
         
-            <<< PasswordRow() { row in
-                row.tag = "Confirm Password"
-                row.title = "Confirm Password"
-                row.add(rule: RuleRequired())
-                row.validationOptions = .validatesOnChange
+            <<< PasswordRow() {
+                $0.tag = "ConfirmPassword"
+                $0.title = "Password"
+
+                let passwordsMatchRule = RuleClosure<String> { rowValue in
+                    let formValuesDict = self.form.values()
+                    if let password = formValuesDict["Password"] as? String {
+                        if password != rowValue {
+                            return ValidationError(msg: "Passwords do not match!")
+                        } else {
+                            return nil
+                        }
+                    } else {
+                        return ValidationError(msg: "Passwords do not match!")
+                    }
+                }
+                $0.add(rule: passwordsMatchRule)
+                $0.validationOptions = .validatesOnChange
             }
-        
+                
             .cellUpdate { cell, row in
                 if !row.isValid {
                     cell.titleLabel?.textColor = .red
@@ -126,14 +141,57 @@ class SignupViewController: FormViewController {
         let formValuesDict = self.form.values()
         
         let errors = form.validate()
-        print(errors.count)
-        
         if errors.count > 0 {
-            print(errors.count)
+            if let error = errors.last {
+                showAlert(title: "Error", message: error.msg)
+            }
         } else {
             // Sign the user up and save the data
             //
-            print("Form: \(formValuesDict)\n")
+            guard let email = formValuesDict["Email"] as? String, let password = formValuesDict["Password"] as? String, let firstName = formValuesDict["First Name"] as? String, let lastName = formValuesDict["Last Name"] as? String,
+                let company = formValuesDict["Business Name"] as? String, let phoneNumber = formValuesDict["Phone Number"] as? String else {
+                showAlert(title: "Error", message: "Form value missing!")
+                return
+            }
+        
+            SmallActivityIndicator.shared.showActivityIndicator(uiView: self.view)
+            Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
+                if let err = error {
+                    SmallActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+                    self.showAlert(title: "Error", message: err.localizedDescription)
+                } else if let user = user {
+                    // Update the user's display name
+                    //
+                    let changeRequest = Auth.auth().currentUser!.createProfileChangeRequest()
+                    let name: String = "\(firstName) \(lastName)"
+                    changeRequest.displayName = name
+                    changeRequest.commitChanges(completion: nil)
+                    
+                    // Upload information about the user to Firebase
+                    //
+                    let userInfo: [String: Any] = ["uid": user.uid,
+                                                   "displayName": name,
+                                                   "email": email,
+                                                   "company":  company,
+                                                   "phoneNumber": phoneNumber
+                                                    ]
+                    
+                    let ref = Database.database().reference()
+                    ref.child("users").child(user.uid).setValue(userInfo) { (error, ref) -> Void in
+                        if error != nil {
+                            SmallActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+                            self.showAlert(title: "User Info Upload Error", message: error!.localizedDescription)
+                        } else {
+                            // Segue to create SearchJobs view controller
+                            //
+                            let sb: UIStoryboard = UIStoryboard(name: "SearchJobs", bundle: nil)
+                            if let vc = sb.instantiateInitialViewController() {
+                                self.present(vc, animated: true, completion: nil)
+                            }
+                        }
+                    }
+                }
+            })
         }
     }
 
