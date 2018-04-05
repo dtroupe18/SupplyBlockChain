@@ -19,7 +19,7 @@ struct User {
     // Optional init
     //
     init?(snapShot: [String: Any]) {
-        if let name = snapShot["displayName"] as? String, let company = snapShot[""] as? String, let email = snapShot[""] as? String, let phone = snapShot[""] as? String, let uid = snapShot[""] as? String {
+        if let name = snapShot["displayName"] as? String, let company = snapShot["company"] as? String, let email = snapShot["email"] as? String, let phone = snapShot["phoneNumber"] as? String, let uid = snapShot["uid"] as? String {
             self.name = name
             self.company = company
             self.email = email

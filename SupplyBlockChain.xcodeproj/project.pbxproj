@@ -26,6 +26,7 @@
 		55C5169F2076B0B80010C6DC /* CreateBid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C5169E2076B0B80010C6DC /* CreateBid.storyboard */; };
 		55C516A12076B0C60010C6DC /* CreateBidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A02076B0C60010C6DC /* CreateBidViewController.swift */; };
 		55C516A32076B4800010C6DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A22076B4800010C6DC /* User.swift */; };
+		55C516A52076B6800010C6DC /* DatabaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A42076B6800010C6DC /* DatabaseFunctions.swift */; };
 		622EE3799C30B5CBFB902CF1 /* Pods_SupplyBlockChainUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5309AC6590283DAF5237791E /* Pods_SupplyBlockChainUITests.framework */; };
 		A4834B500080227F1BFEAF2C /* Pods_SupplyBlockChain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BD232B32AAD04A9EA36C1E /* Pods_SupplyBlockChain.framework */; };
 /* End PBXBuildFile section */
@@ -75,6 +76,7 @@
 		55C5169E2076B0B80010C6DC /* CreateBid.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateBid.storyboard; sourceTree = "<group>"; };
 		55C516A02076B0C60010C6DC /* CreateBidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBidViewController.swift; sourceTree = "<group>"; };
 		55C516A22076B4800010C6DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		55C516A42076B6800010C6DC /* DatabaseFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseFunctions.swift; sourceTree = "<group>"; };
 		62BD232B32AAD04A9EA36C1E /* Pods_SupplyBlockChain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SupplyBlockChain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		951A88062B68C94243488A29 /* Pods-SupplyBlockChainUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupplyBlockChainUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SupplyBlockChainUITests/Pods-SupplyBlockChainUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C0ACFA164D3783773A0D270 /* Pods-SupplyBlockChainUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupplyBlockChainUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SupplyBlockChainUITests/Pods-SupplyBlockChainUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				5521BAFF206EAE79004575E8 /* SmallActivityIndicator.swift */,
+				55C516A42076B6800010C6DC /* DatabaseFunctions.swift */,
 			);
 			path = Wrappers;
 			sourceTree = "<group>";
@@ -575,6 +578,7 @@
 				5521BB0A206EB2A1004575E8 /* SignInViewController.swift in Sources */,
 				55C5169C20769B590010C6DC /* SearchJobsViewController.swift in Sources */,
 				55C516A32076B4800010C6DC /* User.swift in Sources */,
+				55C516A52076B6800010C6DC /* DatabaseFunctions.swift in Sources */,
 				5521BB00206EAE79004575E8 /* SmallActivityIndicator.swift in Sources */,
 				5521BB04206EAF30004575E8 /* UIViewController++.swift in Sources */,
 				5521BAD4206E9C7E004575E8 /* SupplyBlockChain.xcdatamodeld in Sources */,

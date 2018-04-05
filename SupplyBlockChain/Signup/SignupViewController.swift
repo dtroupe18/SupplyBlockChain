@@ -167,17 +167,7 @@ class SignupViewController: FormViewController {
                     changeRequest.displayName = name
                     changeRequest.commitChanges(completion: nil)
                     
-                    // Upload information about the user to Firebase
-                    //
-                    let userInfo: [String: Any] = ["uid": user.uid,
-                                                   "displayName": name,
-                                                   "email": email,
-                                                   "company":  company,
-                                                   "phoneNumber": phoneNumber
-                                                    ]
-                    
-                    let ref = Database.database().reference()
-                    ref.child("users").child(user.uid).setValue(userInfo) { (error, ref) -> Void in
+                    DatabaseFunctions.uploadUserInfo(uid: user.uid, name: name, email: email, company: company, phoneNumber: phoneNumber, { (error) in
                         if error != nil {
                             SmallActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                             self.showAlert(title: "User Info Upload Error", message: error!.localizedDescription)
@@ -189,7 +179,7 @@ class SignupViewController: FormViewController {
                                 self.present(vc, animated: true, completion: nil)
                             }
                         }
-                    }
+                    })
                 }
             })
         }

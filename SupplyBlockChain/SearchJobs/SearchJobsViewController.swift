@@ -15,6 +15,8 @@ class SearchJobsViewController: UIViewController, UITableViewDelegate, UITableVi
     let jobs: [String] = ["Job One", "Job Two", "Job Three", "Job Four", "Job Five", "Job Six", "Job Seven",
                           "Job Eight", "Job Nine", "Job Ten"]
     
+    var userInfo: User?
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showNavigationBar()
@@ -25,6 +27,14 @@ class SearchJobsViewController: UIViewController, UITableViewDelegate, UITableVi
         self.navigationItem.title = "Jobs to Bid on"
         tableView.delegate = self
         tableView.dataSource = self
+        
+        DatabaseFunctions.getUserInfo({ (error, user) in
+            if error != nil {
+                self.showAlert(title: "Error", message: error!.localizedDescription)
+            } else if let user = user {
+                self.userInfo = user
+            }
+        })
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
