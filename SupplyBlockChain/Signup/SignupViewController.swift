@@ -28,7 +28,7 @@ class SignupViewController: FormViewController {
         // Create submit button in the navigation bar
         //
         let submitButton = UIButton(type: .custom)
-        submitButton.setTitle("Done", for: .normal)
+        submitButton.setTitle("Submit", for: .normal)
         submitButton.setTitleColor(.black, for: .normal)
         submitButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         submitButton.addTarget(self, action: #selector(self.submitPressed), for: .touchUpInside)
@@ -137,7 +137,6 @@ class SignupViewController: FormViewController {
     }
     
     @objc func submitPressed() {
-        print("Submit Pressed\n")
         let formValuesDict = self.form.values()
         
         let errors = form.validate()
@@ -174,6 +173,7 @@ class SignupViewController: FormViewController {
                         } else {
                             // Segue to create SearchJobs view controller
                             //
+                            SmallActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                             let sb: UIStoryboard = UIStoryboard(name: "SearchJobs", bundle: nil)
                             if let vc = sb.instantiateInitialViewController() {
                                 self.present(vc, animated: true, completion: nil)

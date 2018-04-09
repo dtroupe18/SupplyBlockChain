@@ -54,6 +54,12 @@ class SearchJobsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected job: \(jobs[indexPath.row])")
+        let sb: UIStoryboard = UIStoryboard(name: "CreateBid", bundle: nil)
+        if let vc = sb.instantiateViewController(withIdentifier: "CreateBidVC") as? CreateBidViewController {
+            vc.userInfo = self.userInfo
+            vc.job = jobs[indexPath.row]
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     override func didReceiveMemoryWarning() {

@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--CreateBidVC-->
         <scene sceneID="49Q-UE-GAA">
             <objects>
-                <viewController id="YfE-7j-Uv0" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateBidVC" title="CreateBidVC" id="YfE-7j-Uv0" customClass="CreateBidViewController" customModule="SupplyBlockChain" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4F8-gc-cOy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -42,7 +42,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mwu-h0-nl4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-63.200000000000003" y="123.68815592203899"/>
+            <point key="canvasLocation" x="196" y="124"/>
         </scene>
     </scenes>
 </document>

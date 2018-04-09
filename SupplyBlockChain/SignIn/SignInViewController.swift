@@ -23,6 +23,11 @@ class SignInViewController: UIViewController {
         // Root view for the whole app so we can hide the navigation bar here
         //
         hideNavigationBar()
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            if user != nil {
+                self.segueToJobs()
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -42,15 +47,18 @@ class SignInViewController: UIViewController {
             if let err = error {
                 self.showAlert(title: "Signin Error", message: err.localizedDescription)
             } else {
-                // Segue to create SearchJobs view controller
-                //
-                let sb: UIStoryboard = UIStoryboard(name: "SearchJobs", bundle: nil)
-                if let vc = sb.instantiateInitialViewController() {
-                    self.present(vc, animated: true, completion: nil)
-                }
+                self.segueToJobs()
             }
         })
-        
+    }
+    
+    private func segueToJobs() {
+        // Segue to create SearchJobs view controller
+        //
+        let sb: UIStoryboard = UIStoryboard(name: "SearchJobs", bundle: nil)
+        if let vc = sb.instantiateInitialViewController() {
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     @IBAction func SignupPressed(_ sender: Any) {

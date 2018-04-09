@@ -29,4 +29,12 @@ struct User {
             return nil
         }
     }
+    
+    init(name: String, company: String, email: String, phoneNumber: String, uid: String) {
+        self.name = name
+        self.company = company
+        self.email = email
+        self.phoneNumber = phoneNumber
+        self.uid = uid
+    }
 }
