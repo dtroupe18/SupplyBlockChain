@@ -64,16 +64,68 @@ class DatabaseFunctions {
         })
     }
     
-    static func getBidBlockChain(jobName: String, _ completion: @escaping (DataSnapshot?) -> ()) {
-        print("\nCheck called....")
+    static func getLastBlock(jobName: String, _ completion: @escaping (DataSnapshot?) -> ()) {
         let ref = Database.database().reference()
-        ref.child("processedBids").child(jobName).observeSingleEvent(of: .value, with: { snap in
+        // Limit to last one because that will be the most recent chain
+        //
+        ref.child("processedBids").child(jobName).queryOrderedByKey().queryLimited(toLast: 1).observeSingleEvent(of: .value, with: { snap in
             if snap.exists() {
                 completion(snap)
+                
             } else {
-                print("***************")
+                // print("***************")
                 completion(nil)
             }
         })
     }
+    
+    static func uploadBid(genesisBlock: Block?, bidBlock: Block, _ completion: @escaping (Error?) -> ()) {
+        if genesisBlock != nil {
+            uploadBid(block: genesisBlock!, { error in
+                if error == nil {
+                    // Upload the other block
+                    //
+                    uploadBid(block: bidBlock, { err in
+                        if err == nil {
+                            completion(nil)
+                        } else {
+                            completion(err)
+                        }
+                    })
+                } else {
+                    completion(error)
+                }
+            })
+        }
+    }
+    
+    static func uploadBid(block: Block, _ completion: @escaping (Error?) -> ()) {
+        let ref = Database.database().reference()
+        let key = ref.child(block.bid.jobName).childByAutoId().key
+        
+        // Firebase does not work with Swift 4 codable so we still have to create a dictionary for each block
+        // let encodedBlock = try? JSONEncoder().encode(block)
+        //
+        let blockDict = block.toDict()
+
+        ref.child("processedBids").child(block.bid.jobName).child("\(key)").setValue(blockDict) { (error, ref) -> Void in
+            if error != nil {
+                completion(error)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

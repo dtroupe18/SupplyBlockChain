@@ -8,17 +8,17 @@
 
 import Foundation
 
-struct Bid {
+struct Bid: Codable {
     let user: User
     let jobName: String
-    let timeStamp: Int64
+    let timestamp: Int64
     let price: Double
     let comment: String?
     
-    init(user: User, jobName: String, timeStamp: Int64, price: Double, comment: String?) {
+    init(user: User, jobName: String, timestamp: Int64, price: Double, comment: String?) {
         self.user = user
         self.jobName = jobName
-        self.timeStamp = timeStamp
+        self.timestamp = timestamp
         self.price = price
         self.comment = comment
     }

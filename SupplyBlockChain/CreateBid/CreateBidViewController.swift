@@ -9,6 +9,7 @@
 import UIKit
 import Eureka
 import FirebaseAuth
+import FirebaseDatabase
 
 class CreateBidViewController: FormViewController {
     
@@ -18,7 +19,7 @@ class CreateBidViewController: FormViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = job
@@ -43,11 +44,11 @@ class CreateBidViewController: FormViewController {
                     // $0.disabled = true
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
-                }
-                .cellUpdate { cell, row in
-                    if !row.isValid {
-                        cell.titleLabel?.textColor = .red
                     }
+                    .cellUpdate { cell, row in
+                        if !row.isValid {
+                            cell.titleLabel?.textColor = .red
+                        }
                 }
                 
                 <<< TextRow() {
@@ -57,11 +58,11 @@ class CreateBidViewController: FormViewController {
                     // $0.disabled = true
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
-                }
-                .cellUpdate { cell, row in
-                    if !row.isValid {
-                        cell.titleLabel?.textColor = .red
                     }
+                    .cellUpdate { cell, row in
+                        if !row.isValid {
+                            cell.titleLabel?.textColor = .red
+                        }
                 }
                 
                 <<< TextRow() {
@@ -71,11 +72,11 @@ class CreateBidViewController: FormViewController {
                     // $0.disabled = true
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
-                }
-                .cellUpdate { cell, row in
-                    if !row.isValid {
-                        cell.titleLabel?.textColor = .red
                     }
+                    .cellUpdate { cell, row in
+                        if !row.isValid {
+                            cell.titleLabel?.textColor = .red
+                        }
                 }
                 
                 <<< TextRow() {
@@ -85,11 +86,11 @@ class CreateBidViewController: FormViewController {
                     // $0.disabled = true
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
-                }
-                .cellUpdate { cell, row in
-                    if !row.isValid {
-                        cell.titleLabel?.textColor = .red
                     }
+                    .cellUpdate { cell, row in
+                        if !row.isValid {
+                            cell.titleLabel?.textColor = .red
+                        }
                 }
                 
                 +++ Section("Bid Information")
@@ -102,11 +103,11 @@ class CreateBidViewController: FormViewController {
                     }
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
-                }
-                .cellUpdate { cell, row in
-                    if !row.isValid {
-                        cell.titleLabel?.textColor = .red
                     }
+                    .cellUpdate { cell, row in
+                        if !row.isValid {
+                            cell.titleLabel?.textColor = .red
+                        }
                 }
                 
                 <<< DecimalRow() {
@@ -115,11 +116,11 @@ class CreateBidViewController: FormViewController {
                     $0.placeholder = "0"
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
-                }
-                .cellUpdate { cell, row in
-                    if !row.isValid {
-                        cell.titleLabel?.textColor = .red
                     }
+                    .cellUpdate { cell, row in
+                        if !row.isValid {
+                            cell.titleLabel?.textColor = .red
+                        }
                 }
                 
                 +++ Section("Comments")
@@ -129,45 +130,82 @@ class CreateBidViewController: FormViewController {
                     $0.placeholder = "..."
                     // Not Required!
                     //
-                }
+            }
+        }
+    }
+    
+    private func getFormError() -> ValidationError? {
+        let errors = form.validate()
+        if errors.count == 0 {
+            return nil
+        } else {
+            if let error = errors.last {
+                return error
+            } else {
+                return ValidationError(msg: "Form value missing!")
+            }
         }
     }
     
     @objc func submitPressed() {
-        guard let jobName = job else { return }
-        let formValuesDict = self.form.values()
-        let timestamp = Date().millisecondsSince1970
-        
-        
-        let errors = form.validate()
-        if errors.count > 0 {
-            if let error = errors.last {
-                showAlert(title: "Error", message: error.msg)
-            }
+        if let error = getFormError() {
+            showAlert(title: "Error", message: error.msg)
         } else {
+            let formValuesDict = self.form.values()
+            
             // Make sure we have all the formValues
             //
-            guard let company = formValuesDict["Company Name"] as? String, let name = formValuesDict["Name"] as? String, let email = formValuesDict["Email"] as? String, let phoneNumber = formValuesDict["Phone Number"] as? String, let jobName = formValuesDict["Job Name"] as? String, let price = formValuesDict["Bid Price"] as? Double, let uid = Auth.auth().currentUser?.uid  else {
-                print("Giant guard failed")
+            guard let company = formValuesDict["Company Name"] as? String, let name = formValuesDict["Name"] as? String, let email = formValuesDict["Email"] as? String, let phoneNumber = formValuesDict["Phone Number"] as? String, let jobName = formValuesDict["Job Name"] as? String, let price = formValuesDict["Price"] as? Double, let uid = Auth.auth().currentUser?.uid  else {
+                showAlert(title: "Error", message: "Form is missing values!")
                 return
             }
             
             let user: User = User(name: name, company: company, email: email, phoneNumber: phoneNumber, uid: uid)
-            let bid: Bid = Bid(user: user, jobName: jobName, timeStamp: Date().millisecondsSince1970, price: price, comment: formValuesDict["Comments"] as? String)
-            
+            let bid: Bid = Bid(user: user, jobName: jobName, timestamp: Date().millisecondsSince1970, price: price, comment: formValuesDict["Comments"] as? String)
             
             // Upload this bid to firebase
             //
-            DatabaseFunctions.getBidBlockChain(jobName: jobName, { snapShot in
+            DatabaseFunctions.getLastBlock(jobName: jobName, { snapShot in
                 if snapShot == nil {
-                    print("First bid for \(jobName)")
+                    if let genesisBlock = BlockChainHelper.createGenesisBlock(jobName: jobName) {
+                        if let bidBlock = Block(index: 1, timestamp: Date().millisecondsSince1970, bid: bid, previousHash: genesisBlock.previousHash) {
+                            
+                            DatabaseFunctions.uploadBid(genesisBlock: genesisBlock, bidBlock: bidBlock, { error in
+                                if error != nil {
+                                    self.showAlert(title: "Error", message: error!.localizedDescription)
+                                } else {
+                                    self.showAlert(title: "Sucess", message: "Your bid was successfully submitted for \(jobName)")
+                                    self.navigationController?.popViewController(animated: true)
+                                }
+                            })
+                        }
+                    }
                 } else {
-                    print("Not first bid for \(jobName)")
+                    self.processSnapShot(snap: snapShot!, bid: bid)
                 }
             })
         }
     }
-
+    
+    private func processSnapShot(snap: DataSnapshot, bid: Bid) {
+        for child in snap.children {
+            let child = child as? DataSnapshot
+            if let response = child?.value as? [String: AnyObject] {
+                if let lastHash = response["hash"] as? String, let index = response["index"] as? Int {
+                    if let bidBlock = Block(index: index + 1, timestamp: Date().millisecondsSince1970, bid: bid, previousHash: lastHash) {
+                        DatabaseFunctions.uploadBid(block: bidBlock, { error in
+                            if error != nil {
+                                self.showAlert(title: "Error", message: error!.localizedDescription)
+                            } else {
+                                self.showAlert(title: "Sucess", message: "Your bid was successfully submitted for \(self.job ?? "")")
+                            }
+                        })
+                    }
+                }
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
