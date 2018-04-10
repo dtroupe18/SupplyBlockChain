@@ -16,6 +16,7 @@ class SearchJobsViewController: UIViewController, UITableViewDelegate, UITableVi
                           "Job Eight", "Job Nine", "Job Ten"]
     
     var userInfo: User?
+    var userBids: [Block]?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -35,8 +36,40 @@ class SearchJobsViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.userInfo = user
             }
         })
+        
+        DatabaseFunctions.getUserBids({ blockArray in
+            if blockArray != nil {
+                self.userBids = blockArray
+                print("BlockArray: \(blockArray!)")
+            }
+        })
+        
+        // Add a button to take the user to their bids
+        //
+        // Create submit button in the navigation bar
+        //
+        let submitButton = UIButton(type: .custom)
+        submitButton.setTitle("My Bids", for: .normal)
+        submitButton.setTitleColor(.white, for: .normal)
+        submitButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        submitButton.addTarget(self, action: #selector(self.myBidsPressed), for: .touchUpInside)
+        let submitItem = UIBarButtonItem(customView: submitButton)
+        self.navigationItem.setRightBarButtonItems([submitItem], animated: false)
     }
     
+    @objc func myBidsPressed() {
+        // Segue to myBidsVC
+        //
+        let sb: UIStoryboard = UIStoryboard(name: "MyBids", bundle: nil)
+        if let vc = sb.instantiateViewController(withIdentifier: "MyBidsVC") as? MyBidsViewController {
+            vc.userBids = self.userBids
+            vc.userInfo = self.userInfo
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    // Marker: TableView Delegate
+    //
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

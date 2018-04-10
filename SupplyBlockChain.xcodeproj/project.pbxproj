@@ -31,6 +31,8 @@
 		55C516AA207BB8480010C6DC /* Bid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A9207BB8480010C6DC /* Bid.swift */; };
 		55C516AC207BBA4D0010C6DC /* Date++Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516AB207BBA4D0010C6DC /* Date++Extension.swift */; };
 		55C516AE207BC0560010C6DC /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516AD207BC0560010C6DC /* Block.swift */; };
+		55CAAE64207D46B200D9B7C5 /* MyBids.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55CAAE63207D46B200D9B7C5 /* MyBids.storyboard */; };
+		55CAAE66207D46C500D9B7C5 /* MyBidsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CAAE65207D46C500D9B7C5 /* MyBidsViewController.swift */; };
 		622EE3799C30B5CBFB902CF1 /* Pods_SupplyBlockChainUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5309AC6590283DAF5237791E /* Pods_SupplyBlockChainUITests.framework */; };
 		A4834B500080227F1BFEAF2C /* Pods_SupplyBlockChain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BD232B32AAD04A9EA36C1E /* Pods_SupplyBlockChain.framework */; };
 /* End PBXBuildFile section */
@@ -85,6 +87,8 @@
 		55C516A9207BB8480010C6DC /* Bid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bid.swift; sourceTree = "<group>"; };
 		55C516AB207BBA4D0010C6DC /* Date++Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date++Extension.swift"; sourceTree = "<group>"; };
 		55C516AD207BC0560010C6DC /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
+		55CAAE63207D46B200D9B7C5 /* MyBids.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyBids.storyboard; sourceTree = "<group>"; };
+		55CAAE65207D46C500D9B7C5 /* MyBidsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBidsViewController.swift; sourceTree = "<group>"; };
 		62BD232B32AAD04A9EA36C1E /* Pods_SupplyBlockChain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SupplyBlockChain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		951A88062B68C94243488A29 /* Pods-SupplyBlockChainUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupplyBlockChainUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SupplyBlockChainUITests/Pods-SupplyBlockChainUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C0ACFA164D3783773A0D270 /* Pods-SupplyBlockChainUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupplyBlockChainUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SupplyBlockChainUITests/Pods-SupplyBlockChainUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 		5521BACA206E9C7E004575E8 /* SupplyBlockChain */ = {
 			isa = PBXGroup;
 			children = (
+				55CAAE62207D469F00D9B7C5 /* MyBids */,
 				55C5169D2076B0140010C6DC /* CreateBid */,
 				55C5169820769AFB0010C6DC /* SearchJobs */,
 				5521BB0B206EBFB0004575E8 /* Signup */,
@@ -254,6 +259,15 @@
 				55C5169E2076B0B80010C6DC /* CreateBid.storyboard */,
 			);
 			path = CreateBid;
+			sourceTree = "<group>";
+		};
+		55CAAE62207D469F00D9B7C5 /* MyBids */ = {
+			isa = PBXGroup;
+			children = (
+				55CAAE65207D46C500D9B7C5 /* MyBidsViewController.swift */,
+				55CAAE63207D46B200D9B7C5 /* MyBids.storyboard */,
+			);
+			path = MyBids;
 			sourceTree = "<group>";
 		};
 		7421FE4D659523D0C9AEB738 /* Pods */ = {
@@ -385,6 +399,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55CAAE64207D46B200D9B7C5 /* MyBids.storyboard in Resources */,
 				55C5169A20769B340010C6DC /* SearchJobs.storyboard in Resources */,
 				5521BAD9206E9C7E004575E8 /* LaunchScreen.storyboard in Resources */,
 				5521BB08206EB239004575E8 /* SignIn.storyboard in Resources */,
@@ -585,6 +600,7 @@
 				55C516A8207BB7DE0010C6DC /* BlockChainHelper.swift in Sources */,
 				55C516A12076B0C60010C6DC /* CreateBidViewController.swift in Sources */,
 				5521BB0A206EB2A1004575E8 /* SignInViewController.swift in Sources */,
+				55CAAE66207D46C500D9B7C5 /* MyBidsViewController.swift in Sources */,
 				55C5169C20769B590010C6DC /* SearchJobsViewController.swift in Sources */,
 				55C516A32076B4800010C6DC /* User.swift in Sources */,
 				55C516AA207BB8480010C6DC /* Bid.swift in Sources */,

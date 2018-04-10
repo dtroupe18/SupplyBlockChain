@@ -8,8 +8,9 @@
 
 import Foundation
 
-struct User: Codable {
+struct User: Codable, CustomStringConvertible {
     
+    let description: String
     let name: String
     let company: String
     let email: String
@@ -25,6 +26,7 @@ struct User: Codable {
             self.email = email
             self.phoneNumber = phone
             self.uid = uid
+            self.description = "\(name)\(company)\(email)\(phone)\(uid)"
         } else {
             return nil
         }
@@ -36,5 +38,6 @@ struct User: Codable {
         self.email = email
         self.phoneNumber = phoneNumber
         self.uid = uid
+        self.description = "\(name)\(company)\(email)\(phoneNumber)\(uid)"
     }
 }

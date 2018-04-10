@@ -16,6 +16,12 @@ class CreateBidViewController: FormViewController {
     var userInfo: User?
     var job: String?
     
+    // Variables that need to be updated as the user creates their bid
+    //
+    var currentIndex: Int?
+    var previousHash: String?
+    var observeRef: DatabaseReference?
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -23,12 +29,13 @@ class CreateBidViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = job
+        observeChanges()
         
         // Create submit button in the navigation bar
         //
         let submitButton = UIButton(type: .custom)
         submitButton.setTitle("Submit", for: .normal)
-        submitButton.setTitleColor(.black, for: .normal)
+        submitButton.setTitleColor(.white, for: .normal)
         submitButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         submitButton.addTarget(self, action: #selector(self.submitPressed), for: .touchUpInside)
         let submitItem = UIBarButtonItem(customView: submitButton)
@@ -151,17 +158,20 @@ class CreateBidViewController: FormViewController {
         if let error = getFormError() {
             showAlert(title: "Error", message: error.msg)
         } else {
+            SmallActivityIndicator.shared.showActivityIndicator(uiView: self.view)
             let formValuesDict = self.form.values()
             
             // Make sure we have all the formValues
             //
             guard let company = formValuesDict["Company Name"] as? String, let name = formValuesDict["Name"] as? String, let email = formValuesDict["Email"] as? String, let phoneNumber = formValuesDict["Phone Number"] as? String, let jobName = formValuesDict["Job Name"] as? String, let price = formValuesDict["Price"] as? Double, let uid = Auth.auth().currentUser?.uid  else {
+                SmallActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                 showAlert(title: "Error", message: "Form is missing values!")
                 return
             }
             
             let user: User = User(name: name, company: company, email: email, phoneNumber: phoneNumber, uid: uid)
             let bid: Bid = Bid(user: user, jobName: jobName, timestamp: Date().millisecondsSince1970, price: price, comment: formValuesDict["Comments"] as? String)
+            
             
             // Upload this bid to firebase
             //
@@ -172,10 +182,11 @@ class CreateBidViewController: FormViewController {
                             
                             DatabaseFunctions.uploadBid(genesisBlock: genesisBlock, bidBlock: bidBlock, { error in
                                 if error != nil {
+                                    SmallActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                                     self.showAlert(title: "Error", message: error!.localizedDescription)
                                 } else {
-                                    self.showAlert(title: "Sucess", message: "Your bid was successfully submitted for \(jobName)")
-                                    self.navigationController?.popViewController(animated: true)
+                                    DatabaseFunctions.uploadBidToUserInformation(block: bidBlock)
+                                    self.presentSuccessAlert()
                                 }
                             })
                         }
@@ -191,19 +202,73 @@ class CreateBidViewController: FormViewController {
         for child in snap.children {
             let child = child as? DataSnapshot
             if let response = child?.value as? [String: AnyObject] {
-                if let lastHash = response["hash"] as? String, let index = response["index"] as? Int {
+                if var lastHash = response["hash"] as? String, var index = response["index"] as? Int {
+                    // Check if currentIndex and previous hash have been updated
+                    //
+                    if let observedIndex = self.currentIndex, let prevHash = self.previousHash {
+                        if observedIndex > index {
+                            // Update the index and hash if needed
+                            //
+                            index = observedIndex
+                            lastHash = prevHash
+                        }
+                    }
                     if let bidBlock = Block(index: index + 1, timestamp: Date().millisecondsSince1970, bid: bid, previousHash: lastHash) {
                         DatabaseFunctions.uploadBid(block: bidBlock, { error in
                             if error != nil {
+                                SmallActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                                 self.showAlert(title: "Error", message: error!.localizedDescription)
                             } else {
-                                self.showAlert(title: "Sucess", message: "Your bid was successfully submitted for \(self.job ?? "")")
+                                DatabaseFunctions.uploadBidToUserInformation(block: bidBlock)
+                                self.presentSuccessAlert()
                             }
                         })
                     }
                 }
             }
         }
+    }
+    
+    // Sucess alert with action
+    //
+    func presentSuccessAlert() {
+        SmallActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+        let alertController = UIAlertController(title: "Success", message: "Your bid was successfully submitted for \(self.job ?? "")", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func observeChanges() {
+        if let jobName = job {
+            observeRef = Database.database().reference()
+            // Bids in the block chain cannot be removed or modified. Every action requires a new block
+            // to be forged. Therefore we just listen for childAdded. This way we can keep the index and
+            // previous hash in sync
+            //
+            observeRef?.child("processedBids").child(jobName).observe(.childAdded, with: { snap in
+                for child in snap.children {
+                    let child = child as? DataSnapshot
+                    if let response = child?.value as? [String: AnyObject] {
+                        if let lastHash = response["hash"] as? String, let index = response["index"] as? Int {
+                            self.currentIndex = index + 1
+                            self.previousHash = lastHash
+                        }
+                    }
+                }
+            })
+        }
+    }
+    
+    deinit {
+        // Remove observer when this class is deallocated
+        //
+        observeRef?.removeAllObservers()
     }
     
     override func didReceiveMemoryWarning() {

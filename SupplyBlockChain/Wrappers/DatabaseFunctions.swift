@@ -117,6 +117,46 @@ class DatabaseFunctions {
         }
     }
     
+    static func uploadBidToUserInformation(block: Block) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let ref = Database.database().reference()
+        let key = ref.child(uid).child("bids").childByAutoId().key
+        
+        let blockDict = block.toDict()
+        
+        ref.child("userBids").child(uid).child("bids").child("\(key)").setValue(blockDict)
+    }
+    
+    static func getUserBids(_ completion: @escaping ([Block]?) -> ()) {
+        print("get user bids called....")
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let ref = Database.database().reference()
+        
+        ref.child("userBids").child(uid).child("bids").observeSingleEvent(of: .value, with: { snap in
+            if !snap.exists() {
+                print("get user bids returning nil")
+                completion(nil)
+            } else {
+                var bidBlocks = [Block]()
+                for child in snap.children {
+                    let child = child as? DataSnapshot
+                    print("Child: \(child)\n")
+                    if let response = child?.value as? [String: AnyObject] {
+                        if let block = Block(dict: response) {
+                            bidBlocks.append(block)
+                        }
+                    }
+                }
+                // Loop done
+                //
+                print("get user bids returning bidBlocks")
+                completion(bidBlocks)
+            }
+        })
+    }
+    
+    
+    
     
     
     

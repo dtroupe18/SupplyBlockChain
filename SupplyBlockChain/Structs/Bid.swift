@@ -8,7 +8,9 @@
 
 import Foundation
 
-struct Bid: Codable {
+struct Bid: Codable, CustomStringConvertible {
+    
+    let description: String
     let user: User
     let jobName: String
     let timestamp: Int64
@@ -21,5 +23,7 @@ struct Bid: Codable {
         self.timestamp = timestamp
         self.price = price
         self.comment = comment
+        
+        self.description = "\(user)\(jobName)\(timestamp)\(price)\(comment ?? "")"
     }
 }
