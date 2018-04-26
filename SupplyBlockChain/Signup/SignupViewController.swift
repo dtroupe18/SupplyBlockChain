@@ -72,13 +72,28 @@ class SignupViewController: FormViewController {
                 // $0.validationOptions = .validatesOnChange
             }
             
+            <<< SwitchRow() {
+                $0.tag = "SwitchRow"
+                $0.title = "Johnson & Johnson Employee"
+            }
+            .onChange {
+                $0.updateCell()
+            }
+            .cellUpdate { cell, row in
+                if row.isDisabled {
+                    cell.textLabel?.font = .boldSystemFont(ofSize: 18.0)
+                } else {
+                    cell.textLabel?.font = .systemFont(ofSize: 18.0)
+                }
+            }
+            
             +++ Section("Business Information")
             <<< TextRow() {
                 $0.tag = "Business Name"
                 $0.title = "Name"
                 $0.placeholder = "Apple"
             }
-        
+            
             +++ Section("User Account")
             <<< EmailRow() {
                 $0.tag = "Email"

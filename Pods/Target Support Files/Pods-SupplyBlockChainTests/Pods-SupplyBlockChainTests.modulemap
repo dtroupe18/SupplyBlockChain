@@ -1,0 +1,6 @@
+framework module Pods_SupplyBlockChainTests {
+  umbrella header "Pods-SupplyBlockChainTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
