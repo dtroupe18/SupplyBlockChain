@@ -9,8 +9,6 @@ target 'SupplyBlockChain' do
     pod ‘FirebaseAuth’
     pod 'FirebaseStorage'
     pod 'FirebaseDatabase'
-    pod 'FirebaseCrash'
-    pod 'FirebasePerformance'
     pod 'Eureka'
     pod 'Arcane'
 
