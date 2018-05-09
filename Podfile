@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '11.0'
 
 target 'SupplyBlockChain' do
   use_frameworks!
@@ -11,6 +11,8 @@ target 'SupplyBlockChain' do
     pod 'FirebaseDatabase'
     pod 'Eureka'
     pod 'Arcane'
+    pod 'Alamofire', '~> 4.7'
+    pod 'SwiftyJSON', '~> 4.0'
 
   target 'SupplyBlockChainTests' do
     inherit! :search_paths

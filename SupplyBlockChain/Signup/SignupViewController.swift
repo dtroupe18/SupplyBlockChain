@@ -168,10 +168,10 @@ class SignupViewController: FormViewController {
                 return
             }
         
-            SmallActivityIndicator.shared.showActivityIndicator(uiView: self.view)
+            CustomActivityIndicator.shared.showActivityIndicator(uiView: self.view)
             Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
                 if let err = error {
-                    SmallActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+                    CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                     self.showAlert(title: "Error", message: err.localizedDescription)
                 } else if let user = user {
                     // Update the user's display name
@@ -181,14 +181,14 @@ class SignupViewController: FormViewController {
                     changeRequest.displayName = name
                     changeRequest.commitChanges(completion: nil)
                     
-                    DatabaseFunctions.uploadUserInfo(uid: user.uid, name: name, email: email, company: company, phoneNumber: phoneNumber, { (error) in
+                    FirebaseFunctions.uploadUserInfo(uid: user.uid, name: name, email: email, company: company, phoneNumber: phoneNumber, { (error) in
                         if error != nil {
-                            SmallActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+                            CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                             self.showAlert(title: "User Info Upload Error", message: error!.localizedDescription)
                         } else {
                             // Segue to create SearchJobs view controller
                             //
-                            SmallActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+                            CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                             let sb: UIStoryboard = UIStoryboard(name: "SearchJobs", bundle: nil)
                             if let vc = sb.instantiateInitialViewController() {
                                 self.present(vc, animated: true, completion: nil)

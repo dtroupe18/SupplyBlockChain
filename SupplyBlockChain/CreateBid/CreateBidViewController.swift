@@ -158,81 +158,25 @@ class CreateBidViewController: FormViewController {
         if let error = getFormError() {
             showAlert(title: "Error", message: error.msg)
         } else {
-            SmallActivityIndicator.shared.showActivityIndicator(uiView: self.view)
-            let formValuesDict = self.form.values()
             
-            // Make sure we have all the formValues
-            //
-            guard let company = formValuesDict["Company Name"] as? String, let name = formValuesDict["Name"] as? String, let email = formValuesDict["Email"] as? String, let phoneNumber = formValuesDict["Phone Number"] as? String, let jobName = formValuesDict["Job Name"] as? String, let price = formValuesDict["Price"] as? Double, let uid = Auth.auth().currentUser?.uid  else {
-                SmallActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
-                showAlert(title: "Error", message: "Form is missing values!")
-                return
-            }
+            // TierionWrapper.getAllDataStores()
+            // TierionWrapper.getDataStore(id: 7456)
+            // TierionWrapper.createRecord(dataStoreId: 7456)
             
-            let user: User = User(name: name, company: company, email: email, phoneNumber: phoneNumber, uid: uid)
-            let bid: Bid = Bid(user: user, jobName: jobName, timestamp: Date().millisecondsSince1970, price: price, comment: formValuesDict["Comments"] as? String)
-            
-            
-            // Upload this bid to firebase
-            //
-            DatabaseFunctions.getLastBlock(jobName: jobName, { snapShot in
-                if snapShot == nil {
-                    if let genesisBlock = BlockChainHelper.createGenesisBlock(jobName: jobName) {
-                        if let bidBlock = Block(index: 1, timestamp: Date().millisecondsSince1970, bid: bid, previousHash: genesisBlock.previousHash) {
-                            
-                            DatabaseFunctions.uploadBid(genesisBlock: genesisBlock, bidBlock: bidBlock, { error in
-                                if error != nil {
-                                    SmallActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
-                                    self.showAlert(title: "Error", message: error!.localizedDescription)
-                                } else {
-                                    DatabaseFunctions.uploadBidToUserInformation(block: bidBlock)
-                                    self.presentSuccessAlert()
-                                }
-                            })
-                        }
-                    }
-                } else {
-                    self.processSnapShot(snap: snapShot!, bid: bid)
+            TierionWrapper.shared.getHashToken({ (token, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else if let token = token {
+                    print("token: \(token)")
                 }
             })
-        }
-    }
-    
-    private func processSnapShot(snap: DataSnapshot, bid: Bid) {
-        for child in snap.children {
-            let child = child as? DataSnapshot
-            if let response = child?.value as? [String: AnyObject] {
-                if var lastHash = response["hash"] as? String, var index = response["index"] as? Int {
-                    // Check if currentIndex and previous hash have been updated
-                    //
-                    if let observedIndex = self.currentIndex, let prevHash = self.previousHash {
-                        if observedIndex > index {
-                            // Update the index and hash if needed
-                            //
-                            index = observedIndex
-                            lastHash = prevHash
-                        }
-                    }
-                    if let bidBlock = Block(index: index + 1, timestamp: Date().millisecondsSince1970, bid: bid, previousHash: lastHash) {
-                        DatabaseFunctions.uploadBid(block: bidBlock, { error in
-                            if error != nil {
-                                SmallActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
-                                self.showAlert(title: "Error", message: error!.localizedDescription)
-                            } else {
-                                DatabaseFunctions.uploadBidToUserInformation(block: bidBlock)
-                                self.presentSuccessAlert()
-                            }
-                        })
-                    }
-                }
-            }
         }
     }
     
     // Sucess alert with action
     //
     func presentSuccessAlert() {
-        SmallActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+        CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
         let alertController = UIAlertController(title: "Success", message: "Your bid was successfully submitted for \(self.job ?? "")", preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "OK", style: .default) { (_) in

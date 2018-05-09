@@ -15,7 +15,7 @@
 		5521BAE4206E9C7E004575E8 /* SupplyBlockChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BAE3206E9C7E004575E8 /* SupplyBlockChainTests.swift */; };
 		5521BAEF206E9C7E004575E8 /* SupplyBlockChainUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BAEE206E9C7E004575E8 /* SupplyBlockChainUITests.swift */; };
 		5521BAFD206E9F8A004575E8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5521BAFC206E9F8A004575E8 /* GoogleService-Info.plist */; };
-		5521BB00206EAE79004575E8 /* SmallActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BAFF206EAE79004575E8 /* SmallActivityIndicator.swift */; };
+		5521BB00206EAE79004575E8 /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BAFF206EAE79004575E8 /* CustomActivityIndicator.swift */; };
 		5521BB04206EAF30004575E8 /* UIViewController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BB03206EAF30004575E8 /* UIViewController++.swift */; };
 		5521BB08206EB239004575E8 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5521BB07206EB239004575E8 /* SignIn.storyboard */; };
 		5521BB0A206EB2A1004575E8 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BB09206EB2A1004575E8 /* SignInViewController.swift */; };
@@ -26,13 +26,15 @@
 		55C5169F2076B0B80010C6DC /* CreateBid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C5169E2076B0B80010C6DC /* CreateBid.storyboard */; };
 		55C516A12076B0C60010C6DC /* CreateBidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A02076B0C60010C6DC /* CreateBidViewController.swift */; };
 		55C516A32076B4800010C6DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A22076B4800010C6DC /* User.swift */; };
-		55C516A52076B6800010C6DC /* DatabaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A42076B6800010C6DC /* DatabaseFunctions.swift */; };
-		55C516A8207BB7DE0010C6DC /* BlockChainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A7207BB7DE0010C6DC /* BlockChainHelper.swift */; };
+		55C516A52076B6800010C6DC /* FirebaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A42076B6800010C6DC /* FirebaseFunctions.swift */; };
 		55C516AA207BB8480010C6DC /* Bid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A9207BB8480010C6DC /* Bid.swift */; };
 		55C516AC207BBA4D0010C6DC /* Date++Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516AB207BBA4D0010C6DC /* Date++Extension.swift */; };
 		55C516AE207BC0560010C6DC /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516AD207BC0560010C6DC /* Block.swift */; };
 		55CAAE64207D46B200D9B7C5 /* MyBids.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55CAAE63207D46B200D9B7C5 /* MyBids.storyboard */; };
 		55CAAE66207D46C500D9B7C5 /* MyBidsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CAAE65207D46C500D9B7C5 /* MyBidsViewController.swift */; };
+		55FA6DBA2098BD89006D34FE /* TierionWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FA6DB92098BD89006D34FE /* TierionWrapper.swift */; };
+		55FA6DBC209908DC006D34FE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FA6DBB209908DC006D34FE /* Token.swift */; };
+		55FA6DBE20990DFA006D34FE /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55FA6DBD20990DFA006D34FE /* Keys.plist */; };
 		622EE3799C30B5CBFB902CF1 /* Pods_SupplyBlockChainUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5309AC6590283DAF5237791E /* Pods_SupplyBlockChainUITests.framework */; };
 		A4834B500080227F1BFEAF2C /* Pods_SupplyBlockChain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BD232B32AAD04A9EA36C1E /* Pods_SupplyBlockChain.framework */; };
 /* End PBXBuildFile section */
@@ -71,7 +73,7 @@
 		5521BAEE206E9C7E004575E8 /* SupplyBlockChainUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplyBlockChainUITests.swift; sourceTree = "<group>"; };
 		5521BAF0206E9C7E004575E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5521BAFC206E9F8A004575E8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		5521BAFF206EAE79004575E8 /* SmallActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallActivityIndicator.swift; sourceTree = "<group>"; };
+		5521BAFF206EAE79004575E8 /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
 		5521BB03206EAF30004575E8 /* UIViewController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController++.swift"; sourceTree = "<group>"; };
 		5521BB07206EB239004575E8 /* SignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
 		5521BB09206EB2A1004575E8 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -82,13 +84,15 @@
 		55C5169E2076B0B80010C6DC /* CreateBid.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateBid.storyboard; sourceTree = "<group>"; };
 		55C516A02076B0C60010C6DC /* CreateBidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBidViewController.swift; sourceTree = "<group>"; };
 		55C516A22076B4800010C6DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		55C516A42076B6800010C6DC /* DatabaseFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseFunctions.swift; sourceTree = "<group>"; };
-		55C516A7207BB7DE0010C6DC /* BlockChainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockChainHelper.swift; sourceTree = "<group>"; };
+		55C516A42076B6800010C6DC /* FirebaseFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFunctions.swift; sourceTree = "<group>"; };
 		55C516A9207BB8480010C6DC /* Bid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bid.swift; sourceTree = "<group>"; };
 		55C516AB207BBA4D0010C6DC /* Date++Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date++Extension.swift"; sourceTree = "<group>"; };
 		55C516AD207BC0560010C6DC /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		55CAAE63207D46B200D9B7C5 /* MyBids.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyBids.storyboard; sourceTree = "<group>"; };
 		55CAAE65207D46C500D9B7C5 /* MyBidsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBidsViewController.swift; sourceTree = "<group>"; };
+		55FA6DB92098BD89006D34FE /* TierionWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TierionWrapper.swift; sourceTree = "<group>"; };
+		55FA6DBB209908DC006D34FE /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		55FA6DBD20990DFA006D34FE /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		62BD232B32AAD04A9EA36C1E /* Pods_SupplyBlockChain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SupplyBlockChain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		951A88062B68C94243488A29 /* Pods-SupplyBlockChainUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupplyBlockChainUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SupplyBlockChainUITests/Pods-SupplyBlockChainUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C0ACFA164D3783773A0D270 /* Pods-SupplyBlockChainUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupplyBlockChainUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SupplyBlockChainUITests/Pods-SupplyBlockChainUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -160,6 +164,7 @@
 		5521BACA206E9C7E004575E8 /* SupplyBlockChain */ = {
 			isa = PBXGroup;
 			children = (
+				5521BACB206E9C7E004575E8 /* AppDelegate.swift */,
 				55CAAE62207D469F00D9B7C5 /* MyBids */,
 				55C5169D2076B0140010C6DC /* CreateBid */,
 				55C5169820769AFB0010C6DC /* SearchJobs */,
@@ -168,12 +173,7 @@
 				5521BB02206EAEEF004575E8 /* Extensions */,
 				5521BB01206EAEDB004575E8 /* Structs */,
 				5521BAFE206EAE5D004575E8 /* Wrappers */,
-				5521BACB206E9C7E004575E8 /* AppDelegate.swift */,
-				5521BAD5206E9C7E004575E8 /* Assets.xcassets */,
-				5521BAD7206E9C7E004575E8 /* LaunchScreen.storyboard */,
-				5521BADA206E9C7E004575E8 /* Info.plist */,
-				5521BAFC206E9F8A004575E8 /* GoogleService-Info.plist */,
-				5521BAD2206E9C7E004575E8 /* SupplyBlockChain.xcdatamodeld */,
+				55F7850820A217D60025ADA0 /* Supporting Files */,
 			);
 			path = SupplyBlockChain;
 			sourceTree = "<group>";
@@ -199,9 +199,9 @@
 		5521BAFE206EAE5D004575E8 /* Wrappers */ = {
 			isa = PBXGroup;
 			children = (
-				5521BAFF206EAE79004575E8 /* SmallActivityIndicator.swift */,
-				55C516A42076B6800010C6DC /* DatabaseFunctions.swift */,
-				55C516A7207BB7DE0010C6DC /* BlockChainHelper.swift */,
+				5521BAFF206EAE79004575E8 /* CustomActivityIndicator.swift */,
+				55C516A42076B6800010C6DC /* FirebaseFunctions.swift */,
+				55FA6DB92098BD89006D34FE /* TierionWrapper.swift */,
 			);
 			path = Wrappers;
 			sourceTree = "<group>";
@@ -212,6 +212,7 @@
 				55C516A22076B4800010C6DC /* User.swift */,
 				55C516A9207BB8480010C6DC /* Bid.swift */,
 				55C516AD207BC0560010C6DC /* Block.swift */,
+				55FA6DBB209908DC006D34FE /* Token.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -268,6 +269,19 @@
 				55CAAE63207D46B200D9B7C5 /* MyBids.storyboard */,
 			);
 			path = MyBids;
+			sourceTree = "<group>";
+		};
+		55F7850820A217D60025ADA0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5521BAD5206E9C7E004575E8 /* Assets.xcassets */,
+				5521BAD7206E9C7E004575E8 /* LaunchScreen.storyboard */,
+				55FA6DBD20990DFA006D34FE /* Keys.plist */,
+				5521BADA206E9C7E004575E8 /* Info.plist */,
+				5521BAFC206E9F8A004575E8 /* GoogleService-Info.plist */,
+				5521BAD2206E9C7E004575E8 /* SupplyBlockChain.xcdatamodeld */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		7421FE4D659523D0C9AEB738 /* Pods */ = {
@@ -400,6 +414,7 @@
 				5521BB08206EB239004575E8 /* SignIn.storyboard in Resources */,
 				5521BAFD206E9F8A004575E8 /* GoogleService-Info.plist in Resources */,
 				5521BB0F206EBFCD004575E8 /* Signup.storyboard in Resources */,
+				55FA6DBE20990DFA006D34FE /* Keys.plist in Resources */,
 				5521BAD6206E9C7E004575E8 /* Assets.xcassets in Resources */,
 				55C5169F2076B0B80010C6DC /* CreateBid.storyboard in Resources */,
 			);
@@ -465,19 +480,23 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SupplyBlockChain/Pods-SupplyBlockChain-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Arcane/Arcane.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Arcane.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -515,16 +534,17 @@
 				55C516AE207BC0560010C6DC /* Block.swift in Sources */,
 				55C516AC207BBA4D0010C6DC /* Date++Extension.swift in Sources */,
 				5521BACC206E9C7E004575E8 /* AppDelegate.swift in Sources */,
-				55C516A8207BB7DE0010C6DC /* BlockChainHelper.swift in Sources */,
 				55C516A12076B0C60010C6DC /* CreateBidViewController.swift in Sources */,
 				5521BB0A206EB2A1004575E8 /* SignInViewController.swift in Sources */,
 				55CAAE66207D46C500D9B7C5 /* MyBidsViewController.swift in Sources */,
 				55C5169C20769B590010C6DC /* SearchJobsViewController.swift in Sources */,
 				55C516A32076B4800010C6DC /* User.swift in Sources */,
+				55FA6DBA2098BD89006D34FE /* TierionWrapper.swift in Sources */,
 				55C516AA207BB8480010C6DC /* Bid.swift in Sources */,
-				55C516A52076B6800010C6DC /* DatabaseFunctions.swift in Sources */,
-				5521BB00206EAE79004575E8 /* SmallActivityIndicator.swift in Sources */,
+				55C516A52076B6800010C6DC /* FirebaseFunctions.swift in Sources */,
+				5521BB00206EAE79004575E8 /* CustomActivityIndicator.swift in Sources */,
 				5521BB04206EAF30004575E8 /* UIViewController++.swift in Sources */,
+				55FA6DBC209908DC006D34FE /* Token.swift in Sources */,
 				5521BAD4206E9C7E004575E8 /* SupplyBlockChain.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -690,7 +710,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D3D7B5BPEZ;
-				INFOPLIST_FILE = SupplyBlockChain/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SupplyBlockChain/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HighTreeDevelopment.SupplyBlockChain;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -706,7 +726,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D3D7B5BPEZ;
-				INFOPLIST_FILE = SupplyBlockChain/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SupplyBlockChain/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HighTreeDevelopment.SupplyBlockChain;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.7.2)
   - Arcane (1.2.1)
   - Eureka (4.1.1)
   - FirebaseAnalytics (4.2.0):
@@ -39,17 +40,21 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - SwiftyJSON (4.1.0)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.7)
   - Arcane
   - Eureka
   - FirebaseAuth
   - FirebaseCore
   - FirebaseDatabase
   - FirebaseStorage
+  - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - Alamofire
     - Arcane
     - Eureka
     - FirebaseAnalytics
@@ -62,8 +67,10 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   Arcane: 870689a8ba7145a7dec0c2d7d7836b50c9f12636
   Eureka: b88fb930e42c79f8c03c373d0fcdc28c1d6c50ed
   FirebaseAnalytics: 7ef69e76a5142f643aeb47c780e1cdce4e23632e
@@ -76,7 +83,8 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: 9fabbf1aa3d8b2693ac686542506ea4678bcc904
+PODFILE CHECKSUM: 5def2019d4afb8c3e49372a59a0d39632d43a8f6
 
 COCOAPODS: 1.5.0

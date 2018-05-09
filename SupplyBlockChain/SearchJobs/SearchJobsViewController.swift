@@ -29,7 +29,7 @@ class SearchJobsViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         
-        DatabaseFunctions.getUserInfo({ (error, user) in
+        FirebaseFunctions.getUserInfo({ (error, user) in
             if error != nil {
                 self.showAlert(title: "Error", message: error!.localizedDescription)
             } else if let user = user {
@@ -37,12 +37,12 @@ class SearchJobsViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         })
         
-        DatabaseFunctions.getUserBids({ blockArray in
-            if blockArray != nil {
-                self.userBids = blockArray
-                print("BlockArray: \(blockArray!)")
-            }
-        })
+//        FirebaseFunctions.getUserBids({ blockArray in
+//            if blockArray != nil {
+//                self.userBids = blockArray
+//                print("BlockArray: \(blockArray!)")
+//            }
+//        })
         
         // Add a button to take the user to their bids
         //
