@@ -24,11 +24,12 @@ class CompletedBid: Object, Codable {
     
     private enum CodingKeys: String, CodingKey {
         case id
+        case status
+        case json
+        case sha256
+        case timestamp
         case accountID = "accountId"
         case datastoreID = "datastoreId"
-        case status
-        case json = "json"
-        case sha256, timestamp
         case bid = "data"
     }
     

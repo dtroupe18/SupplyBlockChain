@@ -104,6 +104,7 @@ class TierionWrapper {
             "datastoreId": dataStoreId,
             "email": "\(bid.email)",
             "name": "\(bid.name)",
+            "uid": "\(bid.uid)",
             "price": "\(bid.price)",
             "jobName": "\(bid.jobName)",
             "phoneNumber": "\(bid.phoneNumber)",
@@ -128,39 +129,21 @@ class TierionWrapper {
                     }
                     let decoder = JSONDecoder()
                     do {
-                        print("raw response: \(response)")
-                        
-//                        if let dict = response.value as? [String: Any] {
-//                            print("\n\ndict: \(dict)")
-//
-//                            if let bidData = dict["data"] as? [String: String] {
-//                                print("\n\nbidData: \(bidData)")
-//
-//                                if let theJSONData = try? JSONSerialization.data(withJSONObject: bidData, options: []) {
-//                                    let decodedBid: Bid = try decoder.decode(Bid.self, from: theJSONData)
-//                                    print("\n\ndecodedBid: \(decodedBid)")
-//                                }
-//                            }
-//                        }
-                        
                         let completedBid: CompletedBid = try decoder.decode(CompletedBid.self, from: jsonData)
-                        print("Codable with Realm worked!")
                         // Persist completed bid
                         //
-//                        try self.realm.write {
-//                            self.realm.add(completedBid)
-//                        }
+                        try self.realm.write {
+                            self.realm.add(completedBid)
+                        }
                         completion(nil)
                     } catch {
-                        let err: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error parsing completed bid"])
-                        print("\n\nError creating bid: \(error)")
+                        let err: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(error)"])
                         completion(err)
                     }
                     
                 case .failure(_):
-                    // check or assume failure is due to invalid token
-                    print("failure")
-                    print(response)
+                    let err = response.result.error as NSError?
+                    completion(err)
                 }
         }
     }

@@ -117,10 +117,12 @@ final class CustomActivityIndicator {
         if width > 200 {
             let height: CGFloat = labelText.height(withConstrainedWidth: 200, font: UIFont.systemFont(ofSize: 17))
             if height > 200 {
-                showActivityIndicator(uiView: uiView)
+                // Too Large just show a regular indicator
+                //
+                showActivityIndicator(uiView: uiView, color: color)
                 return
             }
-            loadingView.frame = CGRect(x: 0, y: 0, width: 220, height: 100 + height)
+            loadingView.frame = CGRect(x: 0, y: 0, width: 220, height: 110 + height)
             loadingView.center = uiView.center
             label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: height))
             label.center = CGPoint(x: loadingView.frame.size.width / 2, y: (height / 2) + 80)
@@ -129,7 +131,7 @@ final class CustomActivityIndicator {
             activityIndicator.center = CGPoint(x: 110, y: 50)
             
         } else {
-            loadingView.frame = CGRect(x: 0, y: 0, width: width + 20, height: 100)
+            loadingView.frame = CGRect(x: 0, y: 0, width: width + 20, height: 110)
             loadingView.center = uiView.center
             label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: 21))
             label.center = CGPoint(x: loadingView.frame.size.width / 2, y: 90)
@@ -168,6 +170,7 @@ final class CustomActivityIndicator {
                 uiView.isUserInteractionEnabled = true
                 self.activityIndicator.stopAnimating()
                 self.loadingView.removeFromSuperview()
+                self.label.text = ""
             }
         }
     }
@@ -183,6 +186,7 @@ final class CustomActivityIndicator {
                 uiView.isUserInteractionEnabled = true
                 self.activityIndicator.stopAnimating()
                 self.loadingView.removeFromSuperview()
+                self.label.text = ""
             }
         }
     }

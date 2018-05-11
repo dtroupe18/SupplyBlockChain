@@ -7,37 +7,53 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct User: Codable {
+/* This class will represent a JNJ supplier. So they will have an Array of CompletedBids */
+
+class User: Object {
     
-    let firstName: String
-    let lastName: String
-    let company: String
-    let email: String
-    let phoneNumber: String
-    let uid: String
+    @objc dynamic var firstName: String = ""
+    @objc dynamic var lastName: String = ""
+    @objc dynamic var company: String = ""
+    @objc dynamic var email: String = ""
+    @objc dynamic var phoneNumber: String = ""
+    @objc dynamic var industry: String = ""
+    @objc dynamic var uid: String = ""
     
-    // Optional init
+    // Define the child relationship -> Each user can have many CompletedBids
     //
-    init?(snapShot: [String: Any]) {
-        if let firstName = snapShot["firstName"] as? String, let lastName = snapShot["lastName"] as? String, let company = snapShot["company"] as? String, let email = snapShot["email"] as? String, let phone = snapShot["phoneNumber"] as? String, let uid = snapShot["uid"] as? String {
+    let completedBids = List<CompletedBid>()
+    
+    // Optional init used if we have to fetch user data from Firebase
+    //
+    convenience init?(snapShot: [String: Any]) {
+        if let firstName = snapShot["firstName"] as? String, let lastName = snapShot["lastName"] as? String,
+            let company = snapShot["company"] as? String, let email = snapShot["email"] as? String,
+            let phone = snapShot["phoneNumber"] as? String, let uid = snapShot["uid"] as? String,
+            let industry = snapShot["industry"] as? String {
+
+            self.init()
             self.firstName = firstName
             self.lastName = lastName
             self.company = company
             self.email = email
             self.phoneNumber = phone
             self.uid = uid
+            self.industry = industry
         } else {
             return nil
         }
     }
     
-    init(firstName: String, lastName: String, company: String, email: String, phoneNumber: String, uid: String) {
-        self.firstName = firstName
-        self.lastName = lastName
-        self.company = company
-        self.email = email
-        self.phoneNumber = phoneNumber
+    convenience init(form: SignUpForm, uid: String) {
+        self.init()
+        self.firstName = form.firstName
+        self.lastName = form.lastName
+        self.company = form.company
+        self.email = form.email
+        self.phoneNumber = form.phoneNumber
         self.uid = uid
+        self.industry = form.industry
     }
 }

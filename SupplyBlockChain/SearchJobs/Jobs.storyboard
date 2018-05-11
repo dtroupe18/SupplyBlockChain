@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--SearchJobsVC-->
+        <!--JobsVC-->
         <scene sceneID="KdC-ov-kIX">
             <objects>
-                <viewController storyboardIdentifier="SearchJobsVC" title="SearchJobsVC" id="Ksv-cl-R05" customClass="SearchJobsViewController" customModule="SupplyBlockChain" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchJobsVC" title="JobsVC" id="Ksv-cl-R05" customClass="JobsViewController" customModule="SupplyBlockChain" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Naa-lK-K8H">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -41,7 +41,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hhE-zo-HyQ"/>
                     </view>
-                    <navigationItem key="navigationItem" id="g8n-v7-gnU"/>
+                    <navigationItem key="navigationItem" id="g8n-v7-gnU">
+                        <barButtonItem key="backBarButtonItem" title="  " id="k4l-vs-a9v"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="eye-vF-BXb" id="xMr-p0-Jed"/>
                     </connections>

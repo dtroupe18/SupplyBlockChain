@@ -17,7 +17,6 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signupButton: UIButton!
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Root view for the whole app so we can hide the navigation bar here
@@ -37,7 +36,6 @@ class SignInViewController: UIViewController {
     }
     
     @IBAction func LoginPressed(_ sender: Any) {
-        print("login pressed")
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             showAlert(title: "Error", message: "Email and Password are required to login!")
             return
@@ -55,7 +53,7 @@ class SignInViewController: UIViewController {
     private func segueToJobs() {
         // Segue to create SearchJobs view controller
         //
-        let sb: UIStoryboard = UIStoryboard(name: "SearchJobs", bundle: nil)
+        let sb: UIStoryboard = UIStoryboard(name: "Jobs", bundle: nil)
         if let vc = sb.instantiateInitialViewController() {
             self.present(vc, animated: true, completion: nil)
         }
@@ -73,16 +71,4 @@ class SignInViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

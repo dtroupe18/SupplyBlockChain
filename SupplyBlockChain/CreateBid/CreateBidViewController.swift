@@ -8,19 +8,11 @@
 
 import UIKit
 import Eureka
-import FirebaseAuth
-import FirebaseDatabase
 
 class CreateBidViewController: FormViewController {
     
-    var userInfo: User?
+    var user: User!
     var job: String?
-    
-    // Variables that need to be updated as the user creates their bid
-    //
-    var currentIndex: Int?
-    var previousHash: String?
-    var observeRef: DatabaseReference?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -29,7 +21,6 @@ class CreateBidViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = job
-        observeChanges()
         
         // Create submit button in the navigation bar
         //
@@ -41,7 +32,7 @@ class CreateBidViewController: FormViewController {
         let submitItem = UIBarButtonItem(customView: submitButton)
         self.navigationItem.setRightBarButtonItems([submitItem], animated: false)
         
-        if let info = userInfo {
+        if let info = user {
             
             form +++ Section("Business Information")
                 <<< TextRow() {
@@ -157,10 +148,10 @@ class CreateBidViewController: FormViewController {
     @objc func submitPressed() {
         if let error = getFormError() {
             showAlert(title: "Error", message: error.msg)
-        } else {
+        } else if user != nil {
             let formValuesDict = self.form.values()
             
-            if let currentBid = Bid(dict: formValuesDict) {
+            if let currentBid = Bid(dict: formValuesDict, uid: user!.uid) {
                 CustomActivityIndicator.shared.showActivityIndicator(uiView: self.view, color: nil, labelText: "Posting your bid...")
                 TierionWrapper.shared.createRecord(dataStoreId: 7456, bid: currentBid, { (error) in
                     if let err = error {
@@ -168,8 +159,7 @@ class CreateBidViewController: FormViewController {
                         self.showAlert(title: "Error", message: err.localizedDescription)
                     } else {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
-                            self.showAlert(title: "Sucess", message: "Your bid has been entered!")
+                            self.presentSuccessAlert()
                         }
                     }
                 })
@@ -192,33 +182,6 @@ class CreateBidViewController: FormViewController {
         }
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
-    }
-    
-    func observeChanges() {
-        if let jobName = job {
-            observeRef = Database.database().reference()
-            // Bids in the block chain cannot be removed or modified. Every action requires a new block
-            // to be forged. Therefore we just listen for childAdded. This way we can keep the index and
-            // previous hash in sync
-            //
-            observeRef?.child("processedBids").child(jobName).observe(.childAdded, with: { snap in
-                for child in snap.children {
-                    let child = child as? DataSnapshot
-                    if let response = child?.value as? [String: AnyObject] {
-                        if let lastHash = response["hash"] as? String, let index = response["index"] as? Int {
-                            self.currentIndex = index + 1
-                            self.previousHash = lastHash
-                        }
-                    }
-                }
-            })
-        }
-    }
-    
-    deinit {
-        // Remove observer when this class is deallocated
-        //
-        observeRef?.removeAllObservers()
     }
     
     override func didReceiveMemoryWarning() {

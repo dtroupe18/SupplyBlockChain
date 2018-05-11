@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		0CD997398E68FA1C201D80A1 /* Pods_SupplyBlockChainTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 450D7018C7495E579C3FA738 /* Pods_SupplyBlockChainTests.framework */; };
 		551FF73D20A4AF4B0012BE26 /* CompletedBid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551FF73C20A4AF4B0012BE26 /* CompletedBid.swift */; };
+		551FF73F20A5D2990012BE26 /* UserBidsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551FF73E20A5D2990012BE26 /* UserBidsViewController.swift */; };
+		551FF74320A61A7A0012BE26 /* SignUpForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551FF74220A61A7A0012BE26 /* SignUpForm.swift */; };
+		551FF74B20A638120012BE26 /* BidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 551FF74A20A638120012BE26 /* BidCell.xib */; };
+		551FF74D20A63A8B0012BE26 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551FF74C20A63A8B0012BE26 /* Job.swift */; };
 		5521BACC206E9C7E004575E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BACB206E9C7E004575E8 /* AppDelegate.swift */; };
 		5521BAD6206E9C7E004575E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5521BAD5206E9C7E004575E8 /* Assets.xcassets */; };
 		5521BAD9206E9C7E004575E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5521BAD7206E9C7E004575E8 /* LaunchScreen.storyboard */; };
@@ -21,17 +25,15 @@
 		5521BB0A206EB2A1004575E8 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BB09206EB2A1004575E8 /* SignInViewController.swift */; };
 		5521BB0D206EBFC2004575E8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BB0C206EBFC2004575E8 /* SignupViewController.swift */; };
 		5521BB0F206EBFCD004575E8 /* Signup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5521BB0E206EBFCD004575E8 /* Signup.storyboard */; };
-		55C5169A20769B340010C6DC /* SearchJobs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C5169920769B340010C6DC /* SearchJobs.storyboard */; };
-		55C5169C20769B590010C6DC /* SearchJobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C5169B20769B590010C6DC /* SearchJobsViewController.swift */; };
+		55C5169A20769B340010C6DC /* Jobs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C5169920769B340010C6DC /* Jobs.storyboard */; };
+		55C5169C20769B590010C6DC /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C5169B20769B590010C6DC /* JobsViewController.swift */; };
 		55C5169F2076B0B80010C6DC /* CreateBid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C5169E2076B0B80010C6DC /* CreateBid.storyboard */; };
 		55C516A12076B0C60010C6DC /* CreateBidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A02076B0C60010C6DC /* CreateBidViewController.swift */; };
 		55C516A32076B4800010C6DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A22076B4800010C6DC /* User.swift */; };
 		55C516A52076B6800010C6DC /* FirebaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A42076B6800010C6DC /* FirebaseFunctions.swift */; };
 		55C516AA207BB8480010C6DC /* Bid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A9207BB8480010C6DC /* Bid.swift */; };
 		55C516AC207BBA4D0010C6DC /* Date++Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516AB207BBA4D0010C6DC /* Date++Extension.swift */; };
-		55C516AE207BC0560010C6DC /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516AD207BC0560010C6DC /* Block.swift */; };
-		55CAAE64207D46B200D9B7C5 /* MyBids.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55CAAE63207D46B200D9B7C5 /* MyBids.storyboard */; };
-		55CAAE66207D46C500D9B7C5 /* MyBidsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CAAE65207D46C500D9B7C5 /* MyBidsViewController.swift */; };
+		55CAAE64207D46B200D9B7C5 /* UserBids.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55CAAE63207D46B200D9B7C5 /* UserBids.storyboard */; };
 		55FA6DBA2098BD89006D34FE /* TierionWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FA6DB92098BD89006D34FE /* TierionWrapper.swift */; };
 		55FA6DBC209908DC006D34FE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FA6DBB209908DC006D34FE /* Token.swift */; };
 		55FA6DBE20990DFA006D34FE /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55FA6DBD20990DFA006D34FE /* Keys.plist */; };
@@ -61,6 +63,10 @@
 		450D7018C7495E579C3FA738 /* Pods_SupplyBlockChainTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SupplyBlockChainTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5309AC6590283DAF5237791E /* Pods_SupplyBlockChainUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SupplyBlockChainUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		551FF73C20A4AF4B0012BE26 /* CompletedBid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedBid.swift; sourceTree = "<group>"; };
+		551FF73E20A5D2990012BE26 /* UserBidsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBidsViewController.swift; sourceTree = "<group>"; };
+		551FF74220A61A7A0012BE26 /* SignUpForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpForm.swift; sourceTree = "<group>"; };
+		551FF74A20A638120012BE26 /* BidCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BidCell.xib; sourceTree = "<group>"; };
+		551FF74C20A63A8B0012BE26 /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
 		5521BAC8206E9C7E004575E8 /* SupplyBlockChain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupplyBlockChain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5521BACB206E9C7E004575E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5521BAD5206E9C7E004575E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,17 +85,15 @@
 		5521BB09206EB2A1004575E8 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		5521BB0C206EBFC2004575E8 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		5521BB0E206EBFCD004575E8 /* Signup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Signup.storyboard; sourceTree = "<group>"; };
-		55C5169920769B340010C6DC /* SearchJobs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchJobs.storyboard; sourceTree = "<group>"; };
-		55C5169B20769B590010C6DC /* SearchJobsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchJobsViewController.swift; sourceTree = "<group>"; };
+		55C5169920769B340010C6DC /* Jobs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Jobs.storyboard; sourceTree = "<group>"; };
+		55C5169B20769B590010C6DC /* JobsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsViewController.swift; sourceTree = "<group>"; };
 		55C5169E2076B0B80010C6DC /* CreateBid.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateBid.storyboard; sourceTree = "<group>"; };
 		55C516A02076B0C60010C6DC /* CreateBidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBidViewController.swift; sourceTree = "<group>"; };
 		55C516A22076B4800010C6DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		55C516A42076B6800010C6DC /* FirebaseFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFunctions.swift; sourceTree = "<group>"; };
 		55C516A9207BB8480010C6DC /* Bid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bid.swift; sourceTree = "<group>"; };
 		55C516AB207BBA4D0010C6DC /* Date++Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date++Extension.swift"; sourceTree = "<group>"; };
-		55C516AD207BC0560010C6DC /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
-		55CAAE63207D46B200D9B7C5 /* MyBids.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyBids.storyboard; sourceTree = "<group>"; };
-		55CAAE65207D46C500D9B7C5 /* MyBidsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBidsViewController.swift; sourceTree = "<group>"; };
+		55CAAE63207D46B200D9B7C5 /* UserBids.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserBids.storyboard; sourceTree = "<group>"; };
 		55FA6DB92098BD89006D34FE /* TierionWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TierionWrapper.swift; sourceTree = "<group>"; };
 		55FA6DBB209908DC006D34FE /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		55FA6DBD20990DFA006D34FE /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
@@ -139,6 +143,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		551FF74920A637DC0012BE26 /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				551FF74A20A638120012BE26 /* BidCell.xib */,
+			);
+			path = Xib;
+			sourceTree = "<group>";
+		};
 		5521BABF206E9C7E004575E8 = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +182,7 @@
 				55C5169820769AFB0010C6DC /* SearchJobs */,
 				5521BB0B206EBFB0004575E8 /* Signup */,
 				5521BB06206EAFD6004575E8 /* SignIn */,
+				551FF74920A637DC0012BE26 /* Xib */,
 				5521BB02206EAEEF004575E8 /* Extensions */,
 				5521BB01206EAEDB004575E8 /* Data Models */,
 				5521BAFE206EAE5D004575E8 /* Wrappers */,
@@ -209,11 +222,12 @@
 		5521BB01206EAEDB004575E8 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				55C516A22076B4800010C6DC /* User.swift */,
 				55C516A9207BB8480010C6DC /* Bid.swift */,
 				551FF73C20A4AF4B0012BE26 /* CompletedBid.swift */,
-				55C516AD207BC0560010C6DC /* Block.swift */,
 				55FA6DBB209908DC006D34FE /* Token.swift */,
+				55C516A22076B4800010C6DC /* User.swift */,
+				551FF74220A61A7A0012BE26 /* SignUpForm.swift */,
+				551FF74C20A63A8B0012BE26 /* Job.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -248,8 +262,8 @@
 		55C5169820769AFB0010C6DC /* SearchJobs */ = {
 			isa = PBXGroup;
 			children = (
-				55C5169B20769B590010C6DC /* SearchJobsViewController.swift */,
-				55C5169920769B340010C6DC /* SearchJobs.storyboard */,
+				55C5169B20769B590010C6DC /* JobsViewController.swift */,
+				55C5169920769B340010C6DC /* Jobs.storyboard */,
 			);
 			path = SearchJobs;
 			sourceTree = "<group>";
@@ -266,8 +280,8 @@
 		55CAAE62207D469F00D9B7C5 /* MyBids */ = {
 			isa = PBXGroup;
 			children = (
-				55CAAE65207D46C500D9B7C5 /* MyBidsViewController.swift */,
-				55CAAE63207D46B200D9B7C5 /* MyBids.storyboard */,
+				551FF73E20A5D2990012BE26 /* UserBidsViewController.swift */,
+				55CAAE63207D46B200D9B7C5 /* UserBids.storyboard */,
 			);
 			path = MyBids;
 			sourceTree = "<group>";
@@ -408,9 +422,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55CAAE64207D46B200D9B7C5 /* MyBids.storyboard in Resources */,
-				55C5169A20769B340010C6DC /* SearchJobs.storyboard in Resources */,
+				55CAAE64207D46B200D9B7C5 /* UserBids.storyboard in Resources */,
+				55C5169A20769B340010C6DC /* Jobs.storyboard in Resources */,
 				5521BAD9206E9C7E004575E8 /* LaunchScreen.storyboard in Resources */,
+				551FF74B20A638120012BE26 /* BidCell.xib in Resources */,
 				5521BB08206EB239004575E8 /* SignIn.storyboard in Resources */,
 				5521BAFD206E9F8A004575E8 /* GoogleService-Info.plist in Resources */,
 				5521BB0F206EBFCD004575E8 /* Signup.storyboard in Resources */,
@@ -533,19 +548,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				5521BB0D206EBFC2004575E8 /* SignupViewController.swift in Sources */,
-				55C516AE207BC0560010C6DC /* Block.swift in Sources */,
 				55C516AC207BBA4D0010C6DC /* Date++Extension.swift in Sources */,
 				5521BACC206E9C7E004575E8 /* AppDelegate.swift in Sources */,
 				55C516A12076B0C60010C6DC /* CreateBidViewController.swift in Sources */,
+				551FF73F20A5D2990012BE26 /* UserBidsViewController.swift in Sources */,
+				551FF74320A61A7A0012BE26 /* SignUpForm.swift in Sources */,
 				5521BB0A206EB2A1004575E8 /* SignInViewController.swift in Sources */,
-				55CAAE66207D46C500D9B7C5 /* MyBidsViewController.swift in Sources */,
-				55C5169C20769B590010C6DC /* SearchJobsViewController.swift in Sources */,
+				55C5169C20769B590010C6DC /* JobsViewController.swift in Sources */,
 				55C516A32076B4800010C6DC /* User.swift in Sources */,
 				55FA6DBA2098BD89006D34FE /* TierionWrapper.swift in Sources */,
 				55C516AA207BB8480010C6DC /* Bid.swift in Sources */,
 				55C516A52076B6800010C6DC /* FirebaseFunctions.swift in Sources */,
 				5521BB00206EAE79004575E8 /* CustomActivityIndicator.swift in Sources */,
 				551FF73D20A4AF4B0012BE26 /* CompletedBid.swift in Sources */,
+				551FF74D20A63A8B0012BE26 /* Job.swift in Sources */,
 				5521BB04206EAF30004575E8 /* UIViewController++.swift in Sources */,
 				55FA6DBC209908DC006D34FE /* Token.swift in Sources */,
 			);

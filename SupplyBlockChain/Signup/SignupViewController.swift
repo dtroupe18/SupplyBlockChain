@@ -10,9 +10,11 @@ import UIKit
 import Eureka
 import FirebaseAuth
 import FirebaseDatabase
+import RealmSwift
 
 class SignupViewController: FormViewController {
     
+    let realm = try! Realm()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -21,15 +23,15 @@ class SignupViewController: FormViewController {
         showNavigationBar()
     }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
         // Create submit button in the navigation bar
         //
         let submitButton = UIButton(type: .custom)
         submitButton.setTitle("Submit", for: .normal)
-        submitButton.setTitleColor(.black, for: .normal)
+        submitButton.setTitleColor(.white, for: .normal)
         submitButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         submitButton.addTarget(self, action: #selector(self.submitPressed), for: .touchUpInside)
         let submitItem = UIBarButtonItem(customView: submitButton)
@@ -68,8 +70,13 @@ class SignupViewController: FormViewController {
                 $0.tag = "Phone Number"
                 $0.title = "Phone Number"
                 $0.placeholder = "867-5309"
-                // $0.add(rule: RuleRequired())
-                // $0.validationOptions = .validatesOnChange
+                $0.add(rule: RuleRequired())
+                $0.validationOptions = .validatesOnChange
+            }
+            .cellUpdate { cell, row in
+                if !row.isValid {
+                    cell.titleLabel?.textColor = .red
+                }
             }
             
             <<< SwitchRow() {
@@ -87,18 +94,55 @@ class SignupViewController: FormViewController {
                 }
             }
             
-            +++ Section("Business Information")
+            form +++ Section("Business Information")
             <<< TextRow() {
                 $0.tag = "Business Name"
                 $0.title = "Name"
                 $0.placeholder = "Apple"
+                $0.add(rule: RuleRequired())
+                $0.validationOptions = .validatesOnChange
+            }
+            .cellUpdate { cell, row in
+                if !row.isValid {
+                    cell.titleLabel?.textColor = .red
+                }
             }
             
-            +++ Section("User Account")
+            let industries = ["IT", "Pharmaceutical", "Medical"]
+        
+            form +++ SelectableSection<ListCheckRow<String>>() { section in
+                section.header = HeaderFooterView(title: "Industry")
+            }
+        
+            for option in industries {
+                form.last! <<< ListCheckRow<String>(option) {
+                    $0.title = option
+                    $0.selectableValue = option
+                    $0.value = nil
+
+                    let industryRule = RuleClosure<String> { rowValue in
+                        let formValuesDict = self.form.values()
+                        if (formValuesDict["IT"] as? String) != nil {
+                           return nil
+                        } else if (formValuesDict["Pharmaceutical"] as? String) != nil {
+                            return nil
+                        } else if (formValuesDict["Medical"] as? String) != nil {
+                            return nil
+                        } else {
+                            return ValidationError(msg: "You must select an industry")
+                        }
+                    }
+                    $0.add(rule: industryRule)
+                    $0.validationOptions = .validatesOnChange
+                }
+            }
+        
+            form +++ Section("User Account")
             <<< EmailRow() {
                 $0.tag = "Email"
                 $0.title = "Email"
                 $0.placeholder = "SteveJobs@apple.com"
+                $0.add(rule: RuleEmail())
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChange
             }
@@ -152,24 +196,22 @@ class SignupViewController: FormViewController {
     }
     
     @objc func submitPressed() {
-        let formValuesDict = self.form.values()
-        
         let errors = form.validate()
         if errors.count > 0 {
             if let error = errors.last {
                 showAlert(title: "Error", message: error.msg)
             }
         } else {
-            // Sign the user up and save the data
+            createFirebaseUser()
+        }
+    }
+    
+    func createFirebaseUser() {
+        if let formValues: SignUpForm = SignUpForm(formValues: self.form.values()) {
+            // Actually create the user account
             //
-            guard let email = formValuesDict["Email"] as? String, let password = formValuesDict["Password"] as? String, let firstName = formValuesDict["First Name"] as? String, let lastName = formValuesDict["Last Name"] as? String,
-                let company = formValuesDict["Business Name"] as? String, let phoneNumber = formValuesDict["Phone Number"] as? String else {
-                showAlert(title: "Error", message: "Form value missing!")
-                return
-            }
-        
-            CustomActivityIndicator.shared.showActivityIndicator(uiView: self.view)
-            Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
+            CustomActivityIndicator.shared.showActivityIndicator(uiView: self.view, color: nil, labelText: "Creating user account")
+            Auth.auth().createUser(withEmail: formValues.email, password: formValues.password, completion: { (user, error) in
                 if let err = error {
                     CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                     self.showAlert(title: "Error", message: err.localizedDescription)
@@ -177,43 +219,51 @@ class SignupViewController: FormViewController {
                     // Update the user's display name
                     //
                     let changeRequest = Auth.auth().currentUser!.createProfileChangeRequest()
-                    let name: String = "\(firstName) \(lastName)"
+                    let name: String = "\(formValues.firstName) \(formValues.lastName)"
                     changeRequest.displayName = name
                     changeRequest.commitChanges(completion: nil)
-                    
-                    FirebaseFunctions.uploadUserInfo(uid: user.uid, firstName: firstName, lastName: lastName, email: email, company: company, phoneNumber: phoneNumber, { (error) in
-                        if error != nil {
-                            CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
-                            self.showAlert(title: "User Info Upload Error", message: error!.localizedDescription)
-                        } else {
-                            // Segue to create SearchJobs view controller
-                            //
-                            CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
-                            let sb: UIStoryboard = UIStoryboard(name: "SearchJobs", bundle: nil)
-                            if let vc = sb.instantiateInitialViewController() {
-                                self.present(vc, animated: true, completion: nil)
-                            }
-                        }
-                    })
+                    self.saveUserToRealm(formValues: formValues, uid: user.uid)
                 }
             })
+        } else {
+            // Some formvalue was nil
+            //
+            showAlert(title: "Error", message: "Form is missing value(s)")
         }
     }
-
+    
+    func saveUserToRealm(formValues: SignUpForm, uid: String) {
+        let user = User(form: formValues, uid: uid)
+        do {
+            try realm.write {
+                realm.add(user)
+            }
+            uploadUserToFirebase(formValues: formValues, uid: uid)
+        } catch {
+            CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+            print("Error saving to user Realm: \(error)")
+        }
+    }
+    
+    func uploadUserToFirebase(formValues: SignUpForm, uid: String) {
+        FirebaseFunctions.uploadUserInfo(uid: uid, form: formValues, { (error) in
+            if error != nil {
+                CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+                self.showAlert(title: "User Info Upload Error", message: error!.localizedDescription)
+            } else {
+                // Segue to create SearchJobs view controller
+                //
+                CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+                let sb: UIStoryboard = UIStoryboard(name: "Jobs", bundle: nil)
+                if let vc = sb.instantiateInitialViewController() {
+                    self.present(vc, animated: true, completion: nil)
+                }
+            }
+        })
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

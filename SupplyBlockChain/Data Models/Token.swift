@@ -7,12 +7,15 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Token: Codable {
+/* Currently unused because the Hash API isn't being used */
+
+class Token: Object, Codable {
     
-    let accessToken: String
-    let refreshToken: String
-    let expiresIn: Int
+    @objc dynamic var accessToken: String = ""
+    @objc dynamic var refreshToken: String = ""
+    @objc dynamic var expiresIn: Int = 0
     
     // Update codable implementation so that keys match
     //
@@ -20,6 +23,13 @@ struct Token: Codable {
         case accessToken = "access_token"
         case refreshToken = "refresh_token"
         case expiresIn = "expires_in"
+    }
+    
+    convenience init(accessToken: String, refreshToken: String, expiresIn: Int) {
+        self.init()
+        self.accessToken = accessToken
+        self.refreshToken = refreshToken
+        self.expiresIn = expiresIn
     }
     
     func getExpiredToken() -> Token {
