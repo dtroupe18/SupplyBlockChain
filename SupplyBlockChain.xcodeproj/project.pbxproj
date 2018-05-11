@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0CD997398E68FA1C201D80A1 /* Pods_SupplyBlockChainTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 450D7018C7495E579C3FA738 /* Pods_SupplyBlockChainTests.framework */; };
+		551FF73D20A4AF4B0012BE26 /* CompletedBid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551FF73C20A4AF4B0012BE26 /* CompletedBid.swift */; };
 		5521BACC206E9C7E004575E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BACB206E9C7E004575E8 /* AppDelegate.swift */; };
-		5521BAD4206E9C7E004575E8 /* SupplyBlockChain.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5521BAD2206E9C7E004575E8 /* SupplyBlockChain.xcdatamodeld */; };
 		5521BAD6206E9C7E004575E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5521BAD5206E9C7E004575E8 /* Assets.xcassets */; };
 		5521BAD9206E9C7E004575E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5521BAD7206E9C7E004575E8 /* LaunchScreen.storyboard */; };
 		5521BAE4206E9C7E004575E8 /* SupplyBlockChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BAE3206E9C7E004575E8 /* SupplyBlockChainTests.swift */; };
@@ -60,9 +60,9 @@
 		11C6FD82EC7B39B707A926A0 /* Pods-SupplyBlockChain.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupplyBlockChain.release.xcconfig"; path = "Pods/Target Support Files/Pods-SupplyBlockChain/Pods-SupplyBlockChain.release.xcconfig"; sourceTree = "<group>"; };
 		450D7018C7495E579C3FA738 /* Pods_SupplyBlockChainTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SupplyBlockChainTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5309AC6590283DAF5237791E /* Pods_SupplyBlockChainUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SupplyBlockChainUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		551FF73C20A4AF4B0012BE26 /* CompletedBid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedBid.swift; sourceTree = "<group>"; };
 		5521BAC8206E9C7E004575E8 /* SupplyBlockChain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupplyBlockChain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5521BACB206E9C7E004575E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5521BAD3206E9C7E004575E8 /* SupplyBlockChain.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SupplyBlockChain.xcdatamodel; sourceTree = "<group>"; };
 		5521BAD5206E9C7E004575E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5521BAD8206E9C7E004575E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5521BADA206E9C7E004575E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 				5521BB0B206EBFB0004575E8 /* Signup */,
 				5521BB06206EAFD6004575E8 /* SignIn */,
 				5521BB02206EAEEF004575E8 /* Extensions */,
-				5521BB01206EAEDB004575E8 /* Structs */,
+				5521BB01206EAEDB004575E8 /* Data Models */,
 				5521BAFE206EAE5D004575E8 /* Wrappers */,
 				55F7850820A217D60025ADA0 /* Supporting Files */,
 			);
@@ -206,15 +206,16 @@
 			path = Wrappers;
 			sourceTree = "<group>";
 		};
-		5521BB01206EAEDB004575E8 /* Structs */ = {
+		5521BB01206EAEDB004575E8 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
 				55C516A22076B4800010C6DC /* User.swift */,
 				55C516A9207BB8480010C6DC /* Bid.swift */,
+				551FF73C20A4AF4B0012BE26 /* CompletedBid.swift */,
 				55C516AD207BC0560010C6DC /* Block.swift */,
 				55FA6DBB209908DC006D34FE /* Token.swift */,
 			);
-			path = Structs;
+			path = "Data Models";
 			sourceTree = "<group>";
 		};
 		5521BB02206EAEEF004575E8 /* Extensions */ = {
@@ -279,7 +280,6 @@
 				55FA6DBD20990DFA006D34FE /* Keys.plist */,
 				5521BADA206E9C7E004575E8 /* Info.plist */,
 				5521BAFC206E9F8A004575E8 /* GoogleService-Info.plist */,
-				5521BAD2206E9C7E004575E8 /* SupplyBlockChain.xcdatamodeld */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -485,7 +485,8 @@
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -496,7 +497,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -543,9 +545,9 @@
 				55C516AA207BB8480010C6DC /* Bid.swift in Sources */,
 				55C516A52076B6800010C6DC /* FirebaseFunctions.swift in Sources */,
 				5521BB00206EAE79004575E8 /* CustomActivityIndicator.swift in Sources */,
+				551FF73D20A4AF4B0012BE26 /* CompletedBid.swift in Sources */,
 				5521BB04206EAF30004575E8 /* UIViewController++.swift in Sources */,
 				55FA6DBC209908DC006D34FE /* Token.swift in Sources */,
-				5521BAD4206E9C7E004575E8 /* SupplyBlockChain.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -845,19 +847,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		5521BAD2206E9C7E004575E8 /* SupplyBlockChain.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				5521BAD3206E9C7E004575E8 /* SupplyBlockChain.xcdatamodel */,
-			);
-			currentVersion = 5521BAD3206E9C7E004575E8 /* SupplyBlockChain.xcdatamodel */;
-			path = SupplyBlockChain.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 5521BAC0206E9C7E004575E8 /* Project object */;
 }

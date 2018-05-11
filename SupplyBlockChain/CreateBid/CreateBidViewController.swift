@@ -61,7 +61,7 @@ class CreateBidViewController: FormViewController {
                 <<< TextRow() {
                     $0.tag = "Name"
                     $0.title = "Name"
-                    $0.value = info.name
+                    $0.value = "\(info.firstName) \(info.lastName)"
                     // $0.disabled = true
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
@@ -158,18 +158,24 @@ class CreateBidViewController: FormViewController {
         if let error = getFormError() {
             showAlert(title: "Error", message: error.msg)
         } else {
+            let formValuesDict = self.form.values()
             
-            // TierionWrapper.getAllDataStores()
-            // TierionWrapper.getDataStore(id: 7456)
-            // TierionWrapper.createRecord(dataStoreId: 7456)
-            
-            TierionWrapper.shared.getHashToken({ (token, error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                } else if let token = token {
-                    print("token: \(token)")
-                }
-            })
+            if let currentBid = Bid(dict: formValuesDict) {
+                CustomActivityIndicator.shared.showActivityIndicator(uiView: self.view, color: nil, labelText: "Posting your bid...")
+                TierionWrapper.shared.createRecord(dataStoreId: 7456, bid: currentBid, { (error) in
+                    if let err = error {
+                        CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+                        self.showAlert(title: "Error", message: err.localizedDescription)
+                    } else {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+                            self.showAlert(title: "Sucess", message: "Your bid has been entered!")
+                        }
+                    }
+                })
+            } else {
+                print("Some error with bid struct")
+            }
         }
     }
     

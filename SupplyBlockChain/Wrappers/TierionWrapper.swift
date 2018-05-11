@@ -8,7 +8,7 @@
 
 import Foundation
 import Alamofire
-import SwiftyJSON
+import RealmSwift
 
 class TierionWrapper {
     // This class is a singleton
@@ -21,8 +21,11 @@ class TierionWrapper {
     
     private var authHeaders: [String: String]?
     private var hashTokenParams: [String: String]?
-    
     private var authToken: Token?
+    
+    // Get the default Realm
+    //
+    let realm = try! Realm()
     
     private func getHeaders() -> [String: String]? {
         if authHeaders != nil {
@@ -88,21 +91,25 @@ class TierionWrapper {
         }
     }
     
-    func createRecord(dataStoreId: Int) {
+    func createRecord(dataStoreId: Int, bid: Bid, _ completion: @escaping (NSError?) ->()) {
         // https://api.tierion.com/v1/records
         //
-        guard let headers = getHeaders() else { print("Error headers are nil!"); return }
+        guard let headers = getHeaders() else {
+            let error: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "An unknown error occured please try again."])
+            completion(error)
+            return
+        }
         
-        let parameters = [
+        let parameters: [String: Any] = [
             "datastoreId": dataStoreId,
-            "firstname": "Milton",
-            "lastname": "Waddams",
-            "emailaddress": "mwaddams@initech.net",
-            "companyname": "Initech",
-            "employment status": "Not Found",
-            "department": "Basement",
-            "likes": "Red Swingline Staplers"
-            ] as [String : Any]
+            "email": "\(bid.email)",
+            "name": "\(bid.name)",
+            "price": "\(bid.price)",
+            "jobName": "\(bid.jobName)",
+            "phoneNumber": "\(bid.phoneNumber)",
+            "companyName": "\(bid.companyName)",
+            "comments": "\(bid.comments)"
+        ]
         
         Alamofire.request("https://api.tierion.com/v1/records/\(dataStoreId)",
             method: .post,
@@ -111,10 +118,48 @@ class TierionWrapper {
             headers: headers)
             .validate()
             .responseJSON { response in
-                if response.result.value != nil{
-                    print(response)
-                } else {
-                    print("getDataStore is nil")
+                switch response.result {
+                    
+                case .success(_):
+                    guard let jsonData = response.data else {
+                        let error: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Empty response data"])
+                        completion(error)
+                        return
+                    }
+                    let decoder = JSONDecoder()
+                    do {
+                        print("raw response: \(response)")
+                        
+//                        if let dict = response.value as? [String: Any] {
+//                            print("\n\ndict: \(dict)")
+//
+//                            if let bidData = dict["data"] as? [String: String] {
+//                                print("\n\nbidData: \(bidData)")
+//
+//                                if let theJSONData = try? JSONSerialization.data(withJSONObject: bidData, options: []) {
+//                                    let decodedBid: Bid = try decoder.decode(Bid.self, from: theJSONData)
+//                                    print("\n\ndecodedBid: \(decodedBid)")
+//                                }
+//                            }
+//                        }
+                        
+                        let completedBid: CompletedBid = try decoder.decode(CompletedBid.self, from: jsonData)
+                        print("Codable with Realm worked!")
+                        // Persist completed bid
+                        //
+//                        try self.realm.write {
+//                            self.realm.add(completedBid)
+//                        }
+                        completion(nil)
+                    } catch {
+                        let err: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error parsing completed bid"])
+                        print("\n\nError creating bid: \(error)")
+                        completion(err)
+                    }
+                    
+                case .failure(_):
+                    // check or assume failure is due to invalid token
+                    print("failure")
                     print(response)
                 }
         }
@@ -136,7 +181,6 @@ class TierionWrapper {
                 switch response.result {
                     
                 case .success(_):
-                    print("Validation Successful")
                     if response.data != nil {
                         let jsonData = response.data!
                         let decoder = JSONDecoder()
@@ -163,7 +207,7 @@ class TierionWrapper {
     func refreshToken() {
         guard let refreshToken = authToken?.refreshToken else { return }
         let params = ["refreshToken": refreshToken]
-    
+        
         Alamofire.request("https://hashapi.tierion.com/v1/auth/refresh",
                           method: .post,
                           parameters: params,
@@ -176,7 +220,7 @@ class TierionWrapper {
                     print("Validation Successful")
                 case .failure(_):
                     // check or assume failure is due to invalid token
-                   print("failure")
+                    print("failure")
                 }
         }
     }

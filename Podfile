@@ -12,7 +12,7 @@ target 'SupplyBlockChain' do
     pod 'Eureka'
     pod 'Arcane'
     pod 'Alamofire', '~> 4.7'
-    pod 'SwiftyJSON', '~> 4.0'
+    pod 'RealmSwift'
 
   target 'SupplyBlockChainTests' do
     inherit! :search_paths

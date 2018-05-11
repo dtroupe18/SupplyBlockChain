@@ -17,11 +17,12 @@ class FirebaseFunctions {
     
     // Upload additional informationa about the user to Firebase
     //
-    static func uploadUserInfo(uid: String, name: String, email: String, company: String, phoneNumber: String, _ completion: @escaping (Error?) -> ()) {
+    static func uploadUserInfo(uid: String, firstName: String, lastName: String, email: String, company: String, phoneNumber: String, _ completion: @escaping (Error?) -> ()) {
         // Upload information about the user to Firebase
         //
         let userInfo: [String: Any] = ["uid": uid,
-                                       "displayName": name,
+                                       "firstName": firstName,
+                                       "lastName": lastName,
                                        "email": email,
                                        "company":  company,
                                        "phoneNumber": phoneNumber
@@ -49,7 +50,7 @@ class FirebaseFunctions {
         ref.child("users").child(uid).observeSingleEvent(of: .value, with: { snap in
             if snap.exists() {
                 if let dict = snap.value as? [String: Any] {
-                    print("dict: \(dict)")
+                    // print("dict: \(dict)")
                     if let user = User(snapShot: dict) {
                         completion(nil, user)
                     } else {

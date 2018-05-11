@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct User: Codable, CustomStringConvertible {
+struct User: Codable {
     
-    let description: String
-    let name: String
+    let firstName: String
+    let lastName: String
     let company: String
     let email: String
     let phoneNumber: String
@@ -20,24 +20,24 @@ struct User: Codable, CustomStringConvertible {
     // Optional init
     //
     init?(snapShot: [String: Any]) {
-        if let name = snapShot["displayName"] as? String, let company = snapShot["company"] as? String, let email = snapShot["email"] as? String, let phone = snapShot["phoneNumber"] as? String, let uid = snapShot["uid"] as? String {
-            self.name = name
+        if let firstName = snapShot["firstName"] as? String, let lastName = snapShot["lastName"] as? String, let company = snapShot["company"] as? String, let email = snapShot["email"] as? String, let phone = snapShot["phoneNumber"] as? String, let uid = snapShot["uid"] as? String {
+            self.firstName = firstName
+            self.lastName = lastName
             self.company = company
             self.email = email
             self.phoneNumber = phone
             self.uid = uid
-            self.description = "\(name)\(company)\(email)\(phone)\(uid)"
         } else {
             return nil
         }
     }
     
-    init(name: String, company: String, email: String, phoneNumber: String, uid: String) {
-        self.name = name
+    init(firstName: String, lastName: String, company: String, email: String, phoneNumber: String, uid: String) {
+        self.firstName = firstName
+        self.lastName = lastName
         self.company = company
         self.email = email
         self.phoneNumber = phoneNumber
         self.uid = uid
-        self.description = "\(name)\(company)\(email)\(phoneNumber)\(uid)"
     }
 }

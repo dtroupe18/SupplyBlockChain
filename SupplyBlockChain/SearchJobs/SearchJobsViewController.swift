@@ -16,7 +16,7 @@ class SearchJobsViewController: UIViewController, UITableViewDelegate, UITableVi
                           "Job Eight", "Job Nine", "Job Ten"]
     
     var userInfo: User?
-    var userBids: [Block]?
+    // var userBids: [Block]?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -62,7 +62,7 @@ class SearchJobsViewController: UIViewController, UITableViewDelegate, UITableVi
         //
         let sb: UIStoryboard = UIStoryboard(name: "MyBids", bundle: nil)
         if let vc = sb.instantiateViewController(withIdentifier: "MyBidsVC") as? MyBidsViewController {
-            vc.userBids = self.userBids
+            // vc.userBids = self.userBids
             vc.userInfo = self.userInfo
             navigationController?.pushViewController(vc, animated: true)
         }

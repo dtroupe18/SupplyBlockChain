@@ -10,14 +10,14 @@ import UIKit
 
 class MyBidsViewController: UIViewController {
     
-    var userBids: [Block]!
+    // var userBids: [Block]!
     var userInfo: User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         print("newVC...")
-        print("UserBids: \(userBids)")
+        // print("UserBids: \(userBids)")
     }
 
     override func didReceiveMemoryWarning() {

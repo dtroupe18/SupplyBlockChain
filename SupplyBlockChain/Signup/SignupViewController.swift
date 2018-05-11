@@ -181,7 +181,7 @@ class SignupViewController: FormViewController {
                     changeRequest.displayName = name
                     changeRequest.commitChanges(completion: nil)
                     
-                    FirebaseFunctions.uploadUserInfo(uid: user.uid, name: name, email: email, company: company, phoneNumber: phoneNumber, { (error) in
+                    FirebaseFunctions.uploadUserInfo(uid: user.uid, firstName: firstName, lastName: lastName, email: email, company: company, phoneNumber: phoneNumber, { (error) in
                         if error != nil {
                             CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                             self.showAlert(title: "User Info Upload Error", message: error!.localizedDescription)
