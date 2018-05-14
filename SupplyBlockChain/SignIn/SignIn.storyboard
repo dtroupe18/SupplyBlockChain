@@ -82,7 +82,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="z45-VE-t6q"/>
                     </view>
-                    <navigationItem key="navigationItem" id="z7d-O4-uee"/>
+                    <navigationItem key="navigationItem" id="z7d-O4-uee">
+                        <barButtonItem key="backBarButtonItem" title="Cancel" id="ddY-TD-eMZ"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="emailTextField" destination="TWB-ab-58o" id="htI-KW-ge3"/>
                         <outlet property="loginButton" destination="KxG-wf-md7" id="Dt8-CV-6up"/>

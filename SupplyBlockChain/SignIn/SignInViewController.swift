@@ -8,23 +8,26 @@
 
 import UIKit
 import FirebaseAuth
+import RealmSwift
 
 class SignInViewController: UIViewController {
-
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signupButton: UIButton!
     
+    let realm = try! Realm()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Root view for the whole app so we can hide the navigation bar here
+        // Root view for the whole app so hide the navigation bar here
         //
         hideNavigationBar()
-        Auth.auth().addStateDidChangeListener { (auth, user) in
-            if user != nil {
-                self.segueToJobs()
+        Auth.auth().addStateDidChangeListener { (auth, firebaseUser) in
+            if firebaseUser != nil {
+                self.segueToJobs(uid: firebaseUser!.uid)
             }
         }
     }
@@ -41,21 +44,45 @@ class SignInViewController: UIViewController {
             return
         }
         
-        Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error) in
+        Auth.auth().signIn(withEmail: email, password: password, completion: { (firebaseUser, error) in
             if let err = error {
                 self.showAlert(title: "Signin Error", message: err.localizedDescription)
-            } else {
-                self.segueToJobs()
+            } else if firebaseUser != nil {
+                self.segueToJobs(uid: firebaseUser!.uid)
             }
         })
     }
     
-    private func segueToJobs() {
-        // Segue to create SearchJobs view controller
-        //
-        let sb: UIStoryboard = UIStoryboard(name: "Jobs", bundle: nil)
-        if let vc = sb.instantiateInitialViewController() {
-            self.present(vc, animated: true, completion: nil)
+    func segueToJobs(uid: String) {
+        if let user = self.realm.objects(User.self).filter("uid == %@", uid).first {
+            if user.isEmployee {
+                // Segue to the list of jobs for an employee
+                //
+                let sb: UIStoryboard = UIStoryboard(name: "EmployeeJobs", bundle: nil)
+                if let navController = sb.instantiateInitialViewController() as? UINavigationController {
+                    if let vc = navController.topViewController as? EmpolyeeJobsViewController {
+                        vc.user = user
+                        present(navController, animated: true, completion: nil)
+                    }
+                }
+                else {
+                    print("employee failled on sign in")
+                }
+            } else {
+                // Segue to create SearchJobs view controller
+                //
+                let sb: UIStoryboard = UIStoryboard(name: "Jobs", bundle: nil)
+                if let navController = sb.instantiateInitialViewController() as? UINavigationController {
+                    if let vc = navController.topViewController as? JobsViewController {
+                        vc.user = user
+                        present(navController, animated: true, completion: nil)
+                    }
+                }
+            }
+        } else {
+            // TODO: Check firebase for user information
+            //
+            print("No user in realm.... at sign in vc")
         }
     }
     
@@ -64,7 +91,7 @@ class SignInViewController: UIViewController {
         //
         let storyboard = UIStoryboard(name: "Signup", bundle: nil)
         if let vc = storyboard.instantiateViewController(withIdentifier: "SignupVC") as? SignupViewController {
-            self.navigationController?.pushViewController(vc, animated: true)
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
     

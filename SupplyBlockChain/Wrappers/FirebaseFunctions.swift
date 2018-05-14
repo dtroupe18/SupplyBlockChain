@@ -17,20 +17,20 @@ class FirebaseFunctions {
     
     // Upload additional informationa about the user to Firebase
     //
-    static func uploadUserInfo(uid: String, form: SignUpForm, _ completion: @escaping (Error?) -> ()) {
+    static func uploadUserInfo(user: User, _ completion: @escaping (Error?) -> ()) {
         // Upload information about the user to Firebase
         //
-        let userInfo: [String: Any] = ["uid": uid,
-                                       "firstName": form.firstName,
-                                       "lastName": form.lastName,
-                                       "email": form.email,
-                                       "company":  form.company,
-                                       "industry":  form.industry,
-                                       "phoneNumber": form.phoneNumber
+        let userInfo: [String: Any] = ["uid": user.uid,
+                                       "firstName": user.firstName,
+                                       "lastName": user.lastName,
+                                       "email": user.email,
+                                       "company":  user.company,
+                                       "industry":  user.industry,
+                                       "phoneNumber": user.phoneNumber
                                         ]
         
         let ref = Database.database().reference()
-        ref.child("users").child(uid).setValue(userInfo) { (error, ref) -> Void in
+        ref.child("users").child(user.uid).setValue(userInfo) { (error, ref) -> Void in
             if error != nil {
                 completion(error)
             } else {

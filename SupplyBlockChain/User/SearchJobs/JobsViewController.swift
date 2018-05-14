@@ -27,7 +27,13 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadUserInformation()
+        
+        if user == nil {
+            loadUserInformation()
+        } else {
+            tableView.reloadData()
+        }
+        
         self.navigationItem.title = "Jobs to Bid on"
         tableView.delegate = self
         tableView.dataSource = self

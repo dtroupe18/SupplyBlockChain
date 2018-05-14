@@ -17,6 +17,7 @@ class Job: Object {
     @objc dynamic var jobDescription: String = ""
     @objc dynamic var industry: String = ""
     
-    
-    
+    // Define the child relationship -> Each job can have many Completed Bids
+    //
+    let completedBids = List<CompletedBid>()
 }

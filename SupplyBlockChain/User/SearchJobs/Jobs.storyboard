@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gkD-do-sHa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XSw-Vb-TDt">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,7 +13,7 @@
         <!--JobsVC-->
         <scene sceneID="KdC-ov-kIX">
             <objects>
-                <viewController storyboardIdentifier="SearchJobsVC" title="JobsVC" id="Ksv-cl-R05" customClass="JobsViewController" customModule="SupplyBlockChain" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JobsVC" title="JobsVC" id="Ksv-cl-R05" customClass="JobsViewController" customModule="SupplyBlockChain" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Naa-lK-K8H">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -50,25 +50,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6h9-8e-e8t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="736.79999999999995" y="95.802098950524751"/>
+            <point key="canvasLocation" x="1223.2" y="-17.541229385307346"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="f3d-Do-PxZ">
+        <scene sceneID="h8O-rc-AnF">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gkD-do-sHa" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XSw-Vb-TDt" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ukd-42-uqH">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cJh-GW-Toe">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Ksv-cl-R05" kind="relationship" relationship="rootViewController" id="G2D-Vw-wRN"/>
+                        <segue destination="Ksv-cl-R05" kind="relationship" relationship="rootViewController" id="Vnm-o0-jOq"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PcX-g4-Rfh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wft-fE-bcm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-74.400000000000006" y="95.802098950524751"/>
+            <point key="canvasLocation" x="284" y="-17.541229385307346"/>
         </scene>
     </scenes>
 </document>

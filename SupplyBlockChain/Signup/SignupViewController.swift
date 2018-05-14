@@ -26,7 +26,6 @@ class SignupViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
         // Create submit button in the navigation bar
         //
         let submitButton = UIButton(type: .custom)
@@ -36,7 +35,7 @@ class SignupViewController: FormViewController {
         submitButton.addTarget(self, action: #selector(self.submitPressed), for: .touchUpInside)
         let submitItem = UIBarButtonItem(customView: submitButton)
         self.navigationItem.setRightBarButtonItems([submitItem], animated: false)
-
+        
         form +++ Section("Personal Information")
             <<< TextRow() {
                 $0.tag = "First Name"
@@ -44,12 +43,12 @@ class SignupViewController: FormViewController {
                 $0.placeholder = "Steve"
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChange
-            }
-                
-            .cellUpdate { cell, row in
-                if !row.isValid {
-                    cell.titleLabel?.textColor = .red
                 }
+                
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
             }
             
             <<< TextRow() {
@@ -58,12 +57,12 @@ class SignupViewController: FormViewController {
                 $0.placeholder = "Jobs"
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChange
-            }
-            
-            .cellUpdate { cell, row in
-                if !row.isValid {
-                    cell.titleLabel?.textColor = .red
                 }
+                
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
             }
             
             <<< PhoneRow() {
@@ -72,72 +71,57 @@ class SignupViewController: FormViewController {
                 $0.placeholder = "867-5309"
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChange
-            }
-            .cellUpdate { cell, row in
-                if !row.isValid {
-                    cell.titleLabel?.textColor = .red
                 }
-            }
-            
-            <<< SwitchRow() {
-                $0.tag = "SwitchRow"
-                $0.title = "Johnson & Johnson Employee"
-            }
-            .onChange {
-                $0.updateCell()
-            }
-            .cellUpdate { cell, row in
-                if row.isDisabled {
-                    cell.textLabel?.font = .boldSystemFont(ofSize: 18.0)
-                } else {
-                    cell.textLabel?.font = .systemFont(ofSize: 18.0)
-                }
-            }
-            
-            form +++ Section("Business Information")
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
+        }
+        
+        form +++ Section("Business Information")
             <<< TextRow() {
                 $0.tag = "Business Name"
                 $0.title = "Name"
                 $0.placeholder = "Apple"
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChange
-            }
-            .cellUpdate { cell, row in
-                if !row.isValid {
-                    cell.titleLabel?.textColor = .red
                 }
-            }
-            
-            let industries = ["IT", "Pharmaceutical", "Medical"]
-        
-            form +++ SelectableSection<ListCheckRow<String>>() { section in
-                section.header = HeaderFooterView(title: "Industry")
-            }
-        
-            for option in industries {
-                form.last! <<< ListCheckRow<String>(option) {
-                    $0.title = option
-                    $0.selectableValue = option
-                    $0.value = nil
-
-                    let industryRule = RuleClosure<String> { rowValue in
-                        let formValuesDict = self.form.values()
-                        if (formValuesDict["IT"] as? String) != nil {
-                           return nil
-                        } else if (formValuesDict["Pharmaceutical"] as? String) != nil {
-                            return nil
-                        } else if (formValuesDict["Medical"] as? String) != nil {
-                            return nil
-                        } else {
-                            return ValidationError(msg: "You must select an industry")
-                        }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
                     }
-                    $0.add(rule: industryRule)
-                    $0.validationOptions = .validatesOnChange
-                }
-            }
+        }
         
-            form +++ Section("User Account")
+        let industries = ["IT", "Pharmaceutical", "Medical"]
+        
+        form +++ SelectableSection<ListCheckRow<String>>() { section in
+            section.header = HeaderFooterView(title: "Industry")
+        }
+        
+        for option in industries {
+            form.last! <<< ListCheckRow<String>(option) {
+                $0.title = option
+                $0.selectableValue = option
+                $0.value = nil
+                
+                let industryRule = RuleClosure<String> { rowValue in
+                    let formValuesDict = self.form.values()
+                    if (formValuesDict["IT"] as? String) != nil {
+                        return nil
+                    } else if (formValuesDict["Pharmaceutical"] as? String) != nil {
+                        return nil
+                    } else if (formValuesDict["Medical"] as? String) != nil {
+                        return nil
+                    } else {
+                        return ValidationError(msg: "You must select an industry")
+                    }
+                }
+                $0.add(rule: industryRule)
+                $0.validationOptions = .validatesOnChange
+            }
+        }
+        
+        form +++ Section("User Account")
             <<< EmailRow() {
                 $0.tag = "Email"
                 $0.title = "Email"
@@ -145,11 +129,13 @@ class SignupViewController: FormViewController {
                 $0.add(rule: RuleEmail())
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChange
-            }
-            .cellUpdate { cell, row in
-                if !row.isValid {
-                    cell.titleLabel?.textColor = .red
                 }
+                // Do something when a JNJ email is used to sign up so they can see it
+                //
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
             }
             
             <<< PasswordRow() {
@@ -157,18 +143,18 @@ class SignupViewController: FormViewController {
                 $0.title = "Password"
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChange
+                }
+                
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
             }
             
-            .cellUpdate { cell, row in
-                if !row.isValid {
-                    cell.titleLabel?.textColor = .red
-                }
-            }
-        
             <<< PasswordRow() {
                 $0.tag = "ConfirmPassword"
                 $0.title = "Password"
-
+                
                 let passwordsMatchRule = RuleClosure<String> { rowValue in
                     let formValuesDict = self.form.values()
                     if let password = formValuesDict["Password"] as? String {
@@ -183,13 +169,13 @@ class SignupViewController: FormViewController {
                 }
                 $0.add(rule: passwordsMatchRule)
                 $0.validationOptions = .validatesOnChange
-            }
-                
-            .cellUpdate { cell, row in
-                if !row.isValid {
-                    cell.titleLabel?.textColor = .red
                 }
-            }
+                
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
+        }
         
         animateScroll = true
         rowKeyboardSpacing = 20
@@ -197,6 +183,7 @@ class SignupViewController: FormViewController {
     
     @objc func submitPressed() {
         let errors = form.validate()
+        print(form.values())
         if errors.count > 0 {
             if let error = errors.last {
                 showAlert(title: "Error", message: error.msg)
@@ -238,32 +225,54 @@ class SignupViewController: FormViewController {
             try realm.write {
                 realm.add(user)
             }
-            uploadUserToFirebase(formValues: formValues, uid: uid)
+            uploadUserToFirebase(user: user)
         } catch {
             CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
             print("Error saving to user Realm: \(error)")
         }
     }
     
-    func uploadUserToFirebase(formValues: SignUpForm, uid: String) {
-        FirebaseFunctions.uploadUserInfo(uid: uid, form: formValues, { (error) in
+    func uploadUserToFirebase(user: User) {
+        FirebaseFunctions.uploadUserInfo(user: user, { (error) in
             if error != nil {
                 CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                 self.showAlert(title: "User Info Upload Error", message: error!.localizedDescription)
             } else {
-                // Segue to create SearchJobs view controller
-                //
-                CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
-                let sb: UIStoryboard = UIStoryboard(name: "Jobs", bundle: nil)
-                if let vc = sb.instantiateInitialViewController() {
-                    self.present(vc, animated: true, completion: nil)
-                }
+                self.segueToJobs(user: user)
             }
         })
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    private func segueToJobs(user: User) {
+        CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+        if user.isEmployee {
+            // Segue to the list of jobs for an employee
+            //
+            let sb: UIStoryboard = UIStoryboard(name: "EmployeeJobs", bundle: nil)
+            if let navController = sb.instantiateInitialViewController() as? UINavigationController {
+                if let vc = navController.topViewController as? EmpolyeeJobsViewController {
+                    vc.user = user
+                    present(navController, animated: true, completion: nil)
+                }
+            }
+            else {
+                print("employee failed on sign up")
+            }
+        } else {
+            // Segue to create SearchJobs view controller
+            //
+            let sb: UIStoryboard = UIStoryboard(name: "Jobs", bundle: nil)
+            if let navController = sb.instantiateInitialViewController() as? UINavigationController {
+                if let vc = navController.topViewController as? JobsViewController {
+                    vc.user = user
+                    present(navController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+
+override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
     }
 }

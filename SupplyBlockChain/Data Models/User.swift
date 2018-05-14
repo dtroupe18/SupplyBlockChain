@@ -16,14 +16,17 @@ class User: Object {
     @objc dynamic var firstName: String = ""
     @objc dynamic var lastName: String = ""
     @objc dynamic var company: String = ""
+    @objc dynamic var industry: String = ""
+    @objc dynamic var isEmployee: Bool = false
     @objc dynamic var email: String = ""
     @objc dynamic var phoneNumber: String = ""
-    @objc dynamic var industry: String = ""
     @objc dynamic var uid: String = ""
     
     // Define the child relationship -> Each user can have many CompletedBids
     //
     let completedBids = List<CompletedBid>()
+    
+    // TODO: Add jobs for employee use, just make it optional???
     
     // Optional init used if we have to fetch user data from Firebase
     //
@@ -31,16 +34,17 @@ class User: Object {
         if let firstName = snapShot["firstName"] as? String, let lastName = snapShot["lastName"] as? String,
             let company = snapShot["company"] as? String, let email = snapShot["email"] as? String,
             let phone = snapShot["phoneNumber"] as? String, let uid = snapShot["uid"] as? String,
-            let industry = snapShot["industry"] as? String {
+            let industry = snapShot["industry"] as? String, let isEmployee = snapShot["isEmployee"] as? Bool {
 
             self.init()
             self.firstName = firstName
             self.lastName = lastName
             self.company = company
+            self.industry = industry
+            self.isEmployee = isEmployee
             self.email = email
             self.phoneNumber = phone
             self.uid = uid
-            self.industry = industry
         } else {
             return nil
         }
@@ -55,5 +59,6 @@ class User: Object {
         self.phoneNumber = form.phoneNumber
         self.uid = uid
         self.industry = form.industry
+        self.isEmployee = form.isEmployee
     }
 }

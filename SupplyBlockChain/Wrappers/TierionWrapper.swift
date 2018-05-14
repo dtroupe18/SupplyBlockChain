@@ -91,12 +91,12 @@ class TierionWrapper {
         }
     }
     
-    func createRecord(dataStoreId: Int, bid: Bid, _ completion: @escaping (NSError?) ->()) {
+    func createRecord(dataStoreId: Int, bid: Bid, _ completion: @escaping (NSError?, CompletedBid?) ->()) {
         // https://api.tierion.com/v1/records
         //
         guard let headers = getHeaders() else {
             let error: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "An unknown error occured please try again."])
-            completion(error)
+            completion(error, nil)
             return
         }
         
@@ -124,26 +124,21 @@ class TierionWrapper {
                 case .success(_):
                     guard let jsonData = response.data else {
                         let error: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Empty response data"])
-                        completion(error)
+                        completion(error, nil)
                         return
                     }
                     let decoder = JSONDecoder()
                     do {
                         let completedBid: CompletedBid = try decoder.decode(CompletedBid.self, from: jsonData)
-                        // Persist completed bid
-                        //
-                        try self.realm.write {
-                            self.realm.add(completedBid)
-                        }
-                        completion(nil)
+                        completion(nil, completedBid)
                     } catch {
                         let err: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(error)"])
-                        completion(err)
+                        completion(err, nil)
                     }
                     
                 case .failure(_):
                     let err = response.result.error as NSError?
-                    completion(err)
+                    completion(err, nil)
                 }
         }
     }

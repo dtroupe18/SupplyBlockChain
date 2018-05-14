@@ -33,7 +33,6 @@ class UserBidsViewController: UITableViewController {
         // retrieve all completed bids for that user
         //
         let results = user?.completedBids.sorted(byKeyPath: "timestamp", ascending: false)
-        print("results: \(results)")
         if results != nil && !results!.isEmpty {
             bids = results
             tableView.reloadData()

@@ -8,11 +8,14 @@
 
 import UIKit
 import Eureka
+import RealmSwift
 
 class CreateBidViewController: FormViewController {
     
     var user: User!
     var job: String?
+    
+    let realm = try! Realm()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -153,19 +156,31 @@ class CreateBidViewController: FormViewController {
             
             if let currentBid = Bid(dict: formValuesDict, uid: user!.uid) {
                 CustomActivityIndicator.shared.showActivityIndicator(uiView: self.view, color: nil, labelText: "Posting your bid...")
-                TierionWrapper.shared.createRecord(dataStoreId: 7456, bid: currentBid, { (error) in
+                TierionWrapper.shared.createRecord(dataStoreId: 7456, bid: currentBid, { (error, completedBid) in
                     if let err = error {
                         CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                         self.showAlert(title: "Error", message: err.localizedDescription)
-                    } else {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            self.presentSuccessAlert()
-                        }
+                    } else if completedBid != nil {
+                        self.saveCompletedBid(completedBid: completedBid!)
                     }
                 })
             } else {
                 print("Some error with bid struct")
             }
+        }
+    }
+    
+    private func saveCompletedBid(completedBid: CompletedBid) {
+        do {
+            try self.realm.write {
+                user.completedBids.append(completedBid)
+                self.realm.add(completedBid)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.presentSuccessAlert()
+            }
+        } catch {
+            showAlert(title: "Error", message: "Error saving your bid: \(error)")
         }
     }
     
