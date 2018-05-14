@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Empolyee Jobs View Controller-->
+        <!--Employee Jobs View Controller-->
         <scene sceneID="mzh-QG-VQk">
             <objects>
-                <tableViewController id="Lew-rH-UqB" customClass="EmpolyeeJobsViewController" customModule="SupplyBlockChain" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="EmployeeJobsVC" id="Lew-rH-UqB" customClass="EmployeeJobsViewController" customModule="SupplyBlockChain" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Vhg-4I-uGI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

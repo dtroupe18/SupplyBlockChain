@@ -17,7 +17,8 @@ class CreateJobViewController: FormViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         // Create submit button in the navigation bar
         //
         let submitButton = UIButton(type: .custom)
@@ -35,96 +36,141 @@ class CreateJobViewController: FormViewController {
                     $0.tag = "Company Name"
                     $0.title = "Company Name"
                     $0.value = info.company
-                    // $0.disabled = true
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
                     }
-                    .cellUpdate { cell, row in
-                        if !row.isValid {
-                            cell.titleLabel?.textColor = .red
-                        }
                 }
                 
                 <<< TextRow() {
                     $0.tag = "Name"
                     $0.title = "Name"
                     $0.value = "\(info.firstName) \(info.lastName)"
-                    // $0.disabled = true
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
                     }
-                    .cellUpdate { cell, row in
-                        if !row.isValid {
-                            cell.titleLabel?.textColor = .red
-                        }
                 }
                 
                 <<< TextRow() {
                     $0.tag = "Email"
                     $0.title = "Email"
                     $0.value = info.email
-                    // $0.disabled = true
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
                     }
-                    .cellUpdate { cell, row in
-                        if !row.isValid {
-                            cell.titleLabel?.textColor = .red
-                        }
                 }
                 
                 <<< TextRow() {
                     $0.tag = "Phone Number"
                     $0.title = "Phone Number"
                     $0.value = info.phoneNumber
-                    // $0.disabled = true
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
                     }
-                    .cellUpdate { cell, row in
-                        if !row.isValid {
-                            cell.titleLabel?.textColor = .red
-                        }
                 }
                 
-                +++ Section("Bid Information")
+                +++ Section("Job Information")
                 <<< TextRow() {
                     $0.tag = "Job Name"
                     $0.title = "Job"
-                    $0.value = "Job Name"
-//                    if job != nil {
-//                        $0.disabled = true
-//                    }
+                    $0.placeholder = "Job Name"
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
                     }
-                    .cellUpdate { cell, row in
-                        if !row.isValid {
-                            cell.titleLabel?.textColor = .red
-                        }
                 }
                 
-                <<< DecimalRow() {
-                    $0.tag = "Price"
-                    $0.title = "Bid Price"
-                    $0.placeholder = "0"
+                <<< DateRow() {
+                    $0.tag = "Start Date"
+                    $0.title = "Start Date"
                     $0.add(rule: RuleRequired())
-                    $0.validationOptions = .validatesOnChange
+                    $0.value = Date(timeIntervalSinceReferenceDate: 0)
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.textLabel?.textColor = .red
                     }
-                    .cellUpdate { cell, row in
-                        if !row.isValid {
-                            cell.titleLabel?.textColor = .red
-                        }
                 }
                 
-                +++ Section("Comments")
+                <<< DateRow() {
+                    $0.tag = "End Date"
+                    $0.title = "End Date"
+                    $0.add(rule: RuleRequired())
+                    $0.value = Date(timeIntervalSinceReferenceDate: 0)
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.textLabel?.textColor = .red
+                    }
+                }
+                
+                <<< TextAreaRow() {
+                    $0.tag = "Description"
+                    $0.title = "Description"
+                    $0.placeholder = "Description"
+                    $0.add(rule: RuleRequired())
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.textLabel?.textColor = .red
+                    }
+                }
+        
+                let industries = ["IT", "Pharmaceutical", "Medical"]
+            
+                form +++ SelectableSection<ListCheckRow<String>>() { section in
+                    section.header = HeaderFooterView(title: "Industry")
+                }
+                
+                for option in industries {
+                    form.last! <<< ListCheckRow<String>(option) {
+                        $0.title = option
+                        $0.selectableValue = option
+                        $0.value = nil
+                    
+                        let industryRule = RuleClosure<String> { rowValue in
+                            let formValuesDict = self.form.values()
+                            if (formValuesDict["IT"] as? String) != nil {
+                                return nil
+                            } else if (formValuesDict["Pharmaceutical"] as? String) != nil {
+                                return nil
+                            } else if (formValuesDict["Medical"] as? String) != nil {
+                                return nil
+                            } else {
+                                return ValidationError(msg: "You must select an industry")
+                            }
+                        }
+                    $0.add(rule: industryRule)
+                    $0.validationOptions = .validatesOnChange
+                }
+            }
+            
+            form +++ Section("Comments")
                 <<< TextAreaRow() {
                     $0.tag = "Comments"
                     $0.title = "Comments"
-                    $0.placeholder = "..."
-                    // Not Required!
-                    //
+                    $0.placeholder = "Comments"
             }
+            animateScroll = true
+            rowKeyboardSpacing = 20
         }
     }
     
@@ -146,20 +192,8 @@ class CreateJobViewController: FormViewController {
             showAlert(title: "Error", message: error.msg)
         } else if user != nil {
             let formValuesDict = self.form.values()
-            
-            if let currentBid = Bid(dict: formValuesDict, uid: user!.uid) {
-                CustomActivityIndicator.shared.showActivityIndicator(uiView: self.view, color: nil, labelText: "Posting your bid...")
-                TierionWrapper.shared.createRecord(dataStoreId: 7456, bid: currentBid, { (error, completedBid) in
-                    if let err = error {
-                        CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
-                        self.showAlert(title: "Error", message: err.localizedDescription)
-                    } else if completedBid != nil {
-                        self.saveCompletedBid(completedBid: completedBid!)
-                    }
-                })
-            } else {
-                print("Some error with bid struct")
-            }
+            let job = Job(form: formValuesDict)
+            print("job created......\(job)")
         }
     }
     

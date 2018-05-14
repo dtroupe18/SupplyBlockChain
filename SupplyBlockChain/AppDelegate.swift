@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseCore
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +27,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+        
+        do {
+            let realm = try Realm()
+            if let filePath = realm.configuration.fileURL {
+                print("Realm filePath: \(filePath)")
+            }
+        } catch {
+            print("Failed to initialize Realm on application launch: \(error)")
+        }
         return true
     }
 

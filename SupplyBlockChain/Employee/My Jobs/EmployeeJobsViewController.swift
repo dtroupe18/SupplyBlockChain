@@ -9,11 +9,18 @@
 import UIKit
 import FirebaseAuth
 
-class EmpolyeeJobsViewController: UITableViewController {
+class EmployeeJobsViewController: UITableViewController {
 
     @IBOutlet weak var addBarButton: UIBarButtonItem!
     
     var user: User?
+    
+    // fetch jobs from Realm and display in this VC
+    //
+    
+    override func viewWillAppear(_ animated: Bool) {
+        showNavigationBar()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

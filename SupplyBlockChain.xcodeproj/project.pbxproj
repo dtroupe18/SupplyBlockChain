@@ -35,7 +35,7 @@
 		55C516AC207BBA4D0010C6DC /* Date++Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516AB207BBA4D0010C6DC /* Date++Extension.swift */; };
 		55CAAE64207D46B200D9B7C5 /* UserBids.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55CAAE63207D46B200D9B7C5 /* UserBids.storyboard */; };
 		55E880BA20A9298F001ADD48 /* EmployeeJobs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55E880B920A9298F001ADD48 /* EmployeeJobs.storyboard */; };
-		55E880BC20A929AA001ADD48 /* EmpolyeeJobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E880BB20A929AA001ADD48 /* EmpolyeeJobsViewController.swift */; };
+		55E880BC20A929AA001ADD48 /* EmployeeJobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E880BB20A929AA001ADD48 /* EmployeeJobsViewController.swift */; };
 		55E880BE20A9D568001ADD48 /* CreateJobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E880BD20A9D568001ADD48 /* CreateJobViewController.swift */; };
 		55E880C020A9D574001ADD48 /* CreateJob.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55E880BF20A9D574001ADD48 /* CreateJob.storyboard */; };
 		55FA6DBA2098BD89006D34FE /* TierionWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FA6DB92098BD89006D34FE /* TierionWrapper.swift */; };
@@ -99,7 +99,7 @@
 		55C516AB207BBA4D0010C6DC /* Date++Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date++Extension.swift"; sourceTree = "<group>"; };
 		55CAAE63207D46B200D9B7C5 /* UserBids.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserBids.storyboard; sourceTree = "<group>"; };
 		55E880B920A9298F001ADD48 /* EmployeeJobs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EmployeeJobs.storyboard; sourceTree = "<group>"; };
-		55E880BB20A929AA001ADD48 /* EmpolyeeJobsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmpolyeeJobsViewController.swift; sourceTree = "<group>"; };
+		55E880BB20A929AA001ADD48 /* EmployeeJobsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeJobsViewController.swift; sourceTree = "<group>"; };
 		55E880BD20A9D568001ADD48 /* CreateJobViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateJobViewController.swift; sourceTree = "<group>"; };
 		55E880BF20A9D574001ADD48 /* CreateJob.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateJob.storyboard; sourceTree = "<group>"; };
 		55FA6DB92098BD89006D34FE /* TierionWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TierionWrapper.swift; sourceTree = "<group>"; };
@@ -184,11 +184,10 @@
 		5521BACA206E9C7E004575E8 /* SupplyBlockChain */ = {
 			isa = PBXGroup;
 			children = (
+				5521BACB206E9C7E004575E8 /* AppDelegate.swift */,
 				55E880B520A92913001ADD48 /* User */,
 				55E880B420A928E0001ADD48 /* Employee */,
-				5521BACB206E9C7E004575E8 /* AppDelegate.swift */,
-				5521BB0B206EBFB0004575E8 /* Signup */,
-				5521BB06206EAFD6004575E8 /* SignIn */,
+				55E880C120AA34CA001ADD48 /* Authentication */,
 				551FF74920A637DC0012BE26 /* Xib */,
 				5521BB02206EAEEF004575E8 /* Extensions */,
 				5521BB01206EAEDB004575E8 /* Data Models */,
@@ -266,31 +265,31 @@
 			path = Signup;
 			sourceTree = "<group>";
 		};
-		55C5169820769AFB0010C6DC /* SearchJobs */ = {
+		55C5169820769AFB0010C6DC /* Jobs */ = {
 			isa = PBXGroup;
 			children = (
 				55C5169B20769B590010C6DC /* JobsViewController.swift */,
 				55C5169920769B340010C6DC /* Jobs.storyboard */,
 			);
-			path = SearchJobs;
+			path = Jobs;
 			sourceTree = "<group>";
 		};
-		55C5169D2076B0140010C6DC /* CreateBid */ = {
+		55C5169D2076B0140010C6DC /* Create Bid */ = {
 			isa = PBXGroup;
 			children = (
 				55C516A02076B0C60010C6DC /* CreateBidViewController.swift */,
 				55C5169E2076B0B80010C6DC /* CreateBid.storyboard */,
 			);
-			path = CreateBid;
+			path = "Create Bid";
 			sourceTree = "<group>";
 		};
-		55CAAE62207D469F00D9B7C5 /* MyBids */ = {
+		55CAAE62207D469F00D9B7C5 /* User Bids */ = {
 			isa = PBXGroup;
 			children = (
 				551FF73E20A5D2990012BE26 /* UserBidsViewController.swift */,
 				55CAAE63207D46B200D9B7C5 /* UserBids.storyboard */,
 			);
-			path = MyBids;
+			path = "User Bids";
 			sourceTree = "<group>";
 		};
 		55E880B420A928E0001ADD48 /* Employee */ = {
@@ -298,7 +297,7 @@
 			children = (
 				55E880B620A92945001ADD48 /* My Jobs */,
 				55E880B720A9295A001ADD48 /* Create Job */,
-				55E880B820A92968001ADD48 /* My Bids */,
+				55E880B820A92968001ADD48 /* View Bids */,
 			);
 			path = Employee;
 			sourceTree = "<group>";
@@ -306,9 +305,9 @@
 		55E880B520A92913001ADD48 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				55C5169820769AFB0010C6DC /* SearchJobs */,
-				55C5169D2076B0140010C6DC /* CreateBid */,
-				55CAAE62207D469F00D9B7C5 /* MyBids */,
+				55C5169820769AFB0010C6DC /* Jobs */,
+				55C5169D2076B0140010C6DC /* Create Bid */,
+				55CAAE62207D469F00D9B7C5 /* User Bids */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -316,7 +315,7 @@
 		55E880B620A92945001ADD48 /* My Jobs */ = {
 			isa = PBXGroup;
 			children = (
-				55E880BB20A929AA001ADD48 /* EmpolyeeJobsViewController.swift */,
+				55E880BB20A929AA001ADD48 /* EmployeeJobsViewController.swift */,
 				55E880B920A9298F001ADD48 /* EmployeeJobs.storyboard */,
 			);
 			path = "My Jobs";
@@ -331,11 +330,20 @@
 			path = "Create Job";
 			sourceTree = "<group>";
 		};
-		55E880B820A92968001ADD48 /* My Bids */ = {
+		55E880B820A92968001ADD48 /* View Bids */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = "My Bids";
+			path = "View Bids";
+			sourceTree = "<group>";
+		};
+		55E880C120AA34CA001ADD48 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				5521BB0B206EBFB0004575E8 /* Signup */,
+				5521BB06206EAFD6004575E8 /* SignIn */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		55F7850820A217D60025ADA0 /* Supporting Files */ = {
@@ -604,7 +612,7 @@
 				5521BB0D206EBFC2004575E8 /* SignupViewController.swift in Sources */,
 				55E880BE20A9D568001ADD48 /* CreateJobViewController.swift in Sources */,
 				55C516AC207BBA4D0010C6DC /* Date++Extension.swift in Sources */,
-				55E880BC20A929AA001ADD48 /* EmpolyeeJobsViewController.swift in Sources */,
+				55E880BC20A929AA001ADD48 /* EmployeeJobsViewController.swift in Sources */,
 				5521BACC206E9C7E004575E8 /* AppDelegate.swift in Sources */,
 				55C516A12076B0C60010C6DC /* CreateBidViewController.swift in Sources */,
 				551FF73F20A5D2990012BE26 /* UserBidsViewController.swift in Sources */,

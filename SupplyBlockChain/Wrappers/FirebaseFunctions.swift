@@ -26,7 +26,8 @@ class FirebaseFunctions {
                                        "email": user.email,
                                        "company":  user.company,
                                        "industry":  user.industry,
-                                       "phoneNumber": user.phoneNumber
+                                       "phoneNumber": user.phoneNumber,
+                                       "isEmployee": user.isEmployee
                                         ]
         
         let ref = Database.database().reference()
@@ -51,11 +52,10 @@ class FirebaseFunctions {
         ref.child("users").child(uid).observeSingleEvent(of: .value, with: { snap in
             if snap.exists() {
                 if let dict = snap.value as? [String: Any] {
-                    // print("dict: \(dict)")
                     if let user = User(snapShot: dict) {
                         completion(nil, user)
                     } else {
-                        let error = NSError(domain: "Dict Error", code: 0, userInfo: [NSLocalizedDescriptionKey: "Dict Error cannot create user."])
+                        let error = NSError(domain: "Firebase Error", code: 0, userInfo: [NSLocalizedDescriptionKey: "Dict error cannot create user."])
                         completion(error, nil)
                     }
                 }

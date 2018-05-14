@@ -45,11 +45,11 @@ class CreateBidViewController: FormViewController {
                     // $0.disabled = true
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
                     }
-                    .cellUpdate { cell, row in
-                        if !row.isValid {
-                            cell.titleLabel?.textColor = .red
-                        }
                 }
                 
                 <<< TextRow() {
@@ -59,11 +59,11 @@ class CreateBidViewController: FormViewController {
                     // $0.disabled = true
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
                     }
-                    .cellUpdate { cell, row in
-                        if !row.isValid {
-                            cell.titleLabel?.textColor = .red
-                        }
                 }
                 
                 <<< TextRow() {
@@ -73,11 +73,11 @@ class CreateBidViewController: FormViewController {
                     // $0.disabled = true
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
                     }
-                    .cellUpdate { cell, row in
-                        if !row.isValid {
-                            cell.titleLabel?.textColor = .red
-                        }
                 }
                 
                 <<< TextRow() {
@@ -87,11 +87,11 @@ class CreateBidViewController: FormViewController {
                     // $0.disabled = true
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
                     }
-                    .cellUpdate { cell, row in
-                        if !row.isValid {
-                            cell.titleLabel?.textColor = .red
-                        }
                 }
                 
                 +++ Section("Bid Information")
@@ -104,11 +104,11 @@ class CreateBidViewController: FormViewController {
                     }
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
                     }
-                    .cellUpdate { cell, row in
-                        if !row.isValid {
-                            cell.titleLabel?.textColor = .red
-                        }
                 }
                 
                 <<< DecimalRow() {
@@ -117,11 +117,11 @@ class CreateBidViewController: FormViewController {
                     $0.placeholder = "0"
                     $0.add(rule: RuleRequired())
                     $0.validationOptions = .validatesOnChange
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
                     }
-                    .cellUpdate { cell, row in
-                        if !row.isValid {
-                            cell.titleLabel?.textColor = .red
-                        }
                 }
                 
                 +++ Section("Comments")

@@ -183,7 +183,6 @@ class SignupViewController: FormViewController {
     
     @objc func submitPressed() {
         let errors = form.validate()
-        print(form.values())
         if errors.count > 0 {
             if let error = errors.last {
                 showAlert(title: "Error", message: error.msg)
@@ -249,14 +248,11 @@ class SignupViewController: FormViewController {
             // Segue to the list of jobs for an employee
             //
             let sb: UIStoryboard = UIStoryboard(name: "EmployeeJobs", bundle: nil)
-            if let navController = sb.instantiateInitialViewController() as? UINavigationController {
-                if let vc = navController.topViewController as? EmpolyeeJobsViewController {
-                    vc.user = user
-                    present(navController, animated: true, completion: nil)
-                }
-            }
-            else {
-                print("employee failed on sign up")
+            if let vc = sb.instantiateViewController(withIdentifier: "EmployeeJobsVC") as? EmployeeJobsViewController {
+                vc.user = user
+                // Set view controllers because we don't want the back button
+                //
+                self.navigationController?.setViewControllers([vc], animated: true)
             }
         } else {
             // Segue to create SearchJobs view controller
@@ -265,7 +261,7 @@ class SignupViewController: FormViewController {
             if let navController = sb.instantiateInitialViewController() as? UINavigationController {
                 if let vc = navController.topViewController as? JobsViewController {
                     vc.user = user
-                    present(navController, animated: true, completion: nil)
+                    self.navigationController?.setViewControllers([vc], animated: true)
                 }
             }
         }

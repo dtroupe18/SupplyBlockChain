@@ -56,10 +56,8 @@ struct SignUpForm {
         // We should also require email verification
         //        
         if email.lowercased().range(of: "jnj.com") != nil && company.lowercased().range(of: "johnson") != nil {
-            print("isEmployee returning true")
             return true
         } else {
-            print("isEmployee returning false")
             return false
         }
     }

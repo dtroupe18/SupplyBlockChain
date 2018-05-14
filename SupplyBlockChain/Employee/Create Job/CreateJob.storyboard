@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Jobs View Controller-->
+        <!--Create Job View Controller-->
         <scene sceneID="fMm-Ax-4fF">
             <objects>
-                <viewController id="FIA-iV-sPW" customClass="JobsViewController" customModule="SupplyBlockChain" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="FIA-iV-sPW" customClass="CreateJobViewController" customModule="SupplyBlockChain" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6HR-Kj-M1U">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
