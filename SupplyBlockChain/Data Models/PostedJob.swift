@@ -1,26 +1,24 @@
 //
-//  CompletedBid.swift
+//  PostedJob.swift
 //  SupplyBlockChain
 //
-//  Created by Dave on 5/10/18.
+//  Created by Dave on 5/15/18.
 //  Copyright © 2018 High Tree Development. All rights reserved.
 //
 
 import Foundation
 import RealmSwift
 
-/* This class represents a bid AFTER it is uploaded to Tierion */
-
-class CompletedBid: Object, Codable {
+class PostedJob: Object, Codable {
     
-    @objc dynamic var id: String = ""
     @objc dynamic var accountID: Int = 0
     @objc dynamic var datastoreID: Int = 0
+    @objc dynamic var id: String = ""
     @objc dynamic var status: String = ""
-    @objc dynamic var json: String = ""
     @objc dynamic var sha256: String = ""
+    @objc dynamic var json: String = ""
     @objc dynamic var timestamp: Int = 0
-    @objc dynamic var bid: Bid?
+    @objc dynamic var job: Job?
     
     private enum CodingKeys: String, CodingKey {
         case id
@@ -30,12 +28,11 @@ class CompletedBid: Object, Codable {
         case timestamp
         case accountID = "accountId"
         case datastoreID = "datastoreId"
-        case bid = "data"
+        case job = "data"
     }
-    
+
     required convenience init(from decoder: Decoder) throws {
         self.init()
-        
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
         self.accountID = try container.decode(Int.self, forKey: .accountID)
@@ -44,9 +41,6 @@ class CompletedBid: Object, Codable {
         self.json = try container.decode(String.self, forKey: .json)
         self.sha256 = try container.decode(String.self, forKey: .sha256)
         self.timestamp = try container.decode(Int.self, forKey: .timestamp)
-        self.bid = try container.decode(Bid.self, forKey: .bid)
+        self.job = try container.decode(Job.self, forKey: .job)
     }
 }
-
-
-

@@ -24,9 +24,9 @@ class User: Object {
     
     // Define the child relationship -> Each user can have many CompletedBids
     //
-    let completedBids = List<CompletedBid>()
+    let postedBids = List<PostedBid>()
     
-    // TODO: Add jobs for employee use, just make it optional???
+    let postedJobs = List<PostedJob>()
     
     // Optional init used if we have to fetch user data from Firebase
     //

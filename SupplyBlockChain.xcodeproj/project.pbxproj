@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0CD997398E68FA1C201D80A1 /* Pods_SupplyBlockChainTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 450D7018C7495E579C3FA738 /* Pods_SupplyBlockChainTests.framework */; };
-		551FF73D20A4AF4B0012BE26 /* CompletedBid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551FF73C20A4AF4B0012BE26 /* CompletedBid.swift */; };
+		551FF73D20A4AF4B0012BE26 /* PostedBid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551FF73C20A4AF4B0012BE26 /* PostedBid.swift */; };
 		551FF73F20A5D2990012BE26 /* UserBidsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551FF73E20A5D2990012BE26 /* UserBidsViewController.swift */; };
 		551FF74320A61A7A0012BE26 /* SignUpForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551FF74220A61A7A0012BE26 /* SignUpForm.swift */; };
 		551FF74B20A638120012BE26 /* BidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 551FF74A20A638120012BE26 /* BidCell.xib */; };
@@ -25,6 +25,8 @@
 		5521BB0A206EB2A1004575E8 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BB09206EB2A1004575E8 /* SignInViewController.swift */; };
 		5521BB0D206EBFC2004575E8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BB0C206EBFC2004575E8 /* SignupViewController.swift */; };
 		5521BB0F206EBFCD004575E8 /* Signup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5521BB0E206EBFCD004575E8 /* Signup.storyboard */; };
+		559FD00120AB215E001AA824 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559FD00020AB215E001AA824 /* DataStore.swift */; };
+		559FD00320AB88BA001AA824 /* PostedJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559FD00220AB88BA001AA824 /* PostedJob.swift */; };
 		55C5169A20769B340010C6DC /* Jobs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C5169920769B340010C6DC /* Jobs.storyboard */; };
 		55C5169C20769B590010C6DC /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C5169B20769B590010C6DC /* JobsViewController.swift */; };
 		55C5169F2076B0B80010C6DC /* CreateBid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C5169E2076B0B80010C6DC /* CreateBid.storyboard */; };
@@ -66,7 +68,7 @@
 		11C6FD82EC7B39B707A926A0 /* Pods-SupplyBlockChain.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SupplyBlockChain.release.xcconfig"; path = "Pods/Target Support Files/Pods-SupplyBlockChain/Pods-SupplyBlockChain.release.xcconfig"; sourceTree = "<group>"; };
 		450D7018C7495E579C3FA738 /* Pods_SupplyBlockChainTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SupplyBlockChainTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5309AC6590283DAF5237791E /* Pods_SupplyBlockChainUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SupplyBlockChainUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		551FF73C20A4AF4B0012BE26 /* CompletedBid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedBid.swift; sourceTree = "<group>"; };
+		551FF73C20A4AF4B0012BE26 /* PostedBid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostedBid.swift; sourceTree = "<group>"; };
 		551FF73E20A5D2990012BE26 /* UserBidsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBidsViewController.swift; sourceTree = "<group>"; };
 		551FF74220A61A7A0012BE26 /* SignUpForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpForm.swift; sourceTree = "<group>"; };
 		551FF74A20A638120012BE26 /* BidCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BidCell.xib; sourceTree = "<group>"; };
@@ -89,6 +91,8 @@
 		5521BB09206EB2A1004575E8 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		5521BB0C206EBFC2004575E8 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		5521BB0E206EBFCD004575E8 /* Signup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Signup.storyboard; sourceTree = "<group>"; };
+		559FD00020AB215E001AA824 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		559FD00220AB88BA001AA824 /* PostedJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostedJob.swift; sourceTree = "<group>"; };
 		55C5169920769B340010C6DC /* Jobs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Jobs.storyboard; sourceTree = "<group>"; };
 		55C5169B20769B590010C6DC /* JobsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsViewController.swift; sourceTree = "<group>"; };
 		55C5169E2076B0B80010C6DC /* CreateBid.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateBid.storyboard; sourceTree = "<group>"; };
@@ -229,11 +233,13 @@
 			isa = PBXGroup;
 			children = (
 				55C516A9207BB8480010C6DC /* Bid.swift */,
-				551FF73C20A4AF4B0012BE26 /* CompletedBid.swift */,
+				551FF73C20A4AF4B0012BE26 /* PostedBid.swift */,
 				55FA6DBB209908DC006D34FE /* Token.swift */,
 				55C516A22076B4800010C6DC /* User.swift */,
 				551FF74220A61A7A0012BE26 /* SignUpForm.swift */,
 				551FF74C20A63A8B0012BE26 /* Job.swift */,
+				559FD00220AB88BA001AA824 /* PostedJob.swift */,
+				559FD00020AB215E001AA824 /* DataStore.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -622,11 +628,13 @@
 				55C516A32076B4800010C6DC /* User.swift in Sources */,
 				55FA6DBA2098BD89006D34FE /* TierionWrapper.swift in Sources */,
 				55C516AA207BB8480010C6DC /* Bid.swift in Sources */,
+				559FD00120AB215E001AA824 /* DataStore.swift in Sources */,
 				55C516A52076B6800010C6DC /* FirebaseFunctions.swift in Sources */,
 				5521BB00206EAE79004575E8 /* CustomActivityIndicator.swift in Sources */,
-				551FF73D20A4AF4B0012BE26 /* CompletedBid.swift in Sources */,
+				551FF73D20A4AF4B0012BE26 /* PostedBid.swift in Sources */,
 				551FF74D20A63A8B0012BE26 /* Job.swift in Sources */,
 				5521BB04206EAF30004575E8 /* UIViewController++.swift in Sources */,
+				559FD00320AB88BA001AA824 /* PostedJob.swift in Sources */,
 				55FA6DBC209908DC006D34FE /* Token.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

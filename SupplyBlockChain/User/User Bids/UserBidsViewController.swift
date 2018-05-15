@@ -18,7 +18,7 @@ class UserBidsViewController: UITableViewController {
         }
     }
     
-    var bids: Results<CompletedBid>?
+    var bids: Results<PostedBid>?
     
     // Realm documentation says force unwrapping here is ok
     //
@@ -32,7 +32,7 @@ class UserBidsViewController: UITableViewController {
     func loadBids() {
         // retrieve all completed bids for that user
         //
-        let results = user?.completedBids.sorted(byKeyPath: "timestamp", ascending: false)
+        let results = user?.postedBids.sorted(byKeyPath: "timestamp", ascending: false)
         if results != nil && !results!.isEmpty {
             bids = results
             tableView.reloadData()

@@ -8,16 +8,14 @@
 
 import UIKit
 import FirebaseAuth
+import RealmSwift
 
 class EmployeeJobsViewController: UITableViewController {
 
     @IBOutlet weak var addBarButton: UIBarButtonItem!
     
     var user: User?
-    
-    // fetch jobs from Realm and display in this VC
-    //
-    
+
     override func viewWillAppear(_ animated: Bool) {
         showNavigationBar()
     }
@@ -25,6 +23,8 @@ class EmployeeJobsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Jobs"
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         // Create signout button in the navigation bar
         //
         let signOutButton = UIButton(type: .custom)
@@ -35,28 +35,34 @@ class EmployeeJobsViewController: UITableViewController {
         let signOutItem = UIBarButtonItem(customView: signOutButton)
         self.navigationItem.setLeftBarButtonItems([signOutItem], animated: false)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        if let jobCount = user?.postedJobs.count {
+            return jobCount > 0 ? jobCount: 1
+        } else {
+            return 1
+        }
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EmployeeJobCell", for: indexPath)
+        if let jobs = user?.postedJobs {
+            if !jobs.isEmpty {
+                cell.textLabel?.text = jobs[indexPath.row].job?.jobName 
+            } else {
+                cell.textLabel?.text = "No jobs yet"
+            }
+        }
         return cell
     }
-    */
     
     @IBAction func addBarButtonPressed(_ sender: Any) {
         let sb: UIStoryboard = UIStoryboard(name: "CreateJob", bundle: nil)
@@ -77,6 +83,4 @@ class EmployeeJobsViewController: UITableViewController {
             showAlert(title: "Error", message: "\(error)")
         }
     }
-    
-
 }

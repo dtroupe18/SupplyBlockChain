@@ -51,7 +51,7 @@ class TierionWrapper {
         }
     }
     
-    func getAllDataStores() {
+    func getAllDataStores(_ completion: @escaping (Error?, [DataStore]?) -> ()) {
         guard let headers = getHeaders() else { print("Error headers are nil!"); return }
         
         Alamofire.request("https://api.tierion.com/v1/datastores",
@@ -61,11 +61,26 @@ class TierionWrapper {
                           headers: headers)
             .validate()
             .responseJSON { response in
-                if response.result.value != nil{
-                    print(response)
-                } else {
-                    print("some how it's nil")
-                    print(response)
+                switch response.result {
+                    
+                case .success(_):
+                    guard let jsonData = response.data else {
+                        let error: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Empty response data"])
+                        completion(error, nil)
+                        return
+                    }
+                    let decoder = JSONDecoder()
+                    do {
+                        let dataStores: [DataStore] = try decoder.decode([DataStore].self, from: jsonData)
+                        completion(nil, dataStores)
+                    } catch {
+                        let err: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(error)"])
+                        completion(err, nil)
+                    }
+                    
+                case .failure(_):
+                    let err = response.result.error as NSError?
+                    completion(err, nil)
                 }
         }
     }
@@ -91,7 +106,7 @@ class TierionWrapper {
         }
     }
     
-    func createRecord(dataStoreId: Int, bid: Bid, _ completion: @escaping (NSError?, CompletedBid?) ->()) {
+    func postBidToTierion(dataStoreId: Int, bid: Bid, _ completion: @escaping (NSError?, PostedBid?) ->()) {
         // https://api.tierion.com/v1/records
         //
         guard let headers = getHeaders() else {
@@ -129,7 +144,7 @@ class TierionWrapper {
                     }
                     let decoder = JSONDecoder()
                     do {
-                        let completedBid: CompletedBid = try decoder.decode(CompletedBid.self, from: jsonData)
+                        let completedBid: PostedBid = try decoder.decode(PostedBid.self, from: jsonData)
                         completion(nil, completedBid)
                     } catch {
                         let err: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(error)"])
@@ -143,7 +158,70 @@ class TierionWrapper {
         }
     }
     
-    func getHashToken(_ completion: @escaping (Token?, NSError?) -> ()) {
+    func postJobToTierion(dataStoreId: Int, job: Job, _ completion: @escaping (NSError?, PostedJob?) ->()) {
+        // https://api.tierion.com/v1/records
+        //
+        guard let headers = getHeaders() else {
+            let error: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "An unknown error occured please try again."])
+            completion(error, nil)
+            return
+        }
+        
+        print(job.expectedStartDate)
+        print(job.expectedEndDate)
+        
+        let parameters: [String: Any] = [
+            "datastoreId": dataStoreId,
+            "jobName": job.jobName,
+            "expectedStartDate": job.expectedStartDate,
+            "expectedEndDate": job.expectedEndDate,
+            "jobDescription": "\(job.jobDescription)",
+            "industry": "\(job.industry)",
+            "comments": "\(job.comments)",
+            "companyName": "\(job.companyName)",
+            "postedBy": "\(job.postedBy)",
+            "posterEmail": "\(job.posterEmail)",
+            "posterPhoneNumber": "\(job.posterPhoneNumber)"
+        ]
+        
+        Alamofire.request("https://api.tierion.com/v1/records/\(dataStoreId)",
+            method: .post,
+            parameters: parameters,
+            encoding: URLEncoding.default,
+            headers: headers)
+            //.validate()
+            .responseJSON { response in
+                print(response)
+                switch response.result {
+                    
+                case .success(_):
+                    guard let jsonData = response.data else {
+                        let error: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Empty response data"])
+                        completion(error, nil)
+                        return
+                    }
+                    let decoder = JSONDecoder()
+                    do {
+                        print("response: \(response)")
+                        let postedJob: PostedJob = try decoder.decode(PostedJob.self, from: jsonData)
+                        print("jobs returned from post: \(postedJob)")
+                        completion(nil, postedJob)
+                    } catch {
+                        let err: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(error)"])
+                        completion(err, nil)
+                    }
+                    
+                case .failure(_):
+                    print("failure response: \(response)")
+                    print(response.result)
+                    print(response.result.error)
+                    let err = response.result.error as NSError?
+                    completion(err, nil)
+                }
+        }
+    }
+    
+    func getHashToken(_ completion: @escaping (NSError?, Token?) -> ()) {
         // https://hashapi.tierion.com/v1/auth/token
         //
         guard let headers = getHeaders() else { print("Error headers are nil!"); return }
@@ -165,19 +243,19 @@ class TierionWrapper {
                         do {
                             let token = try decoder.decode(Token.self, from: jsonData)
                             self.authToken = token
-                            completion(token, nil)
+                            completion(nil, token)
                         } catch {
                             let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error parsing token"])
-                            completion(nil, error)
+                            completion(error, nil)
                         }
                     } else {
                         let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Response nil"])
-                        completion(nil, error)
+                        completion(error, nil)
                     }
                     
                 case .failure(_):
                     let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error request failure"])
-                    completion(nil, error)
+                    completion(error, nil)
                 }
         }
     }

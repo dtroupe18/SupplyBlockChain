@@ -156,7 +156,7 @@ class CreateBidViewController: FormViewController {
             
             if let currentBid = Bid(dict: formValuesDict, uid: user!.uid) {
                 CustomActivityIndicator.shared.showActivityIndicator(uiView: self.view, color: nil, labelText: "Posting your bid...")
-                TierionWrapper.shared.createRecord(dataStoreId: 7456, bid: currentBid, { (error, completedBid) in
+                TierionWrapper.shared.postBidToTierion(dataStoreId: 7456, bid: currentBid, { (error, completedBid) in
                     if let err = error {
                         CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                         self.showAlert(title: "Error", message: err.localizedDescription)
@@ -170,10 +170,10 @@ class CreateBidViewController: FormViewController {
         }
     }
     
-    private func saveCompletedBid(completedBid: CompletedBid) {
+    private func saveCompletedBid(completedBid: PostedBid) {
         do {
             try self.realm.write {
-                user.completedBids.append(completedBid)
+                user.postedBids.append(completedBid)
                 self.realm.add(completedBid)
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -184,7 +184,7 @@ class CreateBidViewController: FormViewController {
         }
     }
     
-    // Sucess alert with action
+    // Success alert with action
     //
     func presentSuccessAlert() {
         CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
