@@ -234,8 +234,6 @@ class TierionWrapper {
     func getDataStoreRecords(dataStoreId id: Int, _ completion: @escaping (NSError?, RecordResponse?) -> ()) {
         // https://api.tierion.com/v1/records?datastoreId=<datastoreId>
         //
-        
-        print("dataStoreRecords called...")
         guard let headers = getHeaders() else { print("Error headers are nil!"); return }
         
         Alamofire.request("https://api.tierion.com/v1/records?datastoreId=\(id)",
@@ -243,9 +241,8 @@ class TierionWrapper {
             parameters: nil,
             encoding: URLEncoding.default,
             headers: headers)
-            // .validate()
+            .validate()
             .responseJSON { response in
-                print("response: \(response)")
                 switch response.result {
                     
                 case .success(_):
@@ -271,7 +268,42 @@ class TierionWrapper {
         }
     }
     
-    // Something Here
+    func getDataStoreJobDetails(recordId id: String, _ completion: @escaping (NSError?, PostedJob?) -> ()) {
+        // https://api.tierion.com/v1/records/<id>
+        //
+        guard let headers = getHeaders() else { print("Error headers are nil!"); return }
+        
+        Alamofire.request("https://api.tierion.com/v1/records/\(id)",
+            method: .get,
+            parameters: nil,
+            encoding: URLEncoding.default,
+            headers: headers)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                    
+                case .success(_):
+                    guard let jsonData = response.data else {
+                        let error: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Empty response data"])
+                        completion(error, nil)
+                        return
+                    }
+                    
+                    let decoder = JSONDecoder()
+                    do {
+                        let postedJob: PostedJob = try decoder.decode(PostedJob.self, from: jsonData)
+                        completion(nil, postedJob)
+                    } catch {
+                        let err: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(error)"])
+                        completion(err, nil)
+                    }
+                    
+                case .failure(_):
+                    let err = response.result.error as NSError?
+                    completion(err, nil)
+                }
+        }
+    }
     
     func getHashToken(_ completion: @escaping (NSError?, Token?) -> ()) {
         // https://hashapi.tierion.com/v1/auth/token

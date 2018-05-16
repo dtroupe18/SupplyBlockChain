@@ -17,13 +17,13 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
     let oldJobs: [String] = ["Job One", "Job Two", "Job Three", "Job Four", "Job Five", "Job Six", "Job Seven",
                           "Job Eight", "Job Nine", "Job Ten"]
     var user: User?
-    // var jobs: [PostedJob] = [PostedJob]()
-    var jobs: [Record] = [Record]()
+    var jobs: [PostedJob] = [PostedJob]()
+    // var jobs: [Record] = [Record]()
     let realm = try! Realm()
     
     var dataStores: Results<DataStore>? {
         didSet {
-            loadPostedJobs()
+            loadPostedJobIds()
         }
     }
     
@@ -75,7 +75,7 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    private func loadPostedJobs() {
+    private func loadPostedJobIds() {
         guard let jobStore = dataStores?.first(where: {$0.name == "Jobs"}) else {
             showAlert(title: "Error", message: "BidStore missing")
             return
@@ -84,13 +84,32 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
             if let error = error {
                 self.showAlert(title: "Error", message: error.localizedDescription)
             } else if let recordResponse = recordResponse {
-                self.jobs = recordResponse.records
-                
-                // For each record we have to call and get the job associated with that....
-                //
-                self.tableView.reloadData()
+                self.loadJobRecords(records: recordResponse.records)
             }
         })
+    }
+    
+    private func loadJobRecords(records: [Record]) {
+        var errorCount: Int = 0
+        for record in records {
+            TierionWrapper.shared.getDataStoreJobDetails(recordId: record.id, { (error, postedJob) in
+                if error != nil {
+                    self.showAlert(title: "Error", message: error!.localizedDescription)
+                    errorCount += 1
+                } else if let postedJob = postedJob {
+                    self.jobs.append(postedJob)
+                    
+                    // Check if we are done
+                    //
+                    if self.jobs.count + errorCount == records.count {
+                        // Sort by timestamp
+                        //
+                        self.jobs = self.jobs.sorted(by: { $0.timestamp > $1.timestamp })
+                        self.tableView.reloadData()
+                    }
+                }
+            })
+        }
     }
     
     private func loadDataStores() {
@@ -162,7 +181,7 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "jobCell", for: indexPath)
         if !jobs.isEmpty {
-            cell.textLabel?.text = jobs[indexPath.row].label
+            cell.textLabel?.text = jobs[indexPath.row].job?.jobName
         } else {
             cell.textLabel?.text = "No jobs yet"
         }
@@ -174,7 +193,7 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
         let sb: UIStoryboard = UIStoryboard(name: "CreateBid", bundle: nil)
         if let vc = sb.instantiateViewController(withIdentifier: "CreateBidVC") as? CreateBidViewController {
             vc.user = self.user
-            // vc.postedJob = jobs[indexPath.row]
+            vc.postedJob = jobs[indexPath.row]
             vc.dataStores = self.dataStores
             self.navigationController?.pushViewController(vc, animated: true)
         }

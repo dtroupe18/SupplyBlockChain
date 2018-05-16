@@ -104,7 +104,7 @@ class CreateBidViewController: FormViewController {
                 <<< TextRow() {
                     $0.tag = "Job Name"
                     $0.title = "Job"
-                    $0.value = postedJob?.job?.jobName ?? ""
+                    $0.value = postedJob?.job?.jobName ?? "Error loading job name"
                     if postedJob?.job?.jobName != nil {
                         $0.disabled = true
                     }
@@ -187,6 +187,10 @@ class CreateBidViewController: FormViewController {
     }
     
     @objc func submitPressed() {
+        // Resign first responder
+        //
+        self.view.endEditing(true)
+        
         guard let bidStore = dataStores?.first(where: {$0.name == "Bids"}) else {
             showAlert(title: "Error", message: "BidStore missing")
             return
