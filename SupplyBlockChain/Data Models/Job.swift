@@ -12,8 +12,12 @@ import RealmSwift
 class Job: Object, Codable {
     
     @objc dynamic var jobName: String = ""
-    @objc dynamic var expectedStartDate: Int = 0
-    @objc dynamic var expectedEndDate: Int = 0
+//    @objc dynamic var expectedStartDate: Int = 0
+//    @objc dynamic var expectedEndDate: Int = 0
+    
+    @objc dynamic var expectedStartDate: String = ""
+    @objc dynamic var expectedEndDate: String = ""
+    
     @objc dynamic var jobDescription: String = ""
     @objc dynamic var industry: String = ""
     @objc dynamic var comments: String = ""
@@ -40,12 +44,13 @@ class Job: Object, Codable {
         case posterPhoneNumber = "posterphonenumber"
     }
     
+    // Decoder becomes a func when you are using it on "nested" JSON data
+    //
     func decode(from decoder: Decoder) throws {
-//        self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.jobName = try container.decode(String.self, forKey: .jobName)
-        self.expectedStartDate = try container.decode(Int.self, forKey: .expectedStartDate)
-        self.expectedEndDate = try container.decode(Int.self, forKey: .expectedEndDate)
+        self.expectedStartDate = try container.decode(String.self, forKey: .expectedStartDate)
+        self.expectedEndDate = try container.decode(String.self, forKey: .expectedEndDate)
         self.jobDescription = try container.decode(String.self, forKey: .jobDescription)
         self.industry = try container.decode(String.self, forKey: .industry)
         self.comments = try container.decode(String.self, forKey: .comments)
@@ -61,8 +66,8 @@ class Job: Object, Codable {
         if let description = form["Description"] as? String, let email = form["Email"] as? String, let startDate = form["Start Date"] as? Date, let endDate = form["End Date"] as? Date, let jobName = form["Job Name"] as? String, let phoneNumber = form["Phone Number"] as? String,  let companyName = form["Company Name"] as? String, let postedBy = form["Name"] as? String {
 
             self.jobName = jobName
-            self.expectedStartDate = Int(startDate.timeIntervalSince1970)
-            self.expectedEndDate = Int(endDate.timeIntervalSince1970)
+            self.expectedStartDate = "\(Int(startDate.timeIntervalSince1970))"
+            self.expectedEndDate = "\(Int(endDate.timeIntervalSince1970))"
             self.jobDescription = description
             self.companyName = companyName
             self.postedBy = postedBy

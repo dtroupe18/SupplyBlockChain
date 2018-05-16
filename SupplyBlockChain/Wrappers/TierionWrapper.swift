@@ -85,7 +85,7 @@ class TierionWrapper {
         }
     }
     
-    func getDataStore(id: Int) {
+    func getDataStore(dataStoreId id: Int, _ completion: @escaping (Error?, DataStore?) -> ()) {
         // https://api.tierion.com/v1/datastores/<id>
         //
         guard let headers = getHeaders() else { print("Error headers are nil!"); return }
@@ -97,11 +97,27 @@ class TierionWrapper {
             headers: headers)
             .validate()
             .responseJSON { response in
-                if response.result.value != nil{
-                    print(response)
-                } else {
-                    print("getDataStore is nil")
-                    print(response)
+                switch response.result {
+                    
+                case .success(_):
+                    guard let jsonData = response.data else {
+                        let error: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Empty response data"])
+                        completion(error, nil)
+                        return
+                    }
+                    
+                    let decoder = JSONDecoder()
+                    do {
+                        let dataStore: DataStore = try decoder.decode(DataStore.self, from: jsonData)
+                        completion(nil, dataStore)
+                    } catch {
+                        let err: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(error)"])
+                        completion(err, nil)
+                    }
+                    
+                case .failure(_):
+                    let err = response.result.error as NSError?
+                    completion(err, nil)
                 }
         }
     }
@@ -116,6 +132,8 @@ class TierionWrapper {
         }
         
         let parameters: [String: Any] = [
+            // datastoreid is REQUIRED by Tierion
+            //
             "datastoreId": dataStoreId,
             "email": "\(bid.email)",
             "name": "\(bid.name)",
@@ -167,21 +185,18 @@ class TierionWrapper {
             return
         }
         
-        print(job.expectedStartDate)
-        print(job.expectedEndDate)
-        
         let parameters: [String: Any] = [
             "datastoreId": dataStoreId,
             "jobName": job.jobName,
             "expectedStartDate": job.expectedStartDate,
             "expectedEndDate": job.expectedEndDate,
-            "jobDescription": "\(job.jobDescription)",
-            "industry": "\(job.industry)",
-            "comments": "\(job.comments)",
-            "companyName": "\(job.companyName)",
-            "postedBy": "\(job.postedBy)",
-            "posterEmail": "\(job.posterEmail)",
-            "posterPhoneNumber": "\(job.posterPhoneNumber)"
+            "jobDescription": job.jobDescription,
+            "industry": job.industry,
+            "comments": job.comments,
+            "companyName": job.companyName,
+            "postedBy": job.postedBy,
+            "posterEmail": job.posterEmail,
+            "posterPhoneNumber": job.posterPhoneNumber
         ]
         
         Alamofire.request("https://api.tierion.com/v1/records/\(dataStoreId)",
@@ -202,9 +217,7 @@ class TierionWrapper {
                     }
                     let decoder = JSONDecoder()
                     do {
-                        print("response: \(response)")
                         let postedJob: PostedJob = try decoder.decode(PostedJob.self, from: jsonData)
-                        print("jobs returned from post: \(postedJob)")
                         completion(nil, postedJob)
                     } catch {
                         let err: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(error)"])
@@ -212,14 +225,53 @@ class TierionWrapper {
                     }
                     
                 case .failure(_):
-                    print("failure response: \(response)")
-                    print(response.result)
-                    print(response.result.error)
                     let err = response.result.error as NSError?
                     completion(err, nil)
                 }
         }
     }
+    
+    func getDataStoreRecords(dataStoreId id: Int, _ completion: @escaping (NSError?, RecordResponse?) -> ()) {
+        // https://api.tierion.com/v1/records?datastoreId=<datastoreId>
+        //
+        
+        print("dataStoreRecords called...")
+        guard let headers = getHeaders() else { print("Error headers are nil!"); return }
+        
+        Alamofire.request("https://api.tierion.com/v1/records?datastoreId=\(id)",
+            method: .get,
+            parameters: nil,
+            encoding: URLEncoding.default,
+            headers: headers)
+            // .validate()
+            .responseJSON { response in
+                print("response: \(response)")
+                switch response.result {
+                    
+                case .success(_):
+                    guard let jsonData = response.data else {
+                        let error: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Empty response data"])
+                        completion(error, nil)
+                        return
+                    }
+                    
+                    let decoder = JSONDecoder()
+                    do {
+                        let recordResponse: RecordResponse = try decoder.decode(RecordResponse.self, from: jsonData)
+                        completion(nil, recordResponse)
+                    } catch {
+                        let err: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(error)"])
+                        completion(err, nil)
+                    }
+                    
+                case .failure(_):
+                    let err = response.result.error as NSError?
+                    completion(err, nil)
+                }
+        }
+    }
+    
+    // Something Here
     
     func getHashToken(_ completion: @escaping (NSError?, Token?) -> ()) {
         // https://hashapi.tierion.com/v1/auth/token

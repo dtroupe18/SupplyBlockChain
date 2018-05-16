@@ -13,7 +13,8 @@ import RealmSwift
 class CreateBidViewController: FormViewController {
     
     var user: User!
-    var job: String?
+    var postedJob: PostedJob?
+    var dataStores: Results<DataStore>?
     
     let realm = try! Realm()
     
@@ -23,7 +24,12 @@ class CreateBidViewController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = job
+        
+        if dataStores == nil {
+            loadDataStores()
+        }
+        
+        self.navigationItem.title = postedJob?.job?.jobName
         
         // Create submit button in the navigation bar
         //
@@ -98,8 +104,8 @@ class CreateBidViewController: FormViewController {
                 <<< TextRow() {
                     $0.tag = "Job Name"
                     $0.title = "Job"
-                    $0.value = job ?? ""
-                    if job != nil {
+                    $0.value = postedJob?.job?.jobName ?? ""
+                    if postedJob?.job?.jobName != nil {
                         $0.disabled = true
                     }
                     $0.add(rule: RuleRequired())
@@ -135,6 +141,38 @@ class CreateBidViewController: FormViewController {
         }
     }
     
+    private func loadDataStores() {
+        // retrieve dataStores from realm or Tierion
+        //
+        let results = realm.objects(DataStore.self)
+        if results.isEmpty {
+            // Get the dataStores from Tierion
+            //
+            TierionWrapper.shared.getAllDataStores({ (error, stores) in
+                if error != nil {
+                    self.showAlert(title: "Error Loading Data Stores", message: error!.localizedDescription)
+                } else if let stores = stores {
+                    self.saveDataStoresToRealm(stores: stores)
+                }
+            })
+        } else {
+            dataStores = results
+        }
+    }
+    
+    private func saveDataStoresToRealm(stores: [DataStore]) {
+        do {
+            try realm.write {
+                for store in stores {
+                    realm.add(store)
+                }
+                dataStores = realm.objects(DataStore.self)
+            }
+        } catch {
+            showAlert(title: "Realm Error", message: "\(error)")
+        }
+    }
+    
     private func getFormError() -> ValidationError? {
         let errors = form.validate()
         if errors.count == 0 {
@@ -149,14 +187,19 @@ class CreateBidViewController: FormViewController {
     }
     
     @objc func submitPressed() {
+        guard let bidStore = dataStores?.first(where: {$0.name == "Bids"}) else {
+            showAlert(title: "Error", message: "BidStore missing")
+            return
+        }
+        
         if let error = getFormError() {
             showAlert(title: "Error", message: error.msg)
         } else if user != nil {
             let formValuesDict = self.form.values()
-            
+        
             if let currentBid = Bid(dict: formValuesDict, uid: user!.uid) {
                 CustomActivityIndicator.shared.showActivityIndicator(uiView: self.view, color: nil, labelText: "Posting your bid...")
-                TierionWrapper.shared.postBidToTierion(dataStoreId: 7456, bid: currentBid, { (error, completedBid) in
+                TierionWrapper.shared.postBidToTierion(dataStoreId: bidStore.id, bid: currentBid, { (error, completedBid) in
                     if let err = error {
                         CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                         self.showAlert(title: "Error", message: err.localizedDescription)
@@ -188,7 +231,7 @@ class CreateBidViewController: FormViewController {
     //
     func presentSuccessAlert() {
         CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
-        let alertController = UIAlertController(title: "Success", message: "Your bid was successfully submitted for \(self.job ?? "")", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Success", message: "Your bid was successfully submitted for \(self.postedJob?.job?.jobName ?? "")", preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
             DispatchQueue.main.async {

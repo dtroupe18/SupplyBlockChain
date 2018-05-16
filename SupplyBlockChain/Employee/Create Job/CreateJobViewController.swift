@@ -204,7 +204,6 @@ class CreateJobViewController: FormViewController {
             let formValuesDict = self.form.values()
             if let job = Job(form: formValuesDict) {
                 uploadJobToTierion(job: job)
-                print("job created......\(job)")
             }
         }
     }
@@ -286,35 +285,6 @@ class CreateJobViewController: FormViewController {
         }
     }
     
-    private func saveCompletedBid(completedBid: PostedBid) {
-//        do {
-//            try self.realm.write {
-//                user.completedBids.append(completedBid)
-//                self.realm.add(completedBid)
-//            }
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                self.presentSuccessAlert()
-//            }
-//        } catch {
-//            showAlert(title: "Error", message: "Error saving your bid: \(error)")
-//        }
-    }
-    
-    // Success alert with action
-    //
-    func presentSuccessAlert() {
-//        CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
-//        let alertController = UIAlertController(title: "Success", message: "Your bid was successfully submitted for \(self.job ?? "")", preferredStyle: .alert)
-//
-//        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
-//            DispatchQueue.main.async {
-//                self.navigationController?.popViewController(animated: true)
-//            }
-//        }
-//        alertController.addAction(okAction)
-//        present(alertController, animated: true, completion: nil)
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
