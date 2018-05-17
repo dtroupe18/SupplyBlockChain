@@ -203,12 +203,12 @@ class CreateBidViewController: FormViewController {
         
             if let currentBid = Bid(dict: formValuesDict, uid: user!.uid) {
                 CustomActivityIndicator.shared.showActivityIndicator(uiView: self.view, color: nil, labelText: "Posting your bid...")
-                TierionWrapper.shared.postBidToTierion(dataStoreId: bidStore.id, bid: currentBid, { (error, completedBid) in
+                TierionWrapper.shared.postBidToTierion(dataStoreId: bidStore.id, bid: currentBid, { (error, postedBid) in
                     if let err = error {
                         CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                         self.showAlert(title: "Error", message: err.localizedDescription)
-                    } else if completedBid != nil {
-                        self.saveCompletedBid(completedBid: completedBid!)
+                    } else if postedBid != nil {
+                        self.saveCompletedBidToRealm(postedBid: postedBid!)
                     }
                 })
             } else {
@@ -217,18 +217,36 @@ class CreateBidViewController: FormViewController {
         }
     }
     
-    private func saveCompletedBid(completedBid: PostedBid) {
+    private func saveCompletedBidToRealm(postedBid: PostedBid) {
         do {
             try self.realm.write {
-                user.postedBids.append(completedBid)
-                self.realm.add(completedBid)
+                user.postedBids.append(postedBid)
+                self.realm.add(postedBid)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.presentSuccessAlert()
-            }
+            uploadBidIdToFirebase(postedBid: postedBid)
         } catch {
+            CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
             showAlert(title: "Error", message: "Error saving your bid: \(error)")
         }
+    }
+    
+    private func uploadBidIdToFirebase(postedBid: PostedBid) {
+        guard let jobId = postedJob?.id else {
+            CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+            showAlert(title: "Error", message: "Job is missing ID.")
+            return
+        }
+        
+        FirebaseFunctions.uploadCompletedBidId(jobId: jobId, bidId: postedBid.id, { (error) in
+            if let error = error {
+                CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+                self.showAlert(title: "Error", message: error.localizedDescription)
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.presentSuccessAlert()
+                }
+            }
+        })
     }
     
     // Success alert with action

@@ -25,9 +25,15 @@
 		5521BB0A206EB2A1004575E8 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BB09206EB2A1004575E8 /* SignInViewController.swift */; };
 		5521BB0D206EBFC2004575E8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BB0C206EBFC2004575E8 /* SignupViewController.swift */; };
 		5521BB0F206EBFCD004575E8 /* Signup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5521BB0E206EBFCD004575E8 /* Signup.storyboard */; };
+		55266EA020ACEE2C0038BEC3 /* BidCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55266E9F20ACEE2C0038BEC3 /* BidCell.swift */; };
+		55266EA220ACF0490038BEC3 /* Int++Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55266EA120ACF0490038BEC3 /* Int++Extension.swift */; };
+		55266EA420AD17DC0038BEC3 /* JobCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55266EA320AD17DC0038BEC3 /* JobCell.xib */; };
+		55266EA620AD18070038BEC3 /* JobCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55266EA520AD18070038BEC3 /* JobCell.swift */; };
 		559FD00120AB215E001AA824 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559FD00020AB215E001AA824 /* DataStore.swift */; };
 		559FD00320AB88BA001AA824 /* PostedJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559FD00220AB88BA001AA824 /* PostedJob.swift */; };
 		559FD00720ABAE04001AA824 /* RecordResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559FD00620ABAE04001AA824 /* RecordResponse.swift */; };
+		559FD00920AC99AE001AA824 /* MyBids.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 559FD00820AC99AE001AA824 /* MyBids.storyboard */; };
+		559FD00B20AC99C6001AA824 /* MyBidsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559FD00A20AC99C6001AA824 /* MyBidsViewController.swift */; };
 		55C5169A20769B340010C6DC /* Jobs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C5169920769B340010C6DC /* Jobs.storyboard */; };
 		55C5169C20769B590010C6DC /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C5169B20769B590010C6DC /* JobsViewController.swift */; };
 		55C5169F2076B0B80010C6DC /* CreateBid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C5169E2076B0B80010C6DC /* CreateBid.storyboard */; };
@@ -92,9 +98,15 @@
 		5521BB09206EB2A1004575E8 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		5521BB0C206EBFC2004575E8 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		5521BB0E206EBFCD004575E8 /* Signup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Signup.storyboard; sourceTree = "<group>"; };
+		55266E9F20ACEE2C0038BEC3 /* BidCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidCell.swift; sourceTree = "<group>"; };
+		55266EA120ACF0490038BEC3 /* Int++Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int++Extension.swift"; sourceTree = "<group>"; };
+		55266EA320AD17DC0038BEC3 /* JobCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JobCell.xib; sourceTree = "<group>"; };
+		55266EA520AD18070038BEC3 /* JobCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCell.swift; sourceTree = "<group>"; };
 		559FD00020AB215E001AA824 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		559FD00220AB88BA001AA824 /* PostedJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostedJob.swift; sourceTree = "<group>"; };
 		559FD00620ABAE04001AA824 /* RecordResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordResponse.swift; sourceTree = "<group>"; };
+		559FD00820AC99AE001AA824 /* MyBids.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyBids.storyboard; sourceTree = "<group>"; };
+		559FD00A20AC99C6001AA824 /* MyBidsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBidsViewController.swift; sourceTree = "<group>"; };
 		55C5169920769B340010C6DC /* Jobs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Jobs.storyboard; sourceTree = "<group>"; };
 		55C5169B20769B590010C6DC /* JobsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsViewController.swift; sourceTree = "<group>"; };
 		55C5169E2076B0B80010C6DC /* CreateBid.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateBid.storyboard; sourceTree = "<group>"; };
@@ -157,12 +169,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		551FF74920A637DC0012BE26 /* Xib */ = {
+		551FF74920A637DC0012BE26 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
 				551FF74A20A638120012BE26 /* BidCell.xib */,
+				55266EA320AD17DC0038BEC3 /* JobCell.xib */,
 			);
-			path = Xib;
+			path = Xibs;
 			sourceTree = "<group>";
 		};
 		5521BABF206E9C7E004575E8 = {
@@ -194,7 +207,8 @@
 				55E880B520A92913001ADD48 /* User */,
 				55E880B420A928E0001ADD48 /* Employee */,
 				55E880C120AA34CA001ADD48 /* Authentication */,
-				551FF74920A637DC0012BE26 /* Xib */,
+				551FF74920A637DC0012BE26 /* Xibs */,
+				55266E9E20ACEE100038BEC3 /* Cells */,
 				5521BB02206EAEEF004575E8 /* Extensions */,
 				5521BB01206EAEDB004575E8 /* Data Models */,
 				5521BAFE206EAE5D004575E8 /* Wrappers */,
@@ -252,6 +266,7 @@
 			children = (
 				5521BB03206EAF30004575E8 /* UIViewController++.swift */,
 				55C516AB207BBA4D0010C6DC /* Date++Extension.swift */,
+				55266EA120ACF0490038BEC3 /* Int++Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -272,6 +287,15 @@
 				5521BB0C206EBFC2004575E8 /* SignupViewController.swift */,
 			);
 			path = Signup;
+			sourceTree = "<group>";
+		};
+		55266E9E20ACEE100038BEC3 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				55266E9F20ACEE2C0038BEC3 /* BidCell.swift */,
+				55266EA520AD18070038BEC3 /* JobCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		55C5169820769AFB0010C6DC /* Jobs */ = {
@@ -342,6 +366,8 @@
 		55E880B820A92968001ADD48 /* View Bids */ = {
 			isa = PBXGroup;
 			children = (
+				559FD00A20AC99C6001AA824 /* MyBidsViewController.swift */,
+				559FD00820AC99AE001AA824 /* MyBids.storyboard */,
 			);
 			path = "View Bids";
 			sourceTree = "<group>";
@@ -496,6 +522,8 @@
 				5521BAD9206E9C7E004575E8 /* LaunchScreen.storyboard in Resources */,
 				551FF74B20A638120012BE26 /* BidCell.xib in Resources */,
 				5521BB08206EB239004575E8 /* SignIn.storyboard in Resources */,
+				55266EA420AD17DC0038BEC3 /* JobCell.xib in Resources */,
+				559FD00920AC99AE001AA824 /* MyBids.storyboard in Resources */,
 				5521BAFD206E9F8A004575E8 /* GoogleService-Info.plist in Resources */,
 				55E880C020A9D574001ADD48 /* CreateJob.storyboard in Resources */,
 				5521BB0F206EBFCD004575E8 /* Signup.storyboard in Resources */,
@@ -621,7 +649,9 @@
 				5521BB0D206EBFC2004575E8 /* SignupViewController.swift in Sources */,
 				55E880BE20A9D568001ADD48 /* CreateJobViewController.swift in Sources */,
 				55C516AC207BBA4D0010C6DC /* Date++Extension.swift in Sources */,
+				55266EA220ACF0490038BEC3 /* Int++Extension.swift in Sources */,
 				55E880BC20A929AA001ADD48 /* EmployeeJobsViewController.swift in Sources */,
+				55266EA620AD18070038BEC3 /* JobCell.swift in Sources */,
 				5521BACC206E9C7E004575E8 /* AppDelegate.swift in Sources */,
 				55C516A12076B0C60010C6DC /* CreateBidViewController.swift in Sources */,
 				551FF73F20A5D2990012BE26 /* UserBidsViewController.swift in Sources */,
@@ -633,11 +663,13 @@
 				55FA6DBA2098BD89006D34FE /* TierionWrapper.swift in Sources */,
 				55C516AA207BB8480010C6DC /* Bid.swift in Sources */,
 				559FD00120AB215E001AA824 /* DataStore.swift in Sources */,
+				55266EA020ACEE2C0038BEC3 /* BidCell.swift in Sources */,
 				55C516A52076B6800010C6DC /* FirebaseFunctions.swift in Sources */,
 				5521BB00206EAE79004575E8 /* CustomActivityIndicator.swift in Sources */,
 				551FF73D20A4AF4B0012BE26 /* PostedBid.swift in Sources */,
 				551FF74D20A63A8B0012BE26 /* Job.swift in Sources */,
 				5521BB04206EAF30004575E8 /* UIViewController++.swift in Sources */,
+				559FD00B20AC99C6001AA824 /* MyBidsViewController.swift in Sources */,
 				559FD00320AB88BA001AA824 /* PostedJob.swift in Sources */,
 				55FA6DBC209908DC006D34FE /* Token.swift in Sources */,
 			);

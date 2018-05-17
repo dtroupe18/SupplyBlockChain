@@ -14,11 +14,8 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tableView: UITableView!
     
-    let oldJobs: [String] = ["Job One", "Job Two", "Job Three", "Job Four", "Job Five", "Job Six", "Job Seven",
-                          "Job Eight", "Job Nine", "Job Ten"]
     var user: User?
     var jobs: [PostedJob] = [PostedJob]()
-    // var jobs: [Record] = [Record]()
     let realm = try! Realm()
     
     var dataStores: Results<DataStore>? {
@@ -64,6 +61,13 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
         signOutButton.addTarget(self, action: #selector(self.signOut), for: .touchUpInside)
         let signOutItem = UIBarButtonItem(customView: signOutButton)
         self.navigationItem.setLeftBarButtonItems([signOutItem], animated: false)
+        
+        // Register the Xib for our cell
+        //
+        let nib = UINib.init(nibName: "JobCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "JobCell")
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = UIColor(red: 0/255, green: 150/255, blue: 255/255, alpha: 1.0)
     }
     
     private func loadUserInformation() {
@@ -71,7 +75,6 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
         //
         if let uid = Auth.auth().currentUser?.uid {
             user = realm.objects(User.self).filter("uid == %@", uid).first
-            tableView.reloadData()
         }
     }
     
@@ -80,11 +83,18 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
             showAlert(title: "Error", message: "BidStore missing")
             return
         }
+        CustomActivityIndicator.shared.showActivityIndicator(uiView: self.view, color: nil, labelText: "Loading Jobs...")
         TierionWrapper.shared.getDataStoreRecords(dataStoreId: jobStore.id, { (error, recordResponse) in
             if let error = error {
+                CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                 self.showAlert(title: "Error", message: error.localizedDescription)
             } else if let recordResponse = recordResponse {
-                self.loadJobRecords(records: recordResponse.records)
+                if recordResponse.records.isEmpty {
+                    CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
+                    return
+                } else {
+                    self.loadJobRecords(records: recordResponse.records)
+                }
             }
         })
     }
@@ -94,18 +104,19 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
         for record in records {
             TierionWrapper.shared.getDataStoreJobDetails(recordId: record.id, { (error, postedJob) in
                 if error != nil {
+                    CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                     self.showAlert(title: "Error", message: error!.localizedDescription)
                     errorCount += 1
                 } else if let postedJob = postedJob {
-                    self.jobs.append(postedJob)
-                    
                     // Check if we are done
                     //
+                    self.jobs.append(postedJob)
                     if self.jobs.count + errorCount == records.count {
                         // Sort by timestamp
                         //
                         self.jobs = self.jobs.sorted(by: { $0.timestamp > $1.timestamp })
                         self.tableView.reloadData()
+                        CustomActivityIndicator.shared.hideActivityIndicator(uiView: self.view)
                     }
                 }
             })
@@ -179,23 +190,51 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "jobCell", for: indexPath)
-        if !jobs.isEmpty {
-            cell.textLabel?.text = jobs[indexPath.row].job?.jobName
+        let cell = tableView.dequeueReusableCell(withIdentifier: "JobCell", for: indexPath) as! JobCell
+        cell.backgroundColor = UIColor(red: 0/255, green: 150/255, blue: 255/255, alpha: 1.0)
+        
+        if jobs.isEmpty {
+            cell.companyLabel.text = "No Jobs Yet"
+            cell.jobNameLabel.text = ""
+            cell.industryLabel.text = ""
+            cell.jobDescriptionLabel.text = ""
+            cell.startDateLabel.text = ""
+            cell.endDateLabel.text = ""
+            cell.commentsLabel.text = ""
+            cell.postedByLabel.text = ""
+            cell.emailLabel.text = ""
+            cell.phoneLabel.text = ""
+            cell.hashLabel.text = ""
+            cell.timestampLabel.text = ""
+        } else if let job = jobs[indexPath.row].job {
+            cell.companyLabel.text = "Company: \(job.companyName)"
+            cell.jobNameLabel.text = "Job Name: \(job.jobName)"
+            cell.industryLabel.text = "Industry: \(job.industry)"
+            cell.jobDescriptionLabel.text = "Description: \(job.jobDescription)"
+            cell.startDateLabel.text = "Start Date: \(Int(job.expectedStartDate)?.dateString ?? " Error")"
+            cell.endDateLabel.text = "End Date: \(Int(job.expectedEndDate)?.dateString ?? " Error")"
+            cell.commentsLabel.text = "Comments: \(job.comments)"
+            cell.postedByLabel.text = "Posted by: \(job.postedBy)"
+            cell.emailLabel.text = "Email: \(job.posterEmail)"
+            cell.phoneLabel.text = "Phone: \(job.posterPhoneNumber)"
+            cell.hashLabel.text = "Hash: \(jobs[indexPath.row].sha256)"
+            cell.timestampLabel.text = "Posted on: \(jobs[indexPath.row].timestamp.dateString)"
         } else {
-            cell.textLabel?.text = "No jobs yet"
+            cell.isHidden = true
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let sb: UIStoryboard = UIStoryboard(name: "CreateBid", bundle: nil)
-        if let vc = sb.instantiateViewController(withIdentifier: "CreateBidVC") as? CreateBidViewController {
-            vc.user = self.user
-            vc.postedJob = jobs[indexPath.row]
-            vc.dataStores = self.dataStores
-            self.navigationController?.pushViewController(vc, animated: true)
+        if !jobs.isEmpty {
+            let sb: UIStoryboard = UIStoryboard(name: "CreateBid", bundle: nil)
+            if let vc = sb.instantiateViewController(withIdentifier: "CreateBidVC") as? CreateBidViewController {
+                vc.user = self.user
+                vc.postedJob = jobs[indexPath.row]
+                vc.dataStores = self.dataStores
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     

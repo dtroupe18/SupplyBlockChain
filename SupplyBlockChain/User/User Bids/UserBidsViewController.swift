@@ -27,6 +27,11 @@ class UserBidsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        let nib = UINib.init(nibName: "BidCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "BidCell")
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = UIColor(red: 0/255, green: 150/255, blue: 255/255, alpha: 1.0)
     }
     
     func loadBids() {
@@ -53,11 +58,26 @@ class UserBidsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BidCell", for: indexPath)
-        if let time = bids?[indexPath.row].timestamp {
-            cell.textLabel?.text = "\(time)"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BidCell", for: indexPath) as! BidCell
+        cell.backgroundColor = UIColor(red: 0/255, green: 150/255, blue: 255/255, alpha: 1.0)
+        if let bid = bids?[indexPath.row].bid {
+            cell.companyLabel.text = bid.companyName
+            cell.priceLabel.text = "Price: $\(bid.price)"
+            cell.bidderNameLabel.text = "Bidder: \(bid.name)"
+            cell.bidderEmailLabel.text = "Email: \(bid.email)"
+            cell.bidderPhoneLabel.text = "Phone: \(bid.phoneNumber)"
+            cell.hashLabel.text = "Hash: \(bids?[indexPath.row].sha256 ?? " error")"
+            cell.timestampLabel.text = bids?[indexPath.row].timestamp.dateString
+            cell.commentsLabel.text = "Comments: \(bid.comments)"
         } else {
-            cell.textLabel?.text = "No bids yet"
+            cell.companyLabel.text = "No bids yet"
+            cell.priceLabel.text = ""
+            cell.bidderNameLabel.text = ""
+            cell.bidderEmailLabel.text = ""
+            cell.bidderPhoneLabel.text = ""
+            cell.hashLabel.text = ""
+            cell.timestampLabel.text = ""
+            cell.commentsLabel.text = ""
         }
         return cell
     }

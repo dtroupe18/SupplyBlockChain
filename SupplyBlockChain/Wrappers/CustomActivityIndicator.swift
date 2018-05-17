@@ -172,6 +172,17 @@ final class CustomActivityIndicator {
                 self.loadingView.removeFromSuperview()
                 self.label.text = ""
             }
+        } else {
+            // Wait a little bit and check again. Hide could have been called before the original indicator appeared
+            //
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                if self.loadingView.isDescendant(of: uiView) {
+                    uiView.isUserInteractionEnabled = true
+                    self.activityIndicator.stopAnimating()
+                    self.loadingView.removeFromSuperview()
+                    self.label.text = ""
+                }
+            }
         }
     }
     

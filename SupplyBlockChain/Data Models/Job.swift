@@ -12,12 +12,8 @@ import RealmSwift
 class Job: Object, Codable {
     
     @objc dynamic var jobName: String = ""
-//    @objc dynamic var expectedStartDate: Int = 0
-//    @objc dynamic var expectedEndDate: Int = 0
-    
     @objc dynamic var expectedStartDate: String = ""
     @objc dynamic var expectedEndDate: String = ""
-    
     @objc dynamic var jobDescription: String = ""
     @objc dynamic var industry: String = ""
     @objc dynamic var comments: String = ""

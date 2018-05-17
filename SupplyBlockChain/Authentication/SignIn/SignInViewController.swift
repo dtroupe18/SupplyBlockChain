@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import RealmSwift
 
-class SignInViewController: UIViewController {
+class SignInViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
@@ -45,9 +45,16 @@ class SignInViewController: UIViewController {
         super.viewDidLoad()
         loginButton.layer.cornerRadius = 8
         signupButton.layer.cornerRadius = 8
+        passwordTextField.delegate = self
     }
     
-    @IBAction func LoginPressed(_ sender: Any) {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        loginPressed(self)
+        return true
+    }
+    
+    @IBAction func loginPressed(_ sender: Any) {
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             showAlert(title: "Error", message: "Email and Password are required to login!")
             return

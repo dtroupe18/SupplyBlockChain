@@ -206,7 +206,6 @@ class TierionWrapper {
             headers: headers)
             //.validate()
             .responseJSON { response in
-                print(response)
                 switch response.result {
                     
                 case .success(_):
@@ -268,11 +267,46 @@ class TierionWrapper {
         }
     }
     
+    func getDataStoreBidDetails(recordId id: String, _ completion: @escaping (NSError?, PostedBid?) -> ()) {
+        // https://api.tierion.com/v1/records/<id>
+        //
+        guard let headers = getHeaders() else { print("Error headers are nil!"); return }
+        Alamofire.request("https://api.tierion.com/v1/records/\(id)",
+            method: .get,
+            parameters: nil,
+            encoding: URLEncoding.default,
+            headers: headers)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                    
+                case .success(_):
+                    guard let jsonData = response.data else {
+                        let error: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Empty response data"])
+                        completion(error, nil)
+                        return
+                    }
+                    
+                    let decoder = JSONDecoder()
+                    do {
+                        let postedBid: PostedBid = try decoder.decode(PostedBid.self, from: jsonData)
+                        completion(nil, postedBid)
+                    } catch {
+                        let err: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "\(error)"])
+                        completion(err, nil)
+                    }
+                    
+                case .failure(_):
+                    let err = response.result.error as NSError?
+                    completion(err, nil)
+                }
+        }
+    }
+    
     func getDataStoreJobDetails(recordId id: String, _ completion: @escaping (NSError?, PostedJob?) -> ()) {
         // https://api.tierion.com/v1/records/<id>
         //
         guard let headers = getHeaders() else { print("Error headers are nil!"); return }
-        
         Alamofire.request("https://api.tierion.com/v1/records/\(id)",
             method: .get,
             parameters: nil,

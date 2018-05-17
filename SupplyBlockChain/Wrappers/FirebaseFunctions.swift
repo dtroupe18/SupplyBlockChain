@@ -15,6 +15,44 @@ class FirebaseFunctions {
     // handlded in this class
     //
     
+    static func uploadCompletedBidId(jobId: String, bidId: String, _ completion: @escaping (Error?) -> ()) {
+        let ref = Database.database().reference()
+        let key = ref.child("jobsIds").childByAutoId().key
+        let info = ["bidId": "\(bidId)"]
+        let postInfo = ["\(key)" : info]
+        ref.child("jobIds").child(jobId).child("bidIds").updateChildValues(postInfo, withCompletionBlock: { (error, ref) in
+            if error != nil {
+                completion(error)
+            } else {
+                completion(nil)
+            }
+        })
+    }
+    
+    static func loadCompletedBidIds(jobId: String, _ completion: @escaping (Error?, [String]?) -> ()) {
+        var bidIds: [String] = [String]()
+        let ref = Database.database().reference()
+        ref.child("jobIds").child(jobId).child("bidIds").observeSingleEvent(of: .value, with: { snap in
+            if snap.exists() {
+                for child in snap.children {
+                    let child = child as? DataSnapshot
+                    if let dict = child?.value as? [String: Any] {
+                        if let bidId = dict["bidId"] as? String {
+                            bidIds.append(bidId)
+                        }
+                    } else {
+                        let error = NSError(domain: "Firebase Error", code: 0, userInfo: [NSLocalizedDescriptionKey: "Bid data corrupt."])
+                        completion(error, nil)
+                    }
+                }
+                completion(nil, bidIds)
+            } else {
+                let error = NSError(domain: "Error", code: 0, userInfo: [NSLocalizedDescriptionKey: "No bids yet!"])
+                completion(error, nil)
+            }
+        })
+    }
+    
     // Upload additional informationa about the user to Firebase
     //
     static func uploadUserInfo(user: User, _ completion: @escaping (Error?) -> ()) {
