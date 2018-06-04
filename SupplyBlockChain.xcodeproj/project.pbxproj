@@ -26,7 +26,7 @@
 		5521BB0D206EBFC2004575E8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521BB0C206EBFC2004575E8 /* SignupViewController.swift */; };
 		5521BB0F206EBFCD004575E8 /* Signup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5521BB0E206EBFCD004575E8 /* Signup.storyboard */; };
 		55266EA020ACEE2C0038BEC3 /* BidCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55266E9F20ACEE2C0038BEC3 /* BidCell.swift */; };
-		55266EA220ACF0490038BEC3 /* Int++Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55266EA120ACF0490038BEC3 /* Int++Extension.swift */; };
+		55266EA220ACF0490038BEC3 /* Int++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55266EA120ACF0490038BEC3 /* Int++.swift */; };
 		55266EA420AD17DC0038BEC3 /* JobCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55266EA320AD17DC0038BEC3 /* JobCell.xib */; };
 		55266EA620AD18070038BEC3 /* JobCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55266EA520AD18070038BEC3 /* JobCell.swift */; };
 		559FD00120AB215E001AA824 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559FD00020AB215E001AA824 /* DataStore.swift */; };
@@ -41,8 +41,9 @@
 		55C516A32076B4800010C6DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A22076B4800010C6DC /* User.swift */; };
 		55C516A52076B6800010C6DC /* FirebaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A42076B6800010C6DC /* FirebaseFunctions.swift */; };
 		55C516AA207BB8480010C6DC /* Bid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516A9207BB8480010C6DC /* Bid.swift */; };
-		55C516AC207BBA4D0010C6DC /* Date++Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516AB207BBA4D0010C6DC /* Date++Extension.swift */; };
+		55C516AC207BBA4D0010C6DC /* Date++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C516AB207BBA4D0010C6DC /* Date++.swift */; };
 		55CAAE64207D46B200D9B7C5 /* UserBids.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55CAAE63207D46B200D9B7C5 /* UserBids.storyboard */; };
+		55D0CB7B20C5DF3300583F89 /* NSMutableAttributedString++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D0CB7A20C5DF3300583F89 /* NSMutableAttributedString++.swift */; };
 		55E880BA20A9298F001ADD48 /* EmployeeJobs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55E880B920A9298F001ADD48 /* EmployeeJobs.storyboard */; };
 		55E880BC20A929AA001ADD48 /* EmployeeJobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E880BB20A929AA001ADD48 /* EmployeeJobsViewController.swift */; };
 		55E880BE20A9D568001ADD48 /* CreateJobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E880BD20A9D568001ADD48 /* CreateJobViewController.swift */; };
@@ -99,7 +100,7 @@
 		5521BB0C206EBFC2004575E8 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		5521BB0E206EBFCD004575E8 /* Signup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Signup.storyboard; sourceTree = "<group>"; };
 		55266E9F20ACEE2C0038BEC3 /* BidCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidCell.swift; sourceTree = "<group>"; };
-		55266EA120ACF0490038BEC3 /* Int++Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int++Extension.swift"; sourceTree = "<group>"; };
+		55266EA120ACF0490038BEC3 /* Int++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int++.swift"; sourceTree = "<group>"; };
 		55266EA320AD17DC0038BEC3 /* JobCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JobCell.xib; sourceTree = "<group>"; };
 		55266EA520AD18070038BEC3 /* JobCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCell.swift; sourceTree = "<group>"; };
 		559FD00020AB215E001AA824 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
@@ -114,8 +115,9 @@
 		55C516A22076B4800010C6DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		55C516A42076B6800010C6DC /* FirebaseFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFunctions.swift; sourceTree = "<group>"; };
 		55C516A9207BB8480010C6DC /* Bid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bid.swift; sourceTree = "<group>"; };
-		55C516AB207BBA4D0010C6DC /* Date++Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date++Extension.swift"; sourceTree = "<group>"; };
+		55C516AB207BBA4D0010C6DC /* Date++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date++.swift"; sourceTree = "<group>"; };
 		55CAAE63207D46B200D9B7C5 /* UserBids.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserBids.storyboard; sourceTree = "<group>"; };
+		55D0CB7A20C5DF3300583F89 /* NSMutableAttributedString++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString++.swift"; sourceTree = "<group>"; };
 		55E880B920A9298F001ADD48 /* EmployeeJobs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EmployeeJobs.storyboard; sourceTree = "<group>"; };
 		55E880BB20A929AA001ADD48 /* EmployeeJobsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeJobsViewController.swift; sourceTree = "<group>"; };
 		55E880BD20A9D568001ADD48 /* CreateJobViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateJobViewController.swift; sourceTree = "<group>"; };
@@ -265,8 +267,9 @@
 			isa = PBXGroup;
 			children = (
 				5521BB03206EAF30004575E8 /* UIViewController++.swift */,
-				55C516AB207BBA4D0010C6DC /* Date++Extension.swift */,
-				55266EA120ACF0490038BEC3 /* Int++Extension.swift */,
+				55C516AB207BBA4D0010C6DC /* Date++.swift */,
+				55266EA120ACF0490038BEC3 /* Int++.swift */,
+				55D0CB7A20C5DF3300583F89 /* NSMutableAttributedString++.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -648,8 +651,9 @@
 			files = (
 				5521BB0D206EBFC2004575E8 /* SignupViewController.swift in Sources */,
 				55E880BE20A9D568001ADD48 /* CreateJobViewController.swift in Sources */,
-				55C516AC207BBA4D0010C6DC /* Date++Extension.swift in Sources */,
-				55266EA220ACF0490038BEC3 /* Int++Extension.swift in Sources */,
+				55D0CB7B20C5DF3300583F89 /* NSMutableAttributedString++.swift in Sources */,
+				55C516AC207BBA4D0010C6DC /* Date++.swift in Sources */,
+				55266EA220ACF0490038BEC3 /* Int++.swift in Sources */,
 				55E880BC20A929AA001ADD48 /* EmployeeJobsViewController.swift in Sources */,
 				55266EA620AD18070038BEC3 /* JobCell.swift in Sources */,
 				5521BACC206E9C7E004575E8 /* AppDelegate.swift in Sources */,

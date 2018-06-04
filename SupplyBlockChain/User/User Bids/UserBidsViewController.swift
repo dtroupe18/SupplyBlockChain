@@ -61,14 +61,14 @@ class UserBidsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BidCell", for: indexPath) as! BidCell
         cell.backgroundColor = UIColor(red: 0/255, green: 150/255, blue: 255/255, alpha: 1.0)
         if let bid = bids?[indexPath.row].bid {
-            cell.companyLabel.text = bid.companyName
-            cell.priceLabel.text = "Price: $\(bid.price)"
-            cell.bidderNameLabel.text = "Bidder: \(bid.name)"
-            cell.bidderEmailLabel.text = "Email: \(bid.email)"
-            cell.bidderPhoneLabel.text = "Phone: \(bid.phoneNumber)"
-            cell.hashLabel.text = "Hash: \(bids?[indexPath.row].sha256 ?? " error")"
-            cell.timestampLabel.text = bids?[indexPath.row].timestamp.dateString
-            cell.commentsLabel.text = "Comments: \(bid.comments)"
+            cell.companyLabel.attributedText = NSMutableAttributedString().bold("Comapny: ").normal(bid.companyName)
+            cell.priceLabel.attributedText = NSMutableAttributedString().bold("Price: ").normal("$\(bid.price)")
+            cell.bidderNameLabel.attributedText = NSMutableAttributedString().bold("Bidder: ").normal("\(bid.name)")
+            cell.bidderEmailLabel.attributedText = NSMutableAttributedString().bold("Email: ").normal("\(bid.email)")
+            cell.bidderPhoneLabel.attributedText = NSMutableAttributedString().bold("Phone: ").normal("\(bid.phoneNumber)")
+            cell.hashLabel.attributedText = NSMutableAttributedString().bold("Hash: ").normal("\(bids?[indexPath.row].sha256 ?? " error")")
+            cell.commentsLabel.attributedText = NSMutableAttributedString().bold("Comments: ").normal("\(bid.comments)")
+            cell.timestampLabel.attributedText = NSMutableAttributedString().bold("Submitted on: ").normal(bids![indexPath.row].timestamp.dateString)
         } else {
             cell.companyLabel.text = "No bids yet"
             cell.priceLabel.text = ""

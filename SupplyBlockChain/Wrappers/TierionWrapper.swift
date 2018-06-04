@@ -315,7 +315,6 @@ class TierionWrapper {
             .validate()
             .responseJSON { response in
                 switch response.result {
-                    
                 case .success(_):
                     guard let jsonData = response.data else {
                         let error: NSError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Empty response data"])

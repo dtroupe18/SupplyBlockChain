@@ -74,18 +74,22 @@ class EmployeeJobsViewController: UITableViewController {
         cell.backgroundColor = UIColor(red: 0/255, green: 150/255, blue: 255/255, alpha: 1.0)
         if let jobs = jobs {
             if !jobs.isEmpty, let job = jobs[indexPath.row].job {
-                cell.companyLabel.text = "Company: \(job.companyName)"
-                cell.jobNameLabel.text = "Job Name: \(job.jobName)"
-                cell.industryLabel.text = "Industry: \(job.industry)"
-                cell.jobDescriptionLabel.text = "Description: \(job.jobDescription)"
-                cell.startDateLabel.text = "Start Date: \(Int(job.expectedStartDate)?.dateString ?? " Error")"
-                cell.endDateLabel.text = "End Date: \(Int(job.expectedEndDate)?.dateString ?? " Error")"
-                cell.commentsLabel.text = "Comments: \(job.comments)"
-                cell.postedByLabel.text = "Posted by: \(job.postedBy)"
-                cell.emailLabel.text = "Email: \(job.posterEmail)"
-                cell.phoneLabel.text = "Phone: \(job.posterPhoneNumber)"
-                cell.hashLabel.text = "Hash: \(jobs[indexPath.row].sha256)"
-                cell.timestampLabel.text = "Posted on: \(jobs[indexPath.row].timestamp.dateString)"
+                cell.companyLabel.attributedText = NSMutableAttributedString().bold("Company:").normal(" \(job.companyName)")
+                cell.jobNameLabel.attributedText = NSMutableAttributedString().bold("Job Name:").normal(" \(job.companyName)")
+                cell.industryLabel.attributedText = NSMutableAttributedString().bold("Industry:").normal(" \(job.industry)")
+                cell.jobDescriptionLabel.attributedText = NSMutableAttributedString().bold("Description:").normal(" \(job.jobDescription)")
+                cell.commentsLabel.attributedText = NSMutableAttributedString().bold("Comments:").normal(" \(job.comments)")
+                cell.postedByLabel.attributedText = NSMutableAttributedString().bold("Posted by:").normal(" \(job.postedBy)")
+                cell.emailLabel.attributedText = NSMutableAttributedString().bold("Email:").normal(" \(job.posterEmail)")
+                cell.phoneLabel.attributedText = NSMutableAttributedString().bold("Phone:").normal(" \(job.posterPhoneNumber)")
+                cell.hashLabel.attributedText = NSMutableAttributedString().bold("Hash:").normal(" \(jobs[indexPath.row].sha256)")
+                
+                cell.startDateLabel.attributedText = NSMutableAttributedString().bold("Start Date:").normal(
+                    " \(Int(job.expectedStartDate)?.dateString ?? " Error")")
+                cell.endDateLabel.attributedText = NSMutableAttributedString().bold("End Date:").normal(
+                    " \(Int(job.expectedEndDate)?.dateString ?? " Error")")
+                cell.timestampLabel.attributedText = NSMutableAttributedString().bold("Posted on:").normal(
+                    " \(jobs[indexPath.row].timestamp.dateString)")
             } else {
                 cell.companyLabel.text = "No Jobs Yet"
                 cell.jobNameLabel.text = ""
