@@ -45,9 +45,9 @@ class MyBidsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BidCell", for: indexPath) as! BidCell
         if let bid = bids[indexPath.row].bid {
             cell.backgroundColor = UIColor(red: 0/255, green: 150/255, blue: 255/255, alpha: 1.0)
-            cell.companyLabel.attributedText = NSMutableAttributedString().bold("Comapny: ").normal(bid.companyName)
+            cell.companyLabel.attributedText = NSMutableAttributedString().bold("Company: ").normal(bid.companyName)
             cell.priceLabel.attributedText = NSMutableAttributedString().bold("Price: ").normal("$\(bid.price)")
-            cell.bidderNameLabel.attributedText = NSMutableAttributedString().bold("Bidder: ").normal("\(bid.name)")
+            cell.bidderNameLabel.attributedText = NSMutableAttributedString().bold("Submitted by: ").normal("\(bid.name)")
             cell.bidderEmailLabel.attributedText = NSMutableAttributedString().bold("Email: ").normal("\(bid.email)")
             cell.bidderPhoneLabel.attributedText = NSMutableAttributedString().bold("Phone: ").normal("\(bid.phoneNumber)")
             cell.hashLabel.attributedText = NSMutableAttributedString().bold("Hash: ").normal("\(bids[indexPath.row].sha256)")

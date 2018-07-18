@@ -75,7 +75,7 @@ class EmployeeJobsViewController: UITableViewController {
         if let jobs = jobs {
             if !jobs.isEmpty, let job = jobs[indexPath.row].job {
                 cell.companyLabel.attributedText = NSMutableAttributedString().bold("Company:").normal(" \(job.companyName)")
-                cell.jobNameLabel.attributedText = NSMutableAttributedString().bold("Job Name:").normal(" \(job.companyName)")
+                cell.jobNameLabel.attributedText = NSMutableAttributedString().bold("Job Name:").normal(" \(job.jobName)")
                 cell.industryLabel.attributedText = NSMutableAttributedString().bold("Industry:").normal(" \(job.industry)")
                 cell.jobDescriptionLabel.attributedText = NSMutableAttributedString().bold("Description:").normal(" \(job.jobDescription)")
                 cell.commentsLabel.attributedText = NSMutableAttributedString().bold("Comments:").normal(" \(job.comments)")

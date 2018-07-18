@@ -64,7 +64,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             if let err = error {
                 self.showAlert(title: "Signin Error", message: err.localizedDescription)
             } else if firebaseUser != nil {
-                self.loadUserInformation(uid: firebaseUser!.uid)
+                self.loadUserInformation(uid: firebaseUser!.user.uid)
             }
         })
     }

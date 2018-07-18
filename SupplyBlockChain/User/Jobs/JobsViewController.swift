@@ -208,8 +208,8 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.timestampLabel.text = ""
         } else if let job = jobs[indexPath.row].job {
             cell.companyLabel.attributedText = NSMutableAttributedString().bold("Company: ").normal("\(job.companyName)")
-            cell.jobNameLabel.attributedText = NSMutableAttributedString().bold("Job Name: ").normal("\(job.companyName)")
-            cell.industryLabel.attributedText = NSMutableAttributedString().bold("Industry: ").normal(" (job.industry)")
+            cell.jobNameLabel.attributedText = NSMutableAttributedString().bold("Job Name: ").normal("\(job.jobName)")
+            cell.industryLabel.attributedText = NSMutableAttributedString().bold("Industry: ").normal("\(job.industry)")
             cell.jobDescriptionLabel.attributedText = NSMutableAttributedString().bold("Description: ").normal("\(job.jobDescription)")
             cell.commentsLabel.attributedText = NSMutableAttributedString().bold("Comments: ").normal("\(job.comments)")
             cell.postedByLabel.attributedText = NSMutableAttributedString().bold("Posted by: ").normal("\(job.postedBy)")

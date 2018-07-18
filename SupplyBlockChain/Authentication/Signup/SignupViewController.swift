@@ -208,7 +208,7 @@ class SignupViewController: FormViewController {
                     let name: String = "\(formValues.firstName) \(formValues.lastName)"
                     changeRequest.displayName = name
                     changeRequest.commitChanges(completion: nil)
-                    self.saveUserToRealm(formValues: formValues, uid: user.uid)
+                    self.saveUserToRealm(formValues: formValues, uid: user.user.uid)
                 }
             })
         } else {
